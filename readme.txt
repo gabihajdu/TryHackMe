@@ -1,0 +1,176 @@
+ip:10.10.105.118
+
+rustscan:
+PORT   STATE SERVICE REASON
+22/tcp open  ssh     syn-ack
+80/tcp open  http    syn-ack
+
+
+
+nmap:
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 ac:f9:85:10:52:65:6e:17:f5:1c:34:e7:d8:64:67:b1 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnNdHQKU4ZvpWn7Amdx7LPhuwUsHY8p1O8msRAEkaIGcDzlla2FxdlnCnS1h+A84lzn1oubZyb5vMrPM8T2IsxoSU2gcbbgfq/3giAL+hmuKm/nD43OKRflSHlcpIVgwQOVRdEfbQSOVpV5VBtJziA1Xu2dts2WWtawDS93CBtlfyeh+BuxZvBPX2k8XPWwykyR6cWbdGz1AAx6oxNRvNShJ99c9Vs7FW6bogwLAe9SWsFi2oB7ti6M/OH1qxgy7ZPQFhItvI4Vz2zZFGVEltL1fkwk2dat8yfFNWwm6+/cMTJqbVb7MPt3jc9QpmJmpgwyWuy4FTNgFt9GKNOJU6N
+|   256 dd:8e:5a:ec:b1:95:cd:dc:4d:01:b3:fe:5f:4e:12:c1 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGMMalsXVdAFj+Iu4tESrnvI/5V64b4toSG7PK2N/XPqOe3q3z5OaDTK6TWo0ezdamfDPem/UO9WesVBxmJXDkE=
+|   256 e9:ed:e3:eb:58:77:3b:00:5e:3a:f5:24:d8:58:34:8e (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB3zGVeEQDBVK50Tz0eNWzBJny6ddQfBb3wmmG3QtMAQ
+80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+gobuster:
+/.htpasswd (Status: 403)
+/.hta (Status: 403)
+/.htaccess (Status: 403)
+/index.php (Status: 200)
+/server-status (Status: 403)
+
+checking for virtual hosts or other DNS enumeration does not give us any results.
+
+Time to inspesct the webpage on port 80:
+
+While inspecting the source of the page, we find an interesting message: " They will never find me" and  it's related to a photo that is not loaded correctly on the website.
+Download the photo
+get http://madness.thm/thm.jpg
+inspect the image with exiftool
+exiftool thm.jpg    
+ExifTool Version Number         : 12.52
+File Name                       : thm.jpg
+Directory                       : .
+File Size                       : 22 kB
+File Modification Date/Time     : 2020:01:06 05:34:26-05:00
+File Access Date/Time           : 2023:01:18 07:17:40-05:00
+File Inode Change Date/Time     : 2023:01:18 07:17:19-05:00
+File Permissions                : -rw-r--r--
+File Type                       : PNG
+File Type Extension             : png
+MIME Type                       : image/png
+Warning                         : PNG image did not start with IHDR
+
+somethings wrong with the image: it is saved as jpg but exiftool says it png image.Lets modify the header using hexeditor
+
+according to : https://www.file-recovery.com/jpg-signature-format.htm, the header should start with: FF D8 FF E0 00 10 4A 46 49 46 00 01, so let's change it to this.
+
+if we run exiftool again, we have  no warnings:
+exiftool thm.jpg
+ExifTool Version Number         : 12.52
+File Name                       : thm.jpg
+Directory                       : .
+File Size                       : 22 kB
+File Modification Date/Time     : 2023:01:18 07:23:37-05:00
+File Access Date/Time           : 2023:01:18 07:23:37-05:00
+File Inode Change Date/Time     : 2023:01:18 07:23:37-05:00
+File Permissions                : -rw-r--r--
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Resolution Unit                 : None
+X Resolution                    : 1
+Y Resolution                    : 1
+Image Width                     : 400
+Image Height                    : 400
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:4:4 (1 1)
+Image Size                      : 400x400
+Megapixels                      : 0.160
+
+
+Now if we open the image with an image viewer, we find that there is a hidden file:
+/th1s_1s_h1dd3n
+if we navigate to madness.thm/th1s_1s_h1dd3n :->
+
+Welcome! I have been expecting you!
+
+To obtain my identity you need to guess my secret!
+
+Secret Entered:
+
+That is wrong! Get outta here!
+<!-- It's between 0-99 but I don't think anyone will look here-->
+
+time to bring burpsuite
+intercept the request http://madness.thm/th1s_1s_h1dd3n/?secret=1
+
+sent this request to interceptor and then selct the sniper attack setting target to the secret parameter.
+
+create a list from 0 to 99 and start the attack
+when the attack uses 73 as secret param, we have this response:
+
+Welcome! I have been expecting you!</h2>
+<p>To obtain my identity you need to guess my secret! </p>
+<!-- It's between 0-99 but I don't think anyone will look here-->
+
+<p>Secret Entered: 73</p>
+
+<p>Urgh, you got it right! But I won't tell you who I am! y2RPJ4QaPF!B</p>
+
+lets try to steghide thm.jpg using y2RPJ4QaPF!B as passphrase
+
+steghide extract -sf thm.jpg 
+Enter passphrase: 
+wrote extracted data to "hidden.txt".
+
+cat hidden.txt 
+Fine you found the password! 
+
+Here's a username 
+
+wbxre
+
+I didn't say I would make it easy for you!
+
+
+using cyberchef ROT13 we have: joker
+
+tried to log in to ssh using joker and y2RPJ4QaPF!B but it doesnt work
+
+donwloaded the image hosted on tryhackme website of the machine, using steghide with no passphrase
+steghide extract -sf 5iW7kC8.jpg                                                                                                                                                             1 ⨯
+Enter passphrase: 
+wrote extracted data to "password.txt".
+
+
+cat password.txt 
+I didn't think you'd find me! Congratulations!
+
+Here take my password
+
+*axA&GF8dP
+
+try ssh joker and *axA&GF8dP
+ssh joker@10.10.174.170
+
+this time it works
+read user txt: THM{d5781e53b130efe2f94f9b0354a5e4ea}
+
+
+Privesc:
+joker@ubuntu:~$ sudo -l
+[sudo] password for joker: 
+Sorry, user joker may not run sudo on ubuntu.
+joker@ubuntu:~$ find /bin -perm -4000
+/bin/fusermount
+/bin/su
+/bin/ping6
+/bin/screen-4.5.0
+/bin/screen-4.5.0.old
+/bin/mount
+/bin/ping
+/bin/umount
+
+
+https://www.exploit-db.com/exploits/41154
+
+move the script to victim machine, add execution rights and then run the script
+
+
+root flag: THM{5ecd98aa66a6abb670184d7547c8124a}
