@@ -1,4 +1,4 @@
-ippp addddres:   10.10.146.200
+ip addres:   10.10.146.200
 
 
 nnnmap:::
