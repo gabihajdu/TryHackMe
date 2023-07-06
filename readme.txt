@@ -1,0 +1,101 @@
+ip:10.10.189.224
+
+Nmap:
+
+
+PORT   STATE SERVICE REASON
+22/tcp open  ssh     syn-ack
+80/tcp open  http    syn-ack
+
+
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 eb:84:27:98:bb:b3:50:07:0d:9c:d2:89:c3:e8:bb:2d (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6EsvRq7+9uJAb5fSskjrouP/D1wAvF7Az67pmTudjWY8yFrPu26CgbZXJK5cieGm5CpQYEa1gMobyqmM9HVJltrwCeVF7s9ug1Lz88yZcGgvIOwfgvQYFDhlIEvTKdRww70mp2rljMlY/w1zcJH6F+ft2oFoHCYBJGizSIlGUl6iyRDiBYiJM4RNShw+lb2ztU38QN7GfWspgtOz+3eSt2EmW+J3S3pyC/ioq24jd5zsbcHQlkc3gmyHkgVVxx2YNEGfxOANbRKRVWO54zaIgtjNo1mvCHV8k023M0eNbnO6SBKybLNHpNvdSeegtdp4TeRfIWVdxWJoPfF6aEtgZpFUGiuUp+xVekldc865o+wQsA1N6AAwEqzklEpXABn7ZwT3g7VygZv/XRrTRGvFc5d53xui6bq2aKkUmDONMv0h9EnAp+HHYxr+VHjQHq1AmzPWH7ALMSoPdmSWh0noG3UdXEjax7HvUr9Y8pBIq1Z87ZafLp98yWi2SKjuJZcc=
+|   256 ae:ac:e7:af:54:71:f8:77:5d:d5:b1:8f:84:3b:74:b1 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNpte8aeaR7T2OyGu/RrQjIkEkOeX83jCsrqPu8SnY8T9hWrbJHJgXAmrfcPG5tdrFdcoS5FJcXBUGCbl76QihM=
+|   256 c4:d9:4b:ce:34:91:3a:8f:5e:d3:ff:30:cf:5f:04:aa (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA3+cpLfFvkCClUMUMXRpTCTHdnEFhSsfSeyzUhNi9ho
+80/tcp open  http    syn-ack
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.1 200 OK
+|     Date: Tue, 27 Dec 2022 15:27:47 GMT
+|     Content-Type: text/html; charset=utf-8
+|     Content-Length: 1184
+|     Connection: close
+|     <!DOCTYPE html>
+|     <head>
+|     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+|     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+|     <style>
+|     body,
+|     html {
+|     height: 100%;
+|     </style>
+|     </head>
+|     <body>
+|     <div class="container h-100">
+|     <div class="row mt-5">
+|     <div class="col-12 mb-4">
+|     class="text-center">Epoch to UTC convertor 
+|     </h3>
+|     </div>
+|     <form class="col-6 mx-auto" action="/">
+|     <div class=" input-group">
+|     <input name="epoch" value="" type="text" class="form-control" placeholder="Epoch"
+|   HTTPOptions, RTSPRequest: 
+|     HTTP/1.1 405 Method Not Allowed
+|     Date: Tue, 27 Dec 2022 15:27:47 GMT
+|     Content-Type: text/plain; charset=utf-8
+|     Content-Length: 18
+|     Allow: GET, HEAD
+|     Connection: close
+|_    Method Not Allowed
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-title: Site doesn't have a title (text/html; charset=utf-8).
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V=7.91%I=7%D=12/27%Time=63AB0EF3%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,529,"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Tue,\x2027\x20Dec\x2020
+SF:22\x2015:27:47\x20GMT\r\nContent-Type:\x20text/html;\x20charset=utf-8\r
+SF:\nContent-Length:\x201184\r\nConnection:\x20close\r\n\r\n<!DOCTYPE\x20h
+SF:tml>\n\n<head>\n\x20\x20\x20\x20<link\x20rel=\"stylesheet\"\x20href=\"h
+SF:ttps://stackpath\.bootstrapcdn\.com/bootstrap/4\.5\.2/css/bootstrap\.mi
+SF:n\.css\"\n\x20\x20\x20\x20\x20\x20\x20\x20integrity=\"sha384-JcKb8q3iqJ
+SF:61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP\+VmmDGMN5t9UJ0Z\"\x20crossorigi
+SF:n=\"anonymous\">\n\x20\x20\x20\x20<style>\n\x20\x20\x20\x20\x20\x20\x20
+SF:\x20body,\n\x20\x20\x20\x20\x20\x20\x20\x20html\x20{\n\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20height:\x20100%;\n\x20\x20\x20\x20\x20\x
+SF:20\x20\x20}\n\x20\x20\x20\x20</style>\n</head>\n\n<body>\n\x20\x20\x20\
+SF:x20<div\x20class=\"container\x20h-100\">\n\x20\x20\x20\x20\x20\x20\x20\
+SF:x20<div\x20class=\"row\x20mt-5\">\n\x20\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20<div\x20class=\"col-12\x20mb-4\">\n\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3\x20class=\"text-center\">Ep
+SF:och\x20to\x20UTC\x20convertor\x20\xe2\x8f\xb3</h3>\n\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20</div>\n\x20\x20\x20\x20\x20\x20\x20\x20\x
+SF:20\x20\x20\x20<form\x20class=\"col-6\x20mx-auto\"\x20action=\"/\">\n\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20cl
+SF:ass=\"\x20input-group\">\n\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20name=\"epoch\"\x20value=\"
+SF:\"\x20type=\"text\"\x20class=\"form-control\"\x20placeholder=\"Epoch\"\
+SF:n\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x
+SF:20")%r(HTTPOptions,BC,"HTTP/1\.1\x20405\x20Method\x20Not\x20Allowed\r\n
+SF:Date:\x20Tue,\x2027\x20Dec\x202022\x2015:27:47\x20GMT\r\nContent-Type:\
+SF:x20text/plain;\x20charset=utf-8\r\nContent-Length:\x2018\r\nAllow:\x20G
+SF:ET,\x20HEAD\r\nConnection:\x20close\r\n\r\nMethod\x20Not\x20Allowed")%r
+SF:(RTSPRequest,BC,"HTTP/1\.1\x20405\x20Method\x20Not\x20Allowed\r\nDate:\
+SF:x20Tue,\x2027\x20Dec\x202022\x2015:27:47\x20GMT\r\nContent-Type:\x20tex
+SF:t/plain;\x20charset=utf-8\r\nContent-Length:\x2018\r\nAllow:\x20GET,\x2
+SF:0HEAD\r\nConnection:\x20close\r\n\r\nMethod\x20Not\x20Allowed");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+gobuster:
+
+1212121221 && env
+
+read flag
