@@ -1,0 +1,136 @@
+ippp addddres:   10.10.146.200
+
+
+nnnmap:::
+
+PORT     STATE SERVICE       REASON  VERSION
+80/tcp   open  http          syn-ack Microsoft IIS httpd 10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: IIS Windows Server
+3389/tcp open  ms-wbt-server syn-ack Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: RETROWEB
+|   NetBIOS_Domain_Name: RETROWEB
+|   NetBIOS_Computer_Name: RETROWEB
+|   DNS_Domain_Name: RetroWeb
+|   DNS_Computer_Name: RetroWeb
+|   Product_Version: 10.0.14393
+|_  System_Time: 2021-11-29T09:19:25+00:00
+| ssl-cert: Subject: commonName=RetroWeb
+| Issuer: commonName=RetroWeb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2021-11-28T09:14:43
+| Not valid after:  2022-05-30T09:14:43
+| MD5:   b622 7cf1 6128 3bd9 61dc 05b5 13ff 3da5
+| SHA-1: 7b8b edbe d118 8dd3 a5b0 ad05 6590 b99d af70 5e7b
+| -----BEGIN CERTIFICATE-----
+| MIIC1DCCAbygAwIBAgIQJxzI75YBabFNS9+6GZ2rCTANBgkqhkiG9w0BAQsFADAT
+| MREwDwYDVQQDEwhSZXRyb1dlYjAeFw0yMTExMjgwOTE0NDNaFw0yMjA1MzAwOTE0
+| NDNaMBMxETAPBgNVBAMTCFJldHJvV2ViMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAsgJZdJc2dvdqpz+GYCKcJ0Raa1Jt2cRiALuKm4GoCFjllmgpNJYg
+| wbC3N7sk3kUKYETNsG2XO9kwFOitWGaZ3JNQ982MDzyPZ1y1rH+eoxbmxRSCvTqr
+| WaOzXvSuHLJmD/oDJnY2SbhTc31GelBUEsx8ANoFDQ/i9NyLutGAmV/DR3+RhphF
+| sgExPKSUx7dHQjrua5WU1McorjLLThIWRAmgbwbE1oSCxTIWyV9OhFlwg/m/OO6s
+| kdwD79mAL5sNEI+qz4wM9LRHhZm6wYJgPNDQkaHbHUgLno+RZxTa/4iYn0tODlOe
+| Z+s20r992LwdHGywEst1sqEskEsuxONKvwIDAQABoyQwIjATBgNVHSUEDDAKBggr
+| BgEFBQcDATALBgNVHQ8EBAMCBDAwDQYJKoZIhvcNAQELBQADggEBAB6IxQcO/Byl
+| LI1ADrNyPPdfGsOOIQtK8gp3qSJvpMZ/d089zSmPUtbTk3YfcjgyjDiZoYqwx1SD
+| kFMrdaok1OlD2pUvraYlG+QRe8ReL+TbJQ34FD91sh2tRv5GAKw83cvc7y+NRneo
+| 3uv8HhDJidE0FXR2WqUKt/H4mkeIR5+PkOu2ilspOCpyLOcDVYi701Hng6fGjJiU
+| cUpt8pJk0SZtnOn2EX462h6p/HCXmd2+pYqCbYEVqNy2EKx7kWfs3CBk19gbS1hq
+| lTy+SrUwOgDQqb4refQ8tm7IIpt8PBLsM9OXsQMJ/JrM43kZ9sBn6cyw+aknKYiJ
+| bxEcPJx/th8=
+|_-----END CERTIFICATE-----
+|_ssl-date: 2021-11-29T09:19:26+00:00; 0s from scanner time.
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+gobuster found :/retro
+
+
+wpscan:
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Microsoft-IIS/10.0
+ |  - X-Powered-By: PHP/7.1.29
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://10.10.136.26/retro/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+
+[+] WordPress readme found: http://10.10.136.26/retro/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://10.10.136.26/retro/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 5.2.1 identified (Insecure, released on 2019-05-21).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://10.10.136.26/retro/index.php/feed/, <generator>https://wordpress.org/?v=5.2.1</generator>
+ |  - http://10.10.136.26/retro/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.2.1</generator>
+
+[+] WordPress theme in use: 90s-retro
+ | Location: http://10.10.136.26/retro/wp-content/themes/90s-retro/
+ | Latest Version: 1.4.10 (up to date)
+ | Last Updated: 2019-04-15T00:00:00.000Z
+ | Readme: http://10.10.136.26/retro/wp-content/themes/90s-retro/readme.txt
+ | Style URL: http://10.10.136.26/retro/wp-content/themes/90s-retro/style.css?ver=5.2.1
+ | Style Name: 90s Retro
+ | Style URI: https://organicthemes.com/retro-theme/
+ | Description: Have you ever wished your WordPress blog looked like an old Geocities site from the 90s!? Probably n...
+ | Author: Organic Themes
+ | Author URI: https://organicthemes.com
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 1.4.10 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://10.10.136.26/retro/wp-content/themes/90s-retro/style.css?ver=5.2.1, Match: 'Version: 1.4.10'
+
+[+] Enumerating All Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:06 <========================================================================================================================================> (137 / 137) 100.00% Time: 00:00:06
+
+[i] No Config Backups Found.
+
+
+
+Wade
+December 9, 2019
+
+Leaving myself a note here just in case I forget how to spell it: parzival
+
+
+
+
+log in to wordpress  user: wade pass: parzival
+
+
+
+xfreerdp /u:wade /p:parzival /v:10.10.136.26
+
+
+
