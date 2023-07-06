@@ -1,0 +1,13 @@
+ip:10.10.248.15
+
+nmap:
+
+PORT   STATE SERVICE REASON  VERSION
+80/tcp open  http    syn-ack Werkzeug httpd 2.0.3 (Python 3.10.2)
+| http-methods: 
+|_  Supported Methods: HEAD OPTIONS GET
+|_http-server-header: Werkzeug/2.0.3 Python/3.10.2
+|_http-title: Corridor
+
+
+gobuster:
