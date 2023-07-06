@@ -1,0 +1,115 @@
+ip:10.10.45.129
+
+Nmap:
+
+
+PORT      STATE  SERVICE         REASON       VERSION
+20/tcp    closed ftp-data        conn-refused
+21/tcp    open   ftp             syn-ack      vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_Can't get directory listing: TIMEOUT
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.9.2.4
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp    open   ssh             syn-ack      OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 dc:f8:df:a7:a6:00:6d:18:b0:70:2b:a5:aa:a6:14:3e (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgcwCtWTBLYfcPeyDkCNmq6mXb/qZExzWud7PuaWL38rUCUpDu6kvqKMLQRHX4H3vmnPE/YMkQIvmz4KUX4H/aXdw0sX5n9jrennTzkKb/zvqWNlT6zvJBWDDwjv5g9d34cMkE9fUlnn2gbczsmaK6Zo337F40ez1iwU0B39e5XOqhC37vJuqfej6c/C4o5FcYgRqktS/kdcbcm7FJ+fHH9xmUkiGIpvcJu+E4ZMtMQm4bFMTJ58bexLszN0rUn17d2K4+lHsITPVnIxdn9hSc3UomDrWWg+hWknWDcGpzXrQjCajO395PlZ0SBNDdN+B14E0m6lRY9GlyCD9hvwwB
+|   256 ec:c0:f2:d9:1e:6f:48:7d:38:9a:e3:bb:08:c4:0c:c9 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMCu8L8U5da2RnlmmnGLtYtOy0Km3tMKLqm4dDG+CraYh7kgzgSVNdAjCOSfh3lIq9zdwajW+1q9kbbICVb07ZQ=
+|   256 a4:1a:15:a5:d4:b1:cf:8f:16:50:3a:7d:d0:d8:13:c2 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICqmJn+c7Fx6s0k8SCxAJAoJB7pS/RRtWjkaeDftreFw
+80/tcp    open   http            syn-ack      Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS GET HEAD POST
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+990/tcp   closed ftps            conn-refused
+40193/tcp closed unknown         conn-refused
+40911/tcp closed unknown         conn-refused
+41511/tcp closed unknown         conn-refused
+42510/tcp closed caerpc          conn-refused
+44176/tcp closed unknown         conn-refused
+44442/tcp closed coldfusion-auth conn-refused
+44443/tcp closed coldfusion-auth conn-refused
+44501/tcp closed unknown         conn-refused
+45100/tcp closed unknown         conn-refused
+48080/tcp closed unknown         conn-refused
+49152/tcp closed unknown         conn-refused
+49153/tcp closed unknown         conn-refused
+49154/tcp closed unknown         conn-refused
+49155/tcp closed unknown         conn-refused
+49156/tcp closed unknown         conn-refused
+49157/tcp closed unknown         conn-refused
+49158/tcp closed unknown         conn-refused
+49159/tcp closed unknown         conn-refused
+49160/tcp closed unknown         conn-refused
+49161/tcp closed unknown         conn-refused
+49163/tcp closed unknown         conn-refused
+49165/tcp closed unknown         conn-refused
+49167/tcp closed unknown         conn-refused
+49175/tcp closed unknown         conn-refused
+49176/tcp closed unknown         conn-refused
+49400/tcp closed compaqdiag      conn-refused
+49999/tcp closed unknown         conn-refused
+50000/tcp closed ibm-db2         conn-refused
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+nikto:
+nikto -h http://10.10.45.129 
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.45.129
++ Target Hostname:    10.10.45.129
++ Target Port:        80
++ Start Time:         2021-11-29 09:24:30 (GMT-5)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.18 (Ubuntu)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Apache/2.4.18 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ IP address found in the 'location' header. The IP is "127.0.1.1".
++ OSVDB-630: The web server may reveal its internal or real IP in the Location header via a request to /images over HTTP/1.0. The value is "127.0.1.1".
++ Server may leak inodes via ETags, header found with file /, inode: 3c9, size: 5a789fef9846b, mtime: gzip
++ Allowed HTTP Methods: OPTIONS, GET, HEAD, POST 
++ OSVDB-3268: /images/: Directory indexing found.
++ OSVDB-3233: /icons/README: Apache default file found.
++ 7889 requests: 0 error(s) and 10 item(s) reported on remote host
++ End Time:           2021-11-29 09:37:04 (GMT-5) (754 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+Robots.txt: -not found
+
+Gobuster:
+/images (Status: 301)
+
+
+Other info:
+possible username: lin
+
+Cracked ssh password with hidra:
+
+[22][ssh] host: 10.10.45.129   login: lin   password: RedDr4gonSynd1cat3
+
+
+User flag:
+
+THM{CR1M3_SyNd1C4T3}
+
+Root flag:
+THM{80UN7Y_h4cK3r}
